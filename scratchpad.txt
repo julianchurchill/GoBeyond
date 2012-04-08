@@ -1,0 +1,6 @@
+
+Rules of Go
+Board (size)
+Players
+Strategy
+UI
