@@ -1,4 +1,7 @@
 
+ - Referee should use rules
+ - Referee should use board
+
 Board (size)
 Referee
   Rules
