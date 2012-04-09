@@ -1,25 +1,13 @@
 package com.ChewieLouie.GoBeyond;
 
-public class Board {
+public interface Board {
 
-	public static enum PointStatus { Empty, Occupied };
+	public static enum Point { Empty, BlackStone, WhiteStone }
 
-	private Stone[][] contents = new Stone[19][19];
+	public abstract Point getContentsOfPoint(int x, int y);
 
-	public Stone getContentsOfPoint(int x, int y) {
-		return contents[x][y];
-	}
+	public abstract void playStone(Point p, int x, int y);
 
-	public void playStone(Stone stone, int x, int y ) {
-		contents[x][y] = stone;
-	}
-
-	public PointStatus getPointStatus(int x, int y) {
-		return contents[x][y] == null ? PointStatus.Empty : PointStatus.Occupied;
-	}
-
-	public void removeStone(int x, int y) {
-		contents[x][y] = null;
-	}
+	public abstract void removeStone(int x, int y);
 
 }

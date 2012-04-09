@@ -8,9 +8,9 @@ public class _MoveTests {
 
 	@Test
 	public void MoveIsValueObject() {
-		Move move1 = new Move( 2, 3, null );
-		Move move2 = new Move( 2, 3, null );
-		Move move3 = new Move( 5, 4, null );
+		Move move1 = new Move( 2, 3, Move.Colour.Black );
+		Move move2 = new Move( 2, 3, Move.Colour.Black );
+		Move move3 = new Move( 5, 4, Move.Colour.Black );
 
 		assertTrue( move1.equals( move2 ) );
 		assertFalse( move1.equals( move3 ) );

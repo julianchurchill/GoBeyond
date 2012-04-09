@@ -8,13 +8,13 @@ import org.junit.Test;
 public class _RefereeTests {
 
 	private TestableRules rules;
-	private Board board;
+	private TestableBoard board;
 	private Referee referee;
 
 	@Before
 	public void SetUp() {
 		rules = new TestableRules();
-		board = new Board();
+		board = new TestableBoard();
 		referee = new Referee( rules, board );
 	}
 	
@@ -38,7 +38,10 @@ public class _RefereeTests {
 
 	@Test
 	public void IfMoveIsLegalRefereeUpdatesTheBoard() {
-		referee.submitMove( new Move( 1, 1, Stone.Colour.Black ) );
-		assertEquals( Stone.Colour.Black, board.getContentsOfPoint( 1, 1 ).colour() );
+		referee.submitMove( new Move( 1, 2, Move.Colour.White ) );
+		assertEquals( true, board.playStoneCalled );
+		assertEquals( Board.Point.WhiteStone, board.playStonePoint );
+		assertEquals( 1, board.playStoneX );
+		assertEquals( 2, board.playStoneY );
 	}
 }

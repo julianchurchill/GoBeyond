@@ -1,9 +1,9 @@
 package com.ChewieLouie.GoBeyond;
 
-import com.ChewieLouie.GoBeyond.Stone.Colour;
-
 public class Move {
 
+	public enum Colour { Black, White };
+	
 	private int x;
 	private int y;
 	private Colour colour;

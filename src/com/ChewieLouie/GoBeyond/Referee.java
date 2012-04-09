@@ -15,7 +15,9 @@ public class Referee {
 	public MoveStatus submitMove( Move m ) {
 		if( rules.isLegal( m ) == false )
 			return MoveStatus.IllegalMove;
-		board.playStone( new Stone( m.colour() ), m.x(), m.y() );
+		board.playStone( 
+				m.colour() == Move.Colour.Black ? Board.Point.BlackStone : Board.Point.WhiteStone,
+				m.x(), m.y() );
 		return MoveStatus.LegalMove;
 	};
 
