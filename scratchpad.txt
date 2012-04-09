@@ -1,6 +1,7 @@
 
-Rules of Go
 Board (size)
+Referee
+  Rules
 Players
 Strategy
 UI
