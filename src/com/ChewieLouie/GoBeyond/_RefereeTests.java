@@ -7,14 +7,14 @@ import org.junit.Test;
 
 public class _RefereeTests {
 
-	private TestableRules rules;
-	private TestableBoard board;
+	private _TestableRules rules;
+	private _TestableBoard board;
 	private Referee referee;
 
 	@Before
 	public void SetUp() {
-		rules = new TestableRules();
-		board = new TestableBoard();
+		rules = new _TestableRules();
+		board = new _TestableBoard();
 		referee = new Referee( rules, board );
 	}
 	
@@ -43,5 +43,12 @@ public class _RefereeTests {
 		assertEquals( Board.Point.WhiteStone, board.playStonePoint );
 		assertEquals( 1, board.playStoneX );
 		assertEquals( 2, board.playStoneY );
+	}
+
+	@Test
+	public void IfMoveIsIllegalRefereeDoesNotUpdateTheBoard() {
+		rules.isLegalReturnValue = false;
+		referee.submitMove( new Move( 1, 2, Move.Colour.White ) );
+		assertEquals( false, board.playStoneCalled );
 	}
 }

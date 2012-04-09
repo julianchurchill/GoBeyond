@@ -1,14 +1,18 @@
 
- - Referee should use rules
- - Referee should use board
+- Referee should check the submitted move is for the current player
+  - Toggle expected player
 
- What's the difference between a Stone and a Move?
-   - Stone is of a colour, in a position on the board.
-   - Move is played _by_ a colour (player), to a position on the board.
+- Write proper Go Rules class
+  - Chinese or Japanese, Ko, super-ko?
+  - Time?
+
+- Rotating player turns - who asks the players to generate moves?
+- Passing as a move
+  - Two consecutive passes ends the game
+  - Who monitors game start and end
+  - Game scorer... linked to rules for scoring (same Rules object as for verifying moves?)
 
 Board (size)
-Referee
-  Rules
 Players
 Strategy
 UI

@@ -1,6 +1,6 @@
 package com.ChewieLouie.GoBeyond;
 
-public class TestableRules implements Rules {
+public class _TestableRules implements Rules {
 
 	public boolean isLegalCalled = false;
 	public Move isLegalCalledWithMove;

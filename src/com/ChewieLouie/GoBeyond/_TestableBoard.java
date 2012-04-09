@@ -1,6 +1,6 @@
 package com.ChewieLouie.GoBeyond;
 
-public class TestableBoard implements Board {
+public class _TestableBoard implements Board {
 
 	public boolean playStoneCalled = false;
 	public Point playStonePoint;
