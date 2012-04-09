@@ -6,20 +6,20 @@ public class Board {
 
 	private Stone[][] contents = new Stone[19][19];
 
-	public Stone getContentsOfPoint(int i, int j) {
-		return contents[i][j];
+	public Stone getContentsOfPoint(int x, int y) {
+		return contents[x][y];
 	}
 
 	public void playStone(Stone stone, int x, int y ) {
 		contents[x][y] = stone;
 	}
 
-	public PointStatus getPointStatus(int i, int j) {
-		return contents[i][j] == null ? PointStatus.Empty : PointStatus.Occupied;
+	public PointStatus getPointStatus(int x, int y) {
+		return contents[x][y] == null ? PointStatus.Empty : PointStatus.Occupied;
 	}
 
-	public void removeStone(int i, int j) {
-		contents[i][j] = null;
+	public void removeStone(int x, int y) {
+		contents[x][y] = null;
 	}
 
 }

@@ -1,20 +1,25 @@
 package com.ChewieLouie.GoBeyond;
 
+import com.ChewieLouie.GoBeyond.Stone.Colour;
+
 public class Move {
 
 	private int x;
 	private int y;
+	private Colour colour;
 
-	public Move(int x, int y) {
+	public Move(int x, int y, Colour colour) {
 		this.x = x;
 		this.y = y;
+		this.colour = colour;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + x;
+		result = prime * result + ((colour == null) ? 0 : colour.hashCode());
+		result = prime * result + x();
 		result = prime * result + y;
 		return result;
 	}
@@ -28,11 +33,25 @@ public class Move {
 		if (getClass() != obj.getClass())
 			return false;
 		Move other = (Move) obj;
-		if (x != other.x)
+		if (colour != other.colour)
+			return false;
+		if (x() != other.x())
 			return false;
 		if (y != other.y)
 			return false;
 		return true;
+	}
+
+	public int x() {
+		return x;
+	}
+
+	public int y() {
+		return y;
+	}
+
+	public Colour colour() {
+		return colour;
 	}
 
 }

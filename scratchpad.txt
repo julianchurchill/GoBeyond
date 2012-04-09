@@ -2,6 +2,10 @@
  - Referee should use rules
  - Referee should use board
 
+ What's the difference between a Stone and a Move?
+   - Stone is of a colour, in a position on the board.
+   - Move is played _by_ a colour (player), to a position on the board.
+
 Board (size)
 Referee
   Rules
