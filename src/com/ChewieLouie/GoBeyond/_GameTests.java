@@ -22,20 +22,27 @@ public class _GameTests {
 
 	@Test
 	public void gameAsksPlayersToGenerateMovesUntilGameEnds() {
-		gameEndDetector.endAfterThisManyMoves = 10;
+		gameEndDetector.setMaximumMovesBeforeEnd( 10 );
 		game.start();
 		
 		assertEquals( 5, player1.generateMoveCalledCount );
 		assertEquals( 5, player2.generateMoveCalledCount );
 	}
+
 	@Test
 	public void gameOfOneMoveOnlyAsksPlayer1ToGenerateAMove() {
-		gameEndDetector.endAfterThisManyMoves = 1;
+		gameEndDetector.setMaximumMovesBeforeEnd( 1 );
 		game.start();
 
 		assertEquals( 1, player1.generateMoveCalledCount );
 		assertEquals( 0, player2.generateMoveCalledCount );
 	}
 
-//	public void gameCallsGameEndDetectorToDetermineWhenToStopTheGame() {
+	@Test
+	public void gameCallsGameEndDetectorOnceForEachMovePlusOnceForTheStartOfTheGame() {
+		gameEndDetector.setMaximumMovesBeforeEnd( 10 );
+		game.start();
+
+		assertEquals( 11, gameEndDetector.endDetectedCalledCount );
+	}
 }

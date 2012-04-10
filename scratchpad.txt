@@ -1,19 +1,23 @@
 
-- Referee should check the submitted move is for the current player
-  - Toggle expected player
+Player
+  - Should submit their generated move to the referee
 
-- Write proper Go Rules class
-  - Chinese or Japanese, Ko, super-ko?
-  - Time?
-
-Game:
-- Rotating player turns
+GameEndDetector
 - Passing as a move
   - Two consecutive passes ends the game
-  - Who monitors game start and end
+
+Referee
+  - Referee should check the submitted move is for the current player
+    - Toggle expected player
+
+Rules
+  - Write proper Go Rules class
+    - Chinese or Japanese, Ko, super-ko?
+    - Time?
+
+Game
   - Game scorer... linked to rules for scoring (same Rules object as for verifying moves?)
 
 Board (size)
-Players
 Strategy
 UI

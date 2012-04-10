@@ -14,10 +14,9 @@ public class Game {
 	}
 
 	public void start() {
-		int moves = 0;
 		currentPlayer = player1;
-		while( moves < gameEndDetector.endAfterThisManyMoves ) {
-			moves++;
+		while( gameEndDetector.endDetected() == false ) {
+			gameEndDetector.addMove();
 			currentPlayer.generateMove();
 			swapCurrentPlayer();
 		}
