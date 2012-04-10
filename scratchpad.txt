@@ -4,6 +4,7 @@ GameEndDetector
     - Two consecutive passes ends the game
 
 Referee
+  - Notifies registered move observers (e.g. GoGameEndDetector) when a move is accepted
   - Referee should check the submitted move is for the current player
     - Toggle expected player
 

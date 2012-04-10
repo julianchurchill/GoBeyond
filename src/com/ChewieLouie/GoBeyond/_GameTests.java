@@ -9,20 +9,22 @@ public class _GameTests {
 
 	private _TestablePlayer player1;
 	private _TestablePlayer player2;
-	private GameEndDetector gameEndDetector;
+	private _TestableGameEndDetector gameEndDetector;
 	private Game game;
 
 	@Before
 	public void SetUp() {
 		player1 = new _TestablePlayer();
 		player2 = new _TestablePlayer();
-		gameEndDetector = new GameEndDetector();
+		gameEndDetector = new _TestableGameEndDetector();
+		player1.notifyOfMovesPlayed( gameEndDetector );
+		player2.notifyOfMovesPlayed( gameEndDetector );
 		game = new Game( player1, player2, gameEndDetector );
 	}
 
 	@Test
 	public void gameAsksPlayersToGenerateMovesUntilGameEnds() {
-		gameEndDetector.setMaximumMovesBeforeEnd( 10 );
+		gameEndDetector.endAfterThisManyMoves = 10;
 		game.start();
 		
 		assertEquals( 5, player1.generateMoveCalledCount );
@@ -31,7 +33,7 @@ public class _GameTests {
 
 	@Test
 	public void gameOfOneMoveOnlyAsksPlayer1ToGenerateAMove() {
-		gameEndDetector.setMaximumMovesBeforeEnd( 1 );
+		gameEndDetector.endAfterThisManyMoves = 1;
 		game.start();
 
 		assertEquals( 1, player1.generateMoveCalledCount );
@@ -40,7 +42,7 @@ public class _GameTests {
 
 	@Test
 	public void gameCallsGameEndDetectorOnceForEachMovePlusOnceForTheStartOfTheGame() {
-		gameEndDetector.setMaximumMovesBeforeEnd( 10 );
+		gameEndDetector.endAfterThisManyMoves = 10;
 		game.start();
 
 		assertEquals( 11, gameEndDetector.endDetectedCalledCount );

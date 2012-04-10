@@ -5,9 +5,9 @@ public class Game {
 	private Player player1;
 	private Player player2;
 	private Player currentPlayer;
-	private GameEndDetector gameEndDetector;
+	private _TestableGameEndDetector gameEndDetector;
 
-	public Game(Player player1, Player player2, GameEndDetector gameEndDetector) {
+	public Game(Player player1, Player player2, _TestableGameEndDetector gameEndDetector) {
 		this.player1 = player1;
 		this.player2 = player2;
 		this.gameEndDetector = gameEndDetector;
@@ -16,7 +16,6 @@ public class Game {
 	public void start() {
 		currentPlayer = player1;
 		while( gameEndDetector.endDetected() == false ) {
-			gameEndDetector.addMove();
 			currentPlayer.playMove();
 			swapCurrentPlayer();
 		}

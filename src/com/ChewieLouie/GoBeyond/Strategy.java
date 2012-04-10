@@ -1,11 +1,7 @@
 package com.ChewieLouie.GoBeyond;
 
-public class Strategy {
+public interface Strategy {
 
-	public Move generateMoveReturnValue;
-
-	public Move generateMove() {
-		return generateMoveReturnValue;
-	}
+	public abstract Move generateMove();
 
 }
