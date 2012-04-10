@@ -6,7 +6,8 @@
   - Chinese or Japanese, Ko, super-ko?
   - Time?
 
-- Rotating player turns - who asks the players to generate moves?
+Game:
+- Rotating player turns
 - Passing as a move
   - Two consecutive passes ends the game
   - Who monitors game start and end
