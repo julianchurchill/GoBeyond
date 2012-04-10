@@ -1,10 +1,7 @@
 
-Player
-  - Should submit their generated move to the referee
-
 GameEndDetector
-- Passing as a move
-  - Two consecutive passes ends the game
+  - Passing as a move
+    - Two consecutive passes ends the game
 
 Referee
   - Referee should check the submitted move is for the current player
@@ -13,10 +10,14 @@ Referee
 Rules
   - Write proper Go Rules class
     - Chinese or Japanese, Ko, super-ko?
-    - Time?
 
 Game
   - Game scorer... linked to rules for scoring (same Rules object as for verifying moves?)
+  
+Time
+  - Where does this belong?
+    - Referee to reject moves if the player takes too long?
+    - Game end detector to signal game end if time ran out for one player?
 
 Board (size)
 Strategy

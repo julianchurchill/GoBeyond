@@ -7,15 +7,15 @@ import org.junit.Test;
 
 public class _GameTests {
 
-	private Player player1;
-	private Player player2;
+	private _TestablePlayer player1;
+	private _TestablePlayer player2;
 	private GameEndDetector gameEndDetector;
 	private Game game;
 
 	@Before
 	public void SetUp() {
-		player1 = new Player();
-		player2 = new Player();
+		player1 = new _TestablePlayer();
+		player2 = new _TestablePlayer();
 		gameEndDetector = new GameEndDetector();
 		game = new Game( player1, player2, gameEndDetector );
 	}

@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class _RefereeTests {
+public class _StrictRefereeTests {
 
 	private _TestableRules rules;
 	private _TestableBoard board;
@@ -15,7 +15,7 @@ public class _RefereeTests {
 	public void SetUp() {
 		rules = new _TestableRules();
 		board = new _TestableBoard();
-		referee = new Referee( rules, board );
+		referee = new StrictReferee( rules, board );
 	}
 	
 	@Test

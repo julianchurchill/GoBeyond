@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class _BoardTests {
+public class _GoBoardTests {
 
 	private Board b;
 	

@@ -17,7 +17,7 @@ public class Game {
 		currentPlayer = player1;
 		while( gameEndDetector.endDetected() == false ) {
 			gameEndDetector.addMove();
-			currentPlayer.generateMove();
+			currentPlayer.playMove();
 			swapCurrentPlayer();
 		}
 	}
