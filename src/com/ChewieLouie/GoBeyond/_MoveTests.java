@@ -17,4 +17,10 @@ public class _MoveTests {
 		assertTrue( move1.hashCode() == move2.hashCode() );
 	}
 
+	@Test
+	public void PassMove() {
+		assertEquals( Move.Colour.Black, Move.passMove( Move.Colour.Black ).colour() ); 
+		assertEquals( -1, Move.passMove( Move.Colour.Black ).x() ); 
+		assertEquals( -1, Move.passMove( Move.Colour.Black ).y() ); 
+	}
 }

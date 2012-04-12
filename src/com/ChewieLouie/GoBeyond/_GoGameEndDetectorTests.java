@@ -3,7 +3,6 @@ package com.ChewieLouie.GoBeyond;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class _GoGameEndDetectorTests {
@@ -31,12 +30,20 @@ public class _GoGameEndDetectorTests {
 		assertEquals( true, gameEndDetector.endDetected() );
 	}
 	
-	@Ignore
 	@Test
 	public void endIsDetectedIfLastTwoMovesArePasses() {
-		gameEndDetector.movePlayed( new PassMove( Move.Colour.Black ) );
-		gameEndDetector.movePlayed( new PassMove( Move.Colour.White ) );
+		gameEndDetector.movePlayed( Move.passMove( Move.Colour.Black ) );
+		gameEndDetector.movePlayed( Move.passMove( Move.Colour.White ) );
 		
 		assertEquals( true, gameEndDetector.endDetected() );
+	}
+
+	@Test
+	public void endIsNotDetectedIfTwoMovesConsecutivePassesOccurWhichAreNotTheLastMoves() {
+		gameEndDetector.movePlayed( Move.passMove( Move.Colour.Black ) );
+		gameEndDetector.movePlayed( Move.passMove( Move.Colour.White ) );
+		gameEndDetector.movePlayed( new Move( 0, 0, Move.Colour.Black ) );
+	
+		assertEquals( false, gameEndDetector.endDetected() );
 	}
 }

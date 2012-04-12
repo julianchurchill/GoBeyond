@@ -54,4 +54,8 @@ public class Move {
 		return colour;
 	}
 
+	public static Move passMove(Colour c) {
+		return new Move( -1, -1, c );
+	}
+
 }
