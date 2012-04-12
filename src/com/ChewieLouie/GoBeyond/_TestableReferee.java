@@ -12,4 +12,8 @@ public class _TestableReferee implements Referee {
 		return null;
 	}
 
+	@Override
+	public void subscribeForAcceptedMoves(MoveObserver observer) {
+	}
+
 }

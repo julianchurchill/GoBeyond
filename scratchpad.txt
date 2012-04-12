@@ -3,6 +3,9 @@ Referee
   - Notifies registered move observers (e.g. GoGameEndDetector) when a move is accepted
   - Referee should check the submitted move is for the current player
     - Toggle expected player
+    
+GameEndDetector
+  - Should subscribe for accepted moves from referee
 
 Rules
   - Write proper Go Rules class
