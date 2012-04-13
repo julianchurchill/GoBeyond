@@ -6,6 +6,6 @@ public interface Referee {
 
 	public abstract MoveStatus submitMove(Move m);
 
-	public abstract void subscribeForAcceptedMoves(MoveObserver observer);
+	public abstract boolean endDetected();
 
 }

@@ -1,6 +1,6 @@
 package com.ChewieLouie.GoBeyond;
 
-public class GoGameEndDetector implements GameEndDetector, MoveObserver {
+public class GoGameEndDetector implements GameEndDetector {
 
 	private int maxMovesAllowed;
 	private int moveCount = 0;

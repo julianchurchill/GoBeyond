@@ -1,16 +1,15 @@
 package com.ChewieLouie.GoBeyond;
 
-import java.util.HashSet;
-
 public class StrictReferee implements Referee {
 
 	private Rules rules;
 	private Board board;
-	private HashSet<MoveObserver> observers = new HashSet<MoveObserver>();
+	private GameEndDetector gameEndDetector;
 
-	public StrictReferee(Rules rules, Board board) {
+	public StrictReferee(Rules rules, Board board, GameEndDetector gameEndDetector) {
 		this.rules = rules;
 		this.board = board;
+		this.gameEndDetector = gameEndDetector;
 	}
 
 	@Override
@@ -18,7 +17,7 @@ public class StrictReferee implements Referee {
 		if( rules.isLegal( m ) == false )
 			return MoveStatus.IllegalMove;
 		board.playStone( moveColourToStone( m.colour() ), m.x(), m.y() );
-		notifyMoveObservers( m );
+		gameEndDetector.movePlayed( m );
 		return MoveStatus.LegalMove;
 	}
 
@@ -26,13 +25,8 @@ public class StrictReferee implements Referee {
 		return c == Move.Colour.Black ? Board.Point.BlackStone : Board.Point.WhiteStone;
 	}
 	
-	private void notifyMoveObservers( Move m ) {
-		for( MoveObserver o : observers )
-			o.movePlayed( m );
-	}
-
 	@Override
-	public void subscribeForAcceptedMoves(MoveObserver observer) {
-		observers.add( observer );
+	public boolean endDetected() {
+		return gameEndDetector.endDetected();
 	}
 }

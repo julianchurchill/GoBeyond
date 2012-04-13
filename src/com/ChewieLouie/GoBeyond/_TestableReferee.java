@@ -4,6 +4,8 @@ public class _TestableReferee implements Referee {
 
 	public boolean submitMoveCalled = false;
 	public Move submitMoveArg;
+	public int endAfterThisManyGameEndDetections = 0;
+	public int endDetectedCalledCount = 0;
 
 	@Override
 	public MoveStatus submitMove(Move m) {
@@ -13,7 +15,9 @@ public class _TestableReferee implements Referee {
 	}
 
 	@Override
-	public void subscribeForAcceptedMoves(MoveObserver observer) {
+	public boolean endDetected() {
+		endDetectedCalledCount++;
+		return endDetectedCalledCount >= endAfterThisManyGameEndDetections;
 	}
 
 }

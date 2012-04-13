@@ -5,17 +5,17 @@ public class Game {
 	private Player player1;
 	private Player player2;
 	private Player currentPlayer;
-	private _TestableGameEndDetector gameEndDetector;
+	private Referee referee;
 
-	public Game(Player player1, Player player2, _TestableGameEndDetector gameEndDetector) {
+	public Game(Player player1, Player player2, Referee referee ) {
 		this.player1 = player1;
 		this.player2 = player2;
-		this.gameEndDetector = gameEndDetector;
+		this.referee = referee;
 	}
 
 	public void start() {
 		currentPlayer = player1;
-		while( gameEndDetector.endDetected() == false ) {
+		while( referee.endDetected() == false ) {
 			currentPlayer.playMove();
 			swapCurrentPlayer();
 		}

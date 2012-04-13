@@ -10,12 +10,14 @@ public class _StrictRefereeTests {
 	private _TestableRules rules;
 	private _TestableBoard board;
 	private Referee referee;
+	private _TestableGameEndDetector gameEndDetector;
 
 	@Before
 	public void SetUp() {
 		rules = new _TestableRules();
 		board = new _TestableBoard();
-		referee = new StrictReferee( rules, board );
+		gameEndDetector = new _TestableGameEndDetector();
+		referee = new StrictReferee( rules, board, gameEndDetector );
 	}
 	
 	@Test
@@ -53,18 +55,9 @@ public class _StrictRefereeTests {
 	}
 
 	@Test
-	public void NotifiesMultipleMoveObservers() {
-		_TestableMoveObserver observer1 = new _TestableMoveObserver();
-		_TestableMoveObserver observer2 = new _TestableMoveObserver();
-		referee.subscribeForAcceptedMoves( observer1 );
-		referee.subscribeForAcceptedMoves( observer2 );
-		Move submittedMove = new Move( 1, 2, Move.Colour.White );
-
-		referee.submitMove( submittedMove );
-
-		assertEquals( true, observer1.movePlayedCalled );
-		assertEquals( submittedMove, observer1.movePlayedMove );
-		assertEquals( true, observer2.movePlayedCalled );
-		assertEquals( submittedMove, observer2.movePlayedMove );
+	public void UsesGameEndDetector() {
+		assertEquals( 0, gameEndDetector.endDetectedCalledCount );
+		referee.endDetected();
+		assertEquals( 1, gameEndDetector.endDetectedCalledCount );
 	}
 }

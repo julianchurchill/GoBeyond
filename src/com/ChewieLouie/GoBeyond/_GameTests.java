@@ -9,22 +9,20 @@ public class _GameTests {
 
 	private _TestablePlayer player1;
 	private _TestablePlayer player2;
-	private _TestableGameEndDetector gameEndDetector;
+	private _TestableReferee referee;
 	private Game game;
 
 	@Before
 	public void SetUp() {
 		player1 = new _TestablePlayer();
 		player2 = new _TestablePlayer();
-		gameEndDetector = new _TestableGameEndDetector();
-		player1.notifyOfMovesPlayed( gameEndDetector );
-		player2.notifyOfMovesPlayed( gameEndDetector );
-		game = new Game( player1, player2, gameEndDetector );
+		referee = new _TestableReferee();
+		game = new Game( player1, player2, referee );
 	}
 
 	@Test
 	public void gameAsksPlayersToGenerateMovesUntilGameEnds() {
-		gameEndDetector.endAfterThisManyMoves = 10;
+		referee.endAfterThisManyGameEndDetections = 11;
 		game.start();
 		
 		assertEquals( 5, player1.generateMoveCalledCount );
@@ -33,7 +31,7 @@ public class _GameTests {
 
 	@Test
 	public void gameOfOneMoveOnlyAsksPlayer1ToGenerateAMove() {
-		gameEndDetector.endAfterThisManyMoves = 1;
+		referee.endAfterThisManyGameEndDetections = 2;
 		game.start();
 
 		assertEquals( 1, player1.generateMoveCalledCount );
@@ -42,9 +40,9 @@ public class _GameTests {
 
 	@Test
 	public void gameCallsGameEndDetectorOnceForEachMovePlusOnceForTheStartOfTheGame() {
-		gameEndDetector.endAfterThisManyMoves = 10;
+		referee.endAfterThisManyGameEndDetections = 11;
 		game.start();
 
-		assertEquals( 11, gameEndDetector.endDetectedCalledCount );
+		assertEquals( 11, referee.endDetectedCalledCount );
 	}
 }

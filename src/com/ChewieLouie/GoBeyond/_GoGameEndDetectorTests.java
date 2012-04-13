@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class _GoGameEndDetectorTests {
 
-	private GoGameEndDetector gameEndDetector;
+	private GameEndDetector gameEndDetector;
 
 	@Before
 	public void SetUp() {
