@@ -8,10 +8,12 @@ import org.junit.Test;
 public class _GoGameEndDetectorTests {
 
 	private GameEndDetector gameEndDetector;
+	private _TestableRules rules;
 
 	@Before
 	public void SetUp() {
-		gameEndDetector = new GoGameEndDetector( 10 );
+		rules = new _TestableRules();
+		gameEndDetector = new GoGameEndDetector( 10, rules );
 	}
 
 	@Test
@@ -45,5 +47,12 @@ public class _GoGameEndDetectorTests {
 		gameEndDetector.movePlayed( new Move( 0, 0, Move.Colour.Black ) );
 	
 		assertEquals( false, gameEndDetector.endDetected() );
+	}
+
+	@Test
+	public void endIsDetectedIfNoLegalMovesAvailable() {
+		rules.isLegalMoveAvailableReturnValue = false;
+		assertEquals( true, gameEndDetector.endDetected() );
+		assertEquals( true, rules.isLegalMoveAvailableCalled );
 	}
 }

@@ -6,14 +6,18 @@ public class GoGameEndDetector implements GameEndDetector {
 	private int moveCount = 0;
 	private boolean lastMoveWasAPass = false;
 	private boolean lastTwoMovesWerePasses = false;
+	private Rules rules;
 
-	public GoGameEndDetector(int maxMovesAllowed) {
+	public GoGameEndDetector(int maxMovesAllowed, Rules rules) {
 		this.maxMovesAllowed = maxMovesAllowed;
+		this.rules = rules;
 	}
 
 	@Override
 	public boolean endDetected() {
-		return lastTwoMovesWerePasses || moveCount >= maxMovesAllowed;
+		return rules.isLegalMoveAvailable() == false || 
+				lastTwoMovesWerePasses ||
+				moveCount >= maxMovesAllowed;
 	}
 
 	@Override

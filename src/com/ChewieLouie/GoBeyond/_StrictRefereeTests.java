@@ -59,5 +59,9 @@ public class _StrictRefereeTests {
 		assertEquals( 0, gameEndDetector.endDetectedCalledCount );
 		referee.endDetected();
 		assertEquals( 1, gameEndDetector.endDetectedCalledCount );
+		gameEndDetector.endDetectedReturnValue = true;
+		assertEquals( true, referee.endDetected() );
+		gameEndDetector.endDetectedReturnValue = false;
+		assertEquals( false, referee.endDetected() );
 	}
 }
