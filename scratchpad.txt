@@ -1,9 +1,13 @@
 
+Board
+  - playStone should take a Coord instead of int x, int y
+  - removeStone should take a Coord instead of int x, int y
+
 Rules
-  - Write proper Go Rules class
-    - Chinese or Japanese, Ko, super-ko?
   - isLegal()
   - isLegalMoveAvailable()
+  - Write proper Go Rules class
+    - Chinese or Japanese, Ko, super-ko?
 
 StrictReferee
   - Referee should check the submitted move is for the current player

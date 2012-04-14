@@ -22,25 +22,25 @@ public class _StrictRefereeTests {
 	
 	@Test
 	public void RefereeChecksWithRulesWhetherMoveIsLegal() {
-		referee.submitMove( new Move( 1, 1, null ) );
+		referee.submitMove( new Move( new Coord( 1, 1 ), null ) );
 		assertEquals( true, rules.isLegalCalled );
-		assertEquals( new Move( 1, 1, null ), rules.isLegalCalledWithMove );
+		assertEquals( new Move( new Coord( 1, 1 ), null ), rules.isLegalCalledWithMove );
 	}
 
 	@Test
 	public void IfMoveIsLegalRefereeReturnsLegalStatus() {
-		assertEquals( Referee.MoveStatus.LegalMove, referee.submitMove( new Move( 1, 1, null ) ) );
+		assertEquals( Referee.MoveStatus.LegalMove, referee.submitMove( new Move( new Coord( 1, 1 ), null ) ) );
 	}
 
 	@Test
 	public void IfMoveIsIllegalRefereeReturnsIllegalStatus() {
 		rules.isLegalReturnValue = false;
-		assertEquals( Referee.MoveStatus.IllegalMove, referee.submitMove( new Move( 1, 1, null ) ) );
+		assertEquals( Referee.MoveStatus.IllegalMove, referee.submitMove( new Move( new Coord( 1, 1 ), null ) ) );
 	}
 
 	@Test
 	public void IfMoveIsLegalRefereeUpdatesTheBoard() {
-		referee.submitMove( new Move( 1, 2, Move.Colour.White ) );
+		referee.submitMove( new Move( new Coord( 1, 2 ), Move.Colour.White ) );
 		assertEquals( true, board.playStoneCalled );
 		assertEquals( Board.Point.WhiteStone, board.playStonePoint );
 		assertEquals( 1, board.playStoneX );
@@ -50,7 +50,7 @@ public class _StrictRefereeTests {
 	@Test
 	public void IfMoveIsIllegalRefereeDoesNotUpdateTheBoard() {
 		rules.isLegalReturnValue = false;
-		referee.submitMove( new Move( 1, 2, Move.Colour.White ) );
+		referee.submitMove( new Move( new Coord( 1, 2 ), Move.Colour.White ) );
 		assertEquals( false, board.playStoneCalled );
 	}
 

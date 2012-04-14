@@ -16,7 +16,7 @@ public class StrictReferee implements Referee {
 	public MoveStatus submitMove( Move m ) {
 		if( rules.isLegal( m ) == false )
 			return MoveStatus.IllegalMove;
-		board.playStone( moveColourToStone( m.colour() ), m.x(), m.y() );
+		board.playStone( moveColourToStone( m.colour() ), m.coord() );
 		gameEndDetector.movePlayed( m );
 		return MoveStatus.LegalMove;
 	}

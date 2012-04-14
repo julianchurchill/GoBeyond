@@ -8,19 +8,18 @@ public class _TestableBoard implements Board {
 	public int playStoneY = 0;
 
 	@Override
-	public Point getContentsOfPoint(int x, int y) {
-		return null;
-	}
-
-	@Override
-	public void playStone(Point p, int x, int y) {
+	public void playStone(Point p, Coord c) {
 		playStoneCalled = true;
 		playStonePoint = p;
-		playStoneX = x;
-		playStoneY = y;
+		playStoneX = c.x();
+		playStoneY = c.y();
 	}
 
 	@Override
-	public void removeStone(int x, int y) {
+	public void removeStone(Coord c) {
+	}
+
+	public Point getContentsOfPoint(Coord c) {
+		return null;
 	}
 }

@@ -4,7 +4,7 @@ public class Application {
 
 	public Application() {
 		Rules rules = new _TestableRules();
-		Referee referee = new StrictReferee( rules, new GoBoard(), new GoGameEndDetector( 300, rules ) );
+		Referee referee = new StrictReferee( rules, new GoBoard( 19 ), new GoGameEndDetector( 300, rules ) );
 //		Referee referee = new StrictReferee( new ChineseRules(), new GoBoard() );
 		Player player1 = new GoPlayer( referee, new _TestableStrategy() );
 		Player player2 = new GoPlayer( referee, new _TestableStrategy() );

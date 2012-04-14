@@ -10,7 +10,7 @@ public class _GoPlayerTests {
 	public void generateMoveSubmitsTheMoveToTheReferee() {
 		_TestableReferee referee = new _TestableReferee();
 		_TestableStrategy s = new _TestableStrategy();
-		s.generateMoveReturnValue = new Move( 4, 5, Move.Colour.White );
+		s.generateMoveReturnValue = new Move( new Coord( 4, 5 ), Move.Colour.White );
 		GoPlayer p = new GoPlayer( referee, s );
 
 		p.playMove();

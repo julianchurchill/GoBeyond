@@ -4,13 +4,11 @@ public class Move {
 
 	public enum Colour { Black, White };
 	
-	private int x;
-	private int y;
+	private Coord c;
 	private Colour colour;
 
-	public Move(int x, int y, Colour colour) {
-		this.x = x;
-		this.y = y;
+	public Move(Coord c, Colour colour) {
+		this.c = c;
 		this.colour = colour;
 	}
 
@@ -20,7 +18,7 @@ public class Move {
 		int result = 1;
 		result = prime * result + ((colour == null) ? 0 : colour.hashCode());
 		result = prime * result + x();
-		result = prime * result + y;
+		result = prime * result + y();
 		return result;
 	}
 
@@ -37,17 +35,21 @@ public class Move {
 			return false;
 		if (x() != other.x())
 			return false;
-		if (y != other.y)
+		if (y() != other.y())
 			return false;
 		return true;
 	}
-
-	public int x() {
-		return x;
+	
+	public Coord coord() {
+		return c;
 	}
 
-	public int y() {
-		return y;
+	private int x() {
+		return c.x();
+	}
+
+	private int y() {
+		return c.y();
 	}
 
 	public Colour colour() {
@@ -55,7 +57,7 @@ public class Move {
 	}
 
 	public static Move passMove(Colour c) {
-		return new Move( -1, -1, c );
+		return new Move( new Coord( -1, -1 ), c );
 	}
 
 }
