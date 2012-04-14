@@ -16,14 +16,14 @@ public class _CoordTests {
 	@Test
 	public void CoordLeftCreatesNewCoordOneUnitToTheLeft() {
 		Coord c = new Coord( 1, 2 );
-		assertEquals( 2, c.left().x() );
+		assertEquals( 0, c.left().x() );
 		assertEquals( 2, c.left().y() );
 	}
 
 	@Test
 	public void CoordRightCreatesNewCoordOneUnitToTheRight() {
 		Coord c = new Coord( 1, 2 );
-		assertEquals( 0, c.right().x() );
+		assertEquals( 2, c.right().x() );
 		assertEquals( 2, c.right().y() );
 	}
 

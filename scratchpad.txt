@@ -1,22 +1,28 @@
 
 Rules
   - isLegal()
+    = Ko, super-ko / chinese, japanese
   - isLegalMoveAvailable()
-  - Write proper Go Rules class
-    - Chinese or Japanese, Ko, super-ko?
 
 StrictReferee
   - Referee should check the submitted move is for the current player
     - Toggle expected player
 
+Strategy
+  = Random strategy
+
+UI
+  - Basic text UI
+
 Game
-  - Game scorer... linked to rules for scoring (same Rules object as for verifying moves?)
+  - Game scorer... linked to rules for scoring (same Rules object as for verifying moves?), chinese, japanese, computer Go
   
 Time
   - Where does this belong?
     - Referee to reject moves if the player takes too long?
     - Game end detector to signal game end if time ran out for one player?
 
-Board (size)
-Strategy
-UI
+GTP
+  - KGS, NNGS, Computer Go server
+
+Save/Load

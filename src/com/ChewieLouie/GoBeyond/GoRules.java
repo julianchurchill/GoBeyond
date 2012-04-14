@@ -10,19 +10,11 @@ public class GoRules implements Rules {
 
 	@Override
 	public boolean isLegal(Move m) {
-		if( isOccupiedBoardPoint(m.coord()) || isSuicide(m) )
-			return false;
-		return true;
+		return isEmptyBoardPoint(m.coord()) && isNotSuicide(m);
 	}
 
-	private boolean isOccupiedBoardPoint(Coord c) {
-		return !boardPointContains(c, Board.Point.Empty);
-	}
-
-	private boolean isSuicide(Move m) {
-		if( allNeighboursAreColourOfMove( m ) || hasAnyEmptyNeighbours(m.coord()) )
-			return false;
-		return true;
+	private boolean isNotSuicide(Move m) {
+		return allNeighboursAreColourOfMove( m ) || hasAnyEmptyNeighbours(m.coord());
 	}
 
 	private boolean allNeighboursAreColourOfMove(Move m) {

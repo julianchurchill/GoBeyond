@@ -19,11 +19,11 @@ public class Coord {
 	}
 
 	public Coord left() {
-		return new Coord( x + 1, y );
+		return new Coord( x - 1, y );
 	}
 
 	public Coord right() {
-		return new Coord( x - 1, y );
+		return new Coord( x + 1, y );
 	}
 
 	public Coord up() {

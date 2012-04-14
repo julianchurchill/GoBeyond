@@ -51,11 +51,15 @@ public class _GoRulesTests {
 
 	private Board makeBoardWithEmptyPointSurroundedByBlack(Coord potentialWhiteMove) {
 		Board b = new GoBoard( 19 );
-		b.playStone( Board.Point.BlackStone, potentialWhiteMove.up() );
-		b.playStone( Board.Point.BlackStone, potentialWhiteMove.down() );
-		b.playStone( Board.Point.BlackStone, potentialWhiteMove.left() );
-		b.playStone( Board.Point.BlackStone, potentialWhiteMove.right() );
+		surroundWithBlackStones(b, potentialWhiteMove);
 		return b;
+	}
+
+	private void surroundWithBlackStones(Board b, Coord c) {
+		b.playStone( Board.Point.BlackStone, c.up() );
+		b.playStone( Board.Point.BlackStone, c.down() );
+		b.playStone( Board.Point.BlackStone, c.left() );
+		b.playStone( Board.Point.BlackStone, c.right() );
 	}
 
 	@Test
@@ -67,12 +71,22 @@ public class _GoRulesTests {
 	}
 
 	@Test
-	public void PlayingAPointWithNoAdjacentEmptyPointsIsLegalIfAllNeighboursAreYourColour() {
-		Move blackMove = new Move( new Coord( 1, 1 ), Move.Colour.Black );
-		Rules rules1 = new GoRules( makeBoardWithEmptyPointSurroundedByBlack( blackMove.coord() ) );
-		assertEquals( true, rules1.isLegal( blackMove ) );
+	public void MultiStoneSuicideIsIllegal() {
+		Move whiteMove = new Move( new Coord( 1, 1 ), Move.Colour.Black );
+		Board board = new GoBoard( 19 );
+		surroundWithBlackStones( board, whiteMove.coord() );
+		surroundWithBlackStones( board, whiteMove.coord().right() );
+		board.removeStone( whiteMove.coord() );
+		board.playStone( Board.Point.WhiteStone, whiteMove.coord().right() );
+		Rules rules1 = new GoRules( board );
+
+		assertEquals( false, rules1.isLegal( whiteMove ) );
 	}
 
-//	public void MultiStoneSuicideIsIllegal() {
+	@Test
+	public void PlayingAPointWithNoAdjacentEmptyPointsIsLegalIfConnectedStringHasAtLeastOneLiberty() {
+//		fail("Write me!");
+	}
+
 //	public void TakingAKoIsLegal() {
 }
