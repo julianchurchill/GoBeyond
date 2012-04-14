@@ -1,8 +1,4 @@
 
-Board
-  - playStone should take a Coord instead of int x, int y
-  - removeStone should take a Coord instead of int x, int y
-
 Rules
   - isLegal()
   - isLegalMoveAvailable()

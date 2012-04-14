@@ -32,10 +32,10 @@ public class _GoRulesTests {
 	@Test
 	public void AMoveAdjacentToAnEmptyPointIsLegal() {
 		Coord whiteMove = new Coord( 1, 1 );
-		Rules rules1 = new GoRules( makeBoardWithWhiteSingleLibertyPoint( whiteMove, whiteMove.up() ) );
-		Rules rules2 = new GoRules( makeBoardWithWhiteSingleLibertyPoint( whiteMove, whiteMove.down() ) );
-		Rules rules3 = new GoRules( makeBoardWithWhiteSingleLibertyPoint( whiteMove, whiteMove.left() ) );
-		Rules rules4 = new GoRules( makeBoardWithWhiteSingleLibertyPoint( whiteMove, whiteMove.right() ) );
+		Rules rules1 = new GoRules( makeBoardWithSingleLibertyPointForWhiteMove( whiteMove, whiteMove.up() ) );
+		Rules rules2 = new GoRules( makeBoardWithSingleLibertyPointForWhiteMove( whiteMove, whiteMove.down() ) );
+		Rules rules3 = new GoRules( makeBoardWithSingleLibertyPointForWhiteMove( whiteMove, whiteMove.left() ) );
+		Rules rules4 = new GoRules( makeBoardWithSingleLibertyPointForWhiteMove( whiteMove, whiteMove.right() ) );
 
 		assertEquals( true, rules1.isLegal( new Move( whiteMove, Move.Colour.White ) ) );
 		assertEquals( true, rules2.isLegal( new Move( whiteMove, Move.Colour.White ) ) );
@@ -43,13 +43,18 @@ public class _GoRulesTests {
 		assertEquals( true, rules4.isLegal( new Move( whiteMove, Move.Colour.White ) ) );
 	}
 
-	private Board makeBoardWithWhiteSingleLibertyPoint( Coord potentialWhiteMove, Coord liberty ) {
+ 	private Board makeBoardWithSingleLibertyPointForWhiteMove( Coord potentialWhiteMove, Coord liberty ) {
+		Board b = makeBoardWithEmptyPointSurroundedByBlack( potentialWhiteMove );
+		b.removeStone( liberty );
+		return b;
+	}
+
+	private Board makeBoardWithEmptyPointSurroundedByBlack(Coord potentialWhiteMove) {
 		Board b = new GoBoard( 19 );
 		b.playStone( Board.Point.BlackStone, potentialWhiteMove.up() );
 		b.playStone( Board.Point.BlackStone, potentialWhiteMove.down() );
 		b.playStone( Board.Point.BlackStone, potentialWhiteMove.left() );
 		b.playStone( Board.Point.BlackStone, potentialWhiteMove.right() );
-		b.removeStone( liberty );
 		return b;
 	}
 
@@ -61,7 +66,13 @@ public class _GoRulesTests {
 		assertEquals( false, rules.isLegal( new Move( new Coord( 0, 0 ), Move.Colour.White ) ) );
 	}
 
-//	public void PlayingAPointWithNoAdjacentEmptyPointsIsLegalIfAllNeighboursAreYourColour() {
+	@Test
+	public void PlayingAPointWithNoAdjacentEmptyPointsIsLegalIfAllNeighboursAreYourColour() {
+		Move blackMove = new Move( new Coord( 1, 1 ), Move.Colour.Black );
+		Rules rules1 = new GoRules( makeBoardWithEmptyPointSurroundedByBlack( blackMove.coord() ) );
+		assertEquals( true, rules1.isLegal( blackMove ) );
+	}
+
 //	public void MultiStoneSuicideIsIllegal() {
 //	public void TakingAKoIsLegal() {
 }

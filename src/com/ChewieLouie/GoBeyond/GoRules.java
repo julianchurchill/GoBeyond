@@ -16,11 +16,29 @@ public class GoRules implements Rules {
 	}
 
 	private boolean isOccupiedBoardPoint(Coord c) {
-		return board.getContentsOfPoint( c ) != Board.Point.Empty;
+		return !boardPointContains(c, Board.Point.Empty);
 	}
 
 	private boolean isSuicide(Move m) {
-		return !hasAnyEmptyNeighbours(m.coord());
+		if( allNeighboursAreColourOfMove( m ) || hasAnyEmptyNeighbours(m.coord()) )
+			return false;
+		return true;
+	}
+
+	private boolean allNeighboursAreColourOfMove(Move m) {
+		return allNeighboursContain( m.coord(), 
+				m.colour() == Move.Colour.Black ? Board.Point.BlackStone : Board.Point.WhiteStone );
+	}
+	
+	private boolean allNeighboursContain( Coord c, Board.Point expectedContent ) {
+		return boardPointContains(c.up(), expectedContent) &&
+			boardPointContains(c.down(), expectedContent) &&
+			boardPointContains(c.left(), expectedContent) &&
+			boardPointContains(c.right(), expectedContent);
+	}
+
+	private boolean boardPointContains(Coord c, Board.Point expectedColour) {
+		return board.getContentsOfPoint( c ) == expectedColour;
 	}
 
 	private boolean hasAnyEmptyNeighbours(Coord c) {
@@ -31,7 +49,7 @@ public class GoRules implements Rules {
 	}
 
 	private boolean isEmptyBoardPoint(Coord c) {
-		return board.getContentsOfPoint( c ) == Board.Point.Empty;
+		return boardPointContains(c, Board.Point.Empty);
 	}
 
 	@Override
