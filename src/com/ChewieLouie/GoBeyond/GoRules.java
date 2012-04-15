@@ -1,5 +1,10 @@
 package com.ChewieLouie.GoBeyond;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.ChewieLouie.GoBeyond.Board.Point;
+
 public class GoRules implements Rules {
 
 	private Board board;
@@ -16,31 +21,37 @@ public class GoRules implements Rules {
 	}
 
 	private boolean isNotSuicide(Move m) {
-		return stringAddedToWillStillHaveLiberties( m );
+		return stringAddedToWillStillBeAlive( m );
 	}
 
-	private boolean stringAddedToWillStillHaveLiberties(Move m) {
+	private boolean stringAddedToWillStillBeAlive(Move m) {
 		Board.Point colour = m.colour() == Move.Colour.Black ? Board.Point.BlackStone : Board.Point.WhiteStone;
 		testBoard = board.duplicate();
 		testBoard.playStone( colour, m.coord() );
 		useTestBoard = true;
 		boolean libertiesFound = false;
-		if( pointOrNeighboursHaveLiberties(m.coord(), colour) )
+		if( stringHasLiberties(m.coord(), colour) )
 			libertiesFound = true;
 		useTestBoard = false;
 		return libertiesFound;
 	}
 
-	private boolean pointOrNeighboursHaveLiberties(Coord c, Board.Point colour) {
-		return contributesOneOrMoreLibertiesToString(c, colour) ||
-		    contributesOneOrMoreLibertiesToString(c.up(), colour) ||
-			contributesOneOrMoreLibertiesToString(c.down(), colour) ||
-			contributesOneOrMoreLibertiesToString(c.left(), colour) ||
-			contributesOneOrMoreLibertiesToString(c.right(), colour);
+	private boolean stringHasLiberties(Coord c, Board.Point colour) {
+		Set<Coord> visitedPoints = new HashSet<Coord>();
+		return stringHasLibertiesRecursive(c, colour, visitedPoints);
 	}
 
-	private boolean contributesOneOrMoreLibertiesToString(Coord c, Board.Point colour) {
-		return boardPointContains( c, colour ) && hasAnyEmptyNeighbours( c );
+	private boolean stringHasLibertiesRecursive(Coord c, Point colour, Set<Coord> visitedPoints) {
+		if( boardPointContains( c, colour ) == false || visitedPoints.contains( c ) )
+			return false;
+		visitedPoints.add( c );
+		if( hasAnyEmptyNeighbours(c) )
+			return true;
+
+		return stringHasLibertiesRecursive(c.up(), colour, visitedPoints) ||
+			stringHasLibertiesRecursive(c.down(), colour, visitedPoints) ||
+			stringHasLibertiesRecursive(c.left(), colour, visitedPoints) ||
+			stringHasLibertiesRecursive(c.right(), colour, visitedPoints);
 	}
 
 	private boolean boardPointContains(Coord c, Board.Point expectedColour) {

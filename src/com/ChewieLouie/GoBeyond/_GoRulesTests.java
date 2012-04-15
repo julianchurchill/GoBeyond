@@ -1,9 +1,8 @@
 package com.ChewieLouie.GoBeyond;
 
-import static org.junit.Assert.*;
+ import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class _GoRulesTests {
@@ -110,7 +109,6 @@ public class _GoRulesTests {
 		assertEquals( true, rules1.isLegal( new Move( potentialMove, Move.Colour.White ) ) );
 	}
 
-	@Ignore
 	@Test
 	public void PlayingAPointWithNoAdjacentEmptyPointsIsLegalIfConnectedStringHasAtLeastOneLiberty() {
 		// .bbb.
@@ -120,6 +118,9 @@ public class _GoRulesTests {
 		Coord potentialMove = new Coord( 1, 1 );
 		Board board = createWhiteSuicideBoardOneStoneString(potentialMove);
 		surroundWithBlackStones( board, potentialMove.right().right() );
+		board.removeStone( potentialMove );
+		board.playStone( Board.Point.WhiteStone, potentialMove.right() );
+		board.playStone( Board.Point.WhiteStone, potentialMove.right().right() );
 		board.removeStone( potentialMove.right().right().right() );
 		Rules rules1 = new GoRules( board );
 

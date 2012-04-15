@@ -2,6 +2,8 @@
 Rules
   - isLegal()
     = Ko, super-ko / chinese, japanese
+    - Use of test board in GoRules - is there a cleaner way?
+       - Perhaps use a BoardAnalyser that takes a board and encapsulates knowledge about string life and death
   - isLegalMoveAvailable()
 
 StrictReferee
