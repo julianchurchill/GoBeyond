@@ -3,6 +3,8 @@ package com.ChewieLouie.GoBeyond;
 public class GoRules implements Rules {
 
 	private Board board;
+	private Board testBoard;
+	private boolean useTestBoard = false;
 
 	public GoRules(Board board) {
 		this.board = board;
@@ -14,23 +16,41 @@ public class GoRules implements Rules {
 	}
 
 	private boolean isNotSuicide(Move m) {
-		return allNeighboursAreColourOfMove( m ) || hasAnyEmptyNeighbours(m.coord());
+		return stringAddedToWillStillHaveLiberties( m );
 	}
 
-	private boolean allNeighboursAreColourOfMove(Move m) {
-		return allNeighboursContain( m.coord(), 
-				m.colour() == Move.Colour.Black ? Board.Point.BlackStone : Board.Point.WhiteStone );
+	private boolean stringAddedToWillStillHaveLiberties(Move m) {
+		Board.Point colour = m.colour() == Move.Colour.Black ? Board.Point.BlackStone : Board.Point.WhiteStone;
+		testBoard = board.duplicate();
+		testBoard.playStone( colour, m.coord() );
+		useTestBoard = true;
+		boolean libertiesFound = false;
+		if( pointOrNeighboursHaveLiberties(m.coord(), colour) )
+			libertiesFound = true;
+		useTestBoard = false;
+		return libertiesFound;
 	}
-	
-	private boolean allNeighboursContain( Coord c, Board.Point expectedContent ) {
-		return boardPointContains(c.up(), expectedContent) &&
-			boardPointContains(c.down(), expectedContent) &&
-			boardPointContains(c.left(), expectedContent) &&
-			boardPointContains(c.right(), expectedContent);
+
+	private boolean pointOrNeighboursHaveLiberties(Coord c, Board.Point colour) {
+		return contributesOneOrMoreLibertiesToString(c, colour) ||
+		    contributesOneOrMoreLibertiesToString(c.up(), colour) ||
+			contributesOneOrMoreLibertiesToString(c.down(), colour) ||
+			contributesOneOrMoreLibertiesToString(c.left(), colour) ||
+			contributesOneOrMoreLibertiesToString(c.right(), colour);
+	}
+
+	private boolean contributesOneOrMoreLibertiesToString(Coord c, Board.Point colour) {
+		return boardPointContains( c, colour ) && hasAnyEmptyNeighbours( c );
 	}
 
 	private boolean boardPointContains(Coord c, Board.Point expectedColour) {
-		return board.getContentsOfPoint( c ) == expectedColour;
+		return board().getContentsOfPoint( c ) == expectedColour;
+	}
+
+	private Board board() {
+		if( useTestBoard  )
+			return testBoard;
+		return board;
 	}
 
 	private boolean hasAnyEmptyNeighbours(Coord c) {

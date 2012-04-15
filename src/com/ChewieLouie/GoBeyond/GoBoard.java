@@ -28,4 +28,13 @@ public class GoBoard implements Board {
 	public void removeStone(Coord c) {
 		contents[c.x()][c.y()] = null;
 	}
+
+	@Override
+	public Board duplicate() {
+		Board b = new GoBoard( size );
+		for( int x = 0; x < size; ++x )
+			for( int y = 0; y < size; ++y )
+				b.playStone( contents[x][y], new Coord( x, y ) );
+		return b;
+	}
 }

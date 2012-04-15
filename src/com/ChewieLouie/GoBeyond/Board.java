@@ -10,4 +10,6 @@ public interface Board {
 
 	public abstract void removeStone(Coord c);
 
+	public abstract Board duplicate();
+
 }

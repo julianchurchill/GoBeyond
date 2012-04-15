@@ -22,4 +22,9 @@ public class _TestableBoard implements Board {
 	public Point getContentsOfPoint(Coord c) {
 		return null;
 	}
+
+	@Override
+	public Board duplicate() {
+		return null;
+	}
 }

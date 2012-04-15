@@ -3,6 +3,7 @@ package com.ChewieLouie.GoBeyond;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class _GoRulesTests {
@@ -72,20 +73,57 @@ public class _GoRulesTests {
 
 	@Test
 	public void MultiStoneSuicideIsIllegal() {
-		Move whiteMove = new Move( new Coord( 1, 1 ), Move.Colour.Black );
-		Board board = new GoBoard( 19 );
-		surroundWithBlackStones( board, whiteMove.coord() );
-		surroundWithBlackStones( board, whiteMove.coord().right() );
-		board.removeStone( whiteMove.coord() );
-		board.playStone( Board.Point.WhiteStone, whiteMove.coord().right() );
-		Rules rules1 = new GoRules( board );
+		// .bb.
+		// b*wb
+		// .bb.
+		// ....
+		Coord potentialMove = new Coord( 1, 1 );
+		Rules rules1 = new GoRules( createWhiteSuicideBoardOneStoneString(potentialMove) );
 
-		assertEquals( false, rules1.isLegal( whiteMove ) );
+		assertEquals( false, rules1.isLegal( new Move( potentialMove, Move.Colour.White ) ) );
+	}
+
+ 	private Board createWhiteSuicideBoardOneStoneString(Coord potentialMove) {
+		// .bb.
+		// b*wb
+		// .bb.
+		// ....
+		Board board = new GoBoard( 19 );
+		surroundWithBlackStones( board, potentialMove );
+		surroundWithBlackStones( board, potentialMove.right() );
+		board.removeStone( potentialMove );
+		board.playStone( Board.Point.WhiteStone, potentialMove.right() );
+		return board;
 	}
 
 	@Test
+	public void PlayingAPointWithNoAdjacentEmptyPointsIsLegalIfSmallConnectedStringHasAtLeastOneLiberty() {
+		// .bb.
+		// b*w.
+		// .bb.
+		// ....
+		Coord potentialMove = new Coord( 1, 1 );
+		Board board = createWhiteSuicideBoardOneStoneString(potentialMove);
+		board.removeStone( potentialMove.right().right() );
+		Rules rules1 = new GoRules( board );
+
+		assertEquals( true, rules1.isLegal( new Move( potentialMove, Move.Colour.White ) ) );
+	}
+
+	@Ignore
+	@Test
 	public void PlayingAPointWithNoAdjacentEmptyPointsIsLegalIfConnectedStringHasAtLeastOneLiberty() {
-//		fail("Write me!");
+		// .bbb.
+		// b*ww.
+		// .bbb.
+		// .....
+		Coord potentialMove = new Coord( 1, 1 );
+		Board board = createWhiteSuicideBoardOneStoneString(potentialMove);
+		surroundWithBlackStones( board, potentialMove.right().right() );
+		board.removeStone( potentialMove.right().right().right() );
+		Rules rules1 = new GoRules( board );
+
+		assertEquals( true, rules1.isLegal( new Move( potentialMove, Move.Colour.White ) ) );
 	}
 
 //	public void TakingAKoIsLegal() {

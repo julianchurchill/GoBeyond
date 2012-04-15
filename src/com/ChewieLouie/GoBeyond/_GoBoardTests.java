@@ -15,6 +15,16 @@ public class _GoBoardTests {
 	}
 	
 	@Test
+	public void CanDuplicate() {
+		b.playStone( Board.Point.BlackStone, new Coord( 14, 7 ) );
+		b.playStone( Board.Point.WhiteStone, new Coord( 5, 9 ) );
+		Board g = b.duplicate();
+		for( int x = 0; x < 19; ++x )
+			for( int y = 0; y < 19; ++y )
+				assertEquals( b.getContentsOfPoint( new Coord( x, y ) ), g.getContentsOfPoint( new Coord( x, y ) ) );
+	}
+	
+	@Test
 	public void APointWhichHasNotBeenPlayedOnIsEmpty() {
 		assertEquals( Board.Point.Empty, b.getContentsOfPoint( new Coord( 0, 0 ) ) );
 	}
