@@ -1,10 +1,14 @@
 
+BoardAnalyzer
+  - Need to test seperate from GoRules? (Can copy tests from GoRulesTest for life/death)
+  - GoRules life/death tests then become 'ask the board analyzer'
+
 Rules
   - isLegal()
     = Ko, super-ko / chinese, japanese
-    - Use of test board in GoRules - is there a cleaner way?
-       - Perhaps use a BoardAnalyser that takes a board and encapsulates knowledge about string life and death
   - isLegalMoveAvailable()
+
+Packaging - Util (Move, Coord, Board), Engine {Game, Referee, Player, Rules}  ?
 
 StrictReferee
   - Referee should check the submitted move is for the current player

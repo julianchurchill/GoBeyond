@@ -127,5 +127,6 @@ public class _GoRulesTests {
 		assertEquals( true, rules1.isLegal( new Move( potentialMove, Move.Colour.White ) ) );
 	}
 
+//  public void SuicideToCaptureIsLegal() {
 //	public void TakingAKoIsLegal() {
 }
