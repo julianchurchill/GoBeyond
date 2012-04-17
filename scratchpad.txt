@@ -1,7 +1,4 @@
 
-BoardAnalyzer
-  - Suicide is ok if it captures stones
-
 Rules
   - isLegal()
     = Ko, super-ko / chinese, japanese
