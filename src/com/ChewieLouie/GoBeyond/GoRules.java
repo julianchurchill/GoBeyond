@@ -3,9 +3,11 @@ package com.ChewieLouie.GoBeyond;
 public class GoRules implements Rules {
 
 	private Board board;
+	private BoardAnalyzer boardAnalyzer;
 
-	public GoRules(Board board) {
+	public GoRules(Board board, BoardAnalyzer boardAnalyzer) {
 		this.board = board;
+		this.boardAnalyzer = boardAnalyzer;
 	}
 
 	@Override
@@ -17,7 +19,7 @@ public class GoRules implements Rules {
 		Board testBoard = board.duplicate();
 		testBoard.playStone( m.colour() == Move.Colour.Black ? Board.Point.BlackStone : Board.Point.WhiteStone,
 							 m.coord() );
-		return new BoardAnalyzer( testBoard ).isStringAlive( m.coord() );
+		return boardAnalyzer.isStringAlive( testBoard, m.coord() );
 	}
 
 	private boolean isEmptyBoardPoint(Coord c) {

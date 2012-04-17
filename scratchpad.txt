@@ -1,7 +1,6 @@
 
 BoardAnalyzer
-  - Need to test seperate from GoRules? (Can copy tests from GoRulesTest for life/death)
-  - GoRules life/death tests then become 'ask the board analyzer'
+  - Suicide is ok if it captures stones
 
 Rules
   - isLegal()
@@ -13,6 +12,7 @@ Packaging - Util (Move, Coord, Board), Engine {Game, Referee, Player, Rules}  ?
 StrictReferee
   - Referee should check the submitted move is for the current player
     - Toggle expected player
+  - Referee should remove captured stones after player moves
 
 Strategy
   = Random strategy
