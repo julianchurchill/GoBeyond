@@ -7,6 +7,10 @@ public class Move {
 	private Coord c;
 	private Colour colour;
 
+	static public Board.Point toStone( Move.Colour c ) {
+		return c == Move.Colour.Black ? Board.Point.BlackStone : Board.Point.WhiteStone;
+	}
+	
 	public Move(Coord c, Colour colour) {
 		this.c = c;
 		this.colour = colour;

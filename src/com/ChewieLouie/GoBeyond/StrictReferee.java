@@ -14,15 +14,11 @@ public class StrictReferee implements Referee {
 
 	@Override
 	public MoveStatus submitMove( Move m ) {
-		if( rules.isLegal( m ) == false )
+		if( rules.isLegal( m, board, null ) == false )
 			return MoveStatus.IllegalMove;
-		board.playStone( moveColourToStone( m.colour() ), m.coord() );
+		board.playStone( Move.toStone( m.colour() ), m.coord() );
 		gameEndDetector.movePlayed( m );
 		return MoveStatus.LegalMove;
-	}
-
-	private Board.Point moveColourToStone( Move.Colour c ) {
-		return c == Move.Colour.Black ? Board.Point.BlackStone : Board.Point.WhiteStone;
 	}
 	
 	@Override

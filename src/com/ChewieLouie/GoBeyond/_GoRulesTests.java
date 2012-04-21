@@ -1,13 +1,13 @@
 package com.ChewieLouie.GoBeyond;
 
- import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class _GoRulesTests {
 
-	private Board board;
+	private GoBoard board;
 	private GoRules rules;
 	private _TestableBoardAnalyzer boardAnalyzer;
 
@@ -15,19 +15,19 @@ public class _GoRulesTests {
 	public void SetUp() {
 		board = new GoBoard( 19 );
 		boardAnalyzer = new _TestableBoardAnalyzer();
-		rules = new GoRules( board, boardAnalyzer );
+		rules = new GoRules( boardAnalyzer );
 	}
 
 	@Test
     public void shouldUseBoardAnalyzerDuringLegalityCheck() {
-		rules.isLegal( new Move( new Coord( 0, 0 ), Move.Colour.Black ) );
-		assertEquals( true, boardAnalyzer.isStringAliveCalled );
+		rules.isLegal( new Move( new Coord( 0, 0 ), Move.Colour.Black ), board, null );
+		assertTrue( boardAnalyzer.isStringAliveCalled );
 	}
 
 	@Test
     public void moveOnAnOccupiedIntersectionIsIllegal() {
 		board.playStone( Board.Point.BlackStone, new Coord( 0, 0 ) );
-		assertEquals( false, rules.isLegal( new Move( new Coord( 0, 0 ), Move.Colour.Black ) ) );
+		assertFalse( rules.isLegal( new Move( new Coord( 0, 0 ), Move.Colour.Black ), board, null ) );
 	}
 
 	// the following four test check capturing in each direction
@@ -45,11 +45,9 @@ public class _GoRulesTests {
 		board.playStone( Board.Point.WhiteStone, new Coord( 3, 1 ) );
 		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
 		board.playStone( Board.Point.WhiteStone, new Coord( 2, 2 ) );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 1, 0 ), true );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 0, 1 ), true );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 2, 1 ), false );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 1, 2 ), true );
-		assertEquals( true, rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ) ) );
+		boardAnalyzer.isStringAliveReturnDefault = true;
+		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
+		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
 	}
 
 	@Test
@@ -68,9 +66,9 @@ public class _GoRulesTests {
 		board.playStone( Board.Point.WhiteStone, new Coord( 0, 2 ) );
 		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
 		board.playStone( Board.Point.BlackStone, new Coord( 2, 2 ) );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 0, 1 ), false );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 1, 2 ), true );
-		assertEquals( true, rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ) ) );
+		boardAnalyzer.isStringAliveReturnDefault = true;
+		boardAnalyzer.stringIsDead.add( new Coord( 0, 1 ) );
+		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
 	}
 
 	@Test
@@ -89,9 +87,9 @@ public class _GoRulesTests {
 		board.playStone( Board.Point.BlackStone, new Coord( 0, 2 ) );
 		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
 		board.playStone( Board.Point.BlackStone, new Coord( 2, 2 ) );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 1, 0 ), false );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 1, 2 ), true );
-		assertEquals( true, rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ) ) );
+		boardAnalyzer.isStringAliveReturnDefault = true;
+		boardAnalyzer.stringIsDead.add( new Coord( 1, 0 ) );
+		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
 	}
 
 	@Test
@@ -107,12 +105,63 @@ public class _GoRulesTests {
 		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
 		board.playStone( Board.Point.WhiteStone, new Coord( 2, 2 ) );
 		board.playStone( Board.Point.WhiteStone, new Coord( 1, 3 ) );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 1, 0 ), true );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 0, 1 ), true );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 2, 1 ), true );
-		boardAnalyzer.isStringAliveReturn.put( new Coord( 1, 2 ), false );
-		assertEquals( true, rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ) ) );
+		boardAnalyzer.isStringAliveReturnDefault = true;
+		boardAnalyzer.stringIsDead.add( new Coord( 1, 2 ) );
+		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
 	}
 
-//	public void TakingAKoIsLegal() {
+	@Test
+	public void ImmediatelyTakingAKoIsIllegal() {
+		// .bw..
+		// b*bw.
+		// .bw..
+		// .....
+		board.playStone( Board.Point.BlackStone, new Coord( 1, 0 ) );
+		board.playStone( Board.Point.WhiteStone, new Coord( 2, 0 ) );
+		board.playStone( Board.Point.BlackStone, new Coord( 0, 1 ) );
+		board.playStone( Board.Point.BlackStone, new Coord( 2, 1 ) );
+		board.playStone( Board.Point.WhiteStone, new Coord( 3, 1 ) );
+		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
+		board.playStone( Board.Point.WhiteStone, new Coord( 2, 2 ) );
+		boardAnalyzer.isStringAliveReturnDefault = true;
+		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
+		boardAnalyzer.stringIsDead.add( new Coord( 1, 1 ) );
+
+		_TestableBoard tb1 = new _TestableBoard( 19 );
+		tb1.equalsReturn = true;
+		_TestableBoard tb2 = new _TestableBoard( 19 );
+		GameHistory history = new GameHistory();
+		history.add( tb1 );
+		history.add( tb2 );
+
+		assertFalse( "taking a ko immediately is illegal", 
+				rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, history ) );
+	}
+
+	@Test
+	public void TakingAKoAfterADifferentMoveIsLegal() {
+		// .bw..
+		// b*bw.
+		// .bw..
+		// .....
+		board.playStone( Board.Point.BlackStone, new Coord( 1, 0 ) );
+		board.playStone( Board.Point.WhiteStone, new Coord( 2, 0 ) );
+		board.playStone( Board.Point.BlackStone, new Coord( 0, 1 ) );
+		board.playStone( Board.Point.BlackStone, new Coord( 2, 1 ) );
+		board.playStone( Board.Point.WhiteStone, new Coord( 3, 1 ) );
+		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
+		board.playStone( Board.Point.WhiteStone, new Coord( 2, 2 ) );
+		boardAnalyzer.isStringAliveReturnDefault = true;
+		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
+		boardAnalyzer.stringIsDead.add( new Coord( 1, 1 ) );
+
+		_TestableBoard tb1 = new _TestableBoard( 19 );
+		_TestableBoard tb2 = new _TestableBoard( 19 );
+		GameHistory history = new GameHistory();
+		history.add( tb1 );
+		history.add( tb2 );
+
+		assertTrue( "taking a Ko after a different move is legal",
+				rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, history ) );
+	}
 }

@@ -6,50 +6,60 @@ public class GoRules implements Rules {
 
 	private Board board;
 	private BoardAnalyzer boardAnalyzer;
+	private Move move;
+	private GameHistory history;
+	private Point moveStoneColour;
 
-	public GoRules(Board board, BoardAnalyzer boardAnalyzer) {
-		this.board = board;
+	public GoRules(BoardAnalyzer boardAnalyzer) {
 		this.boardAnalyzer = boardAnalyzer;
 	}
 
 	@Override
-	public boolean isLegal(Move m) {
-		return isEmptyBoardPoint(m.coord()) && ( isNotSuicide(m) || capturesEnemies(m) );
+	public boolean isLegal(Move m, Board b, GameHistory history) {
+		this.board = b;
+		this.move = m;
+		this.moveStoneColour = Move.toStone(move.colour());
+		this.history = history;
+		return isEmptyBoardPoint() && ( isNotSuicide() || ( capturesEnemies() && isNotIllegalKo() ) );
 	}
 
-	private boolean isEmptyBoardPoint(Coord c) {
-		return board.getContentsOfPoint( c ) == Board.Point.Empty;
+	private boolean isNotIllegalKo() {
+		if( boardAvailableForTwoMovesAgo() && history.lastButOneBoard().equals( makeBoardWithMovePlayed() ) )
+				return false;
+		return true;
 	}
 
-	private boolean isNotSuicide(Move m) {
-		Board.Point colour = moveColourToBoardPoint(m);
-		return boardAnalyzer.isStringAlive( makeBoardWithMovePlayed(m, colour), m.coord() );
+	private boolean boardAvailableForTwoMovesAgo() {
+		return history != null && history.lastButOneBoard() != null;
 	}
 
-	private Board.Point moveColourToBoardPoint(Move m) {
-		return m.colour() == Move.Colour.Black ? Board.Point.BlackStone : Board.Point.WhiteStone;
+	private boolean isEmptyBoardPoint() {
+		return board.getContentsOfPoint( move.coord() ) == Board.Point.Empty;
 	}
 
-	private Board makeBoardWithMovePlayed(Move m, Board.Point colour) {
+	private boolean isNotSuicide() {
+		return boardAnalyzer.isStringAlive( makeBoardWithMovePlayed(), move.coord() );
+	}
+
+	private Board makeBoardWithMovePlayed() {
 		Board testBoard = board.duplicate();
-		testBoard.playStone( colour, m.coord() );
+		testBoard.playStone( moveStoneColour, move.coord() );
 		return testBoard;
 	}
 
-	private boolean capturesEnemies(Move m) {
-		Board.Point colour = moveColourToBoardPoint(m);
-		return areAnyAdjacentStringsDead( makeBoardWithMovePlayed(m, colour), m.coord(), enemyBoardPoint(colour) );
+	private boolean capturesEnemies() {
+		return areAnyAdjacentStringsDead( makeBoardWithMovePlayed(), enemyBoardPoint() );
 	}
 
-	private Board.Point enemyBoardPoint(Board.Point colour) {
-		return colour == Board.Point.BlackStone ? Board.Point.WhiteStone : Board.Point.BlackStone;
+	private Board.Point enemyBoardPoint() {
+		return moveStoneColour == Board.Point.BlackStone ? Board.Point.WhiteStone : Board.Point.BlackStone;
 	}
 
-	private boolean areAnyAdjacentStringsDead(Board board, Coord coord, Point enemyColour) {
-		return isDeadStringOfColour(board, coord.up(), enemyColour) ||
-			isDeadStringOfColour(board, coord.down(), enemyColour) ||
-			isDeadStringOfColour(board, coord.right(), enemyColour) ||
-			isDeadStringOfColour(board, coord.left(), enemyColour);
+	private boolean areAnyAdjacentStringsDead(Board board, Point enemyColour) {
+		return isDeadStringOfColour(board, move.coord().up(), enemyColour) ||
+			isDeadStringOfColour(board, move.coord().down(), enemyColour) ||
+			isDeadStringOfColour(board, move.coord().right(), enemyColour) ||
+			isDeadStringOfColour(board, move.coord().left(), enemyColour);
 	}
 
 	private boolean isDeadStringOfColour(Board board, Coord coord, Point enemyColour) {
@@ -61,5 +71,4 @@ public class GoRules implements Rules {
 	public boolean isLegalMoveAvailable() {
 		return false;
 	}
-
 }

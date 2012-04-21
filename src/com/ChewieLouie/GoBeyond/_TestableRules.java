@@ -9,7 +9,7 @@ public class _TestableRules implements Rules {
 	public boolean isLegalMoveAvailableReturnValue = true;
 
 	@Override
-	public boolean isLegal( Move m ) {
+	public boolean isLegal( Move m, Board b, GameHistory history ) {
 		isLegalCalled = true;
 		isLegalCalledWithMove = m;
 		return isLegalReturnValue;

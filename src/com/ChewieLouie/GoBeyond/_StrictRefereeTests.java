@@ -15,7 +15,7 @@ public class _StrictRefereeTests {
 	@Before
 	public void SetUp() {
 		rules = new _TestableRules();
-		board = new _TestableBoard();
+		board = new _TestableBoard( 19 );
 		gameEndDetector = new _TestableGameEndDetector();
 		referee = new StrictReferee( rules, board, gameEndDetector );
 	}

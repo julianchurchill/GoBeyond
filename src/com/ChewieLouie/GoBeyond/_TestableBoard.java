@@ -6,8 +6,15 @@ public class _TestableBoard implements Board {
 	public Point playStonePoint;
 	public int playStoneX = 0;
 	public int playStoneY = 0;
+	public boolean equalsReturn = false;
 
-	@Override
+	public _TestableBoard(int size) {
+	}
+
+	public boolean equals(Object obj) {
+		return equalsReturn;
+	}
+
 	public void playStone(Point p, Coord c) {
 		playStoneCalled = true;
 		playStonePoint = p;
@@ -16,11 +23,12 @@ public class _TestableBoard implements Board {
 	}
 
 	@Override
-	public void removeStone(Coord c) {
-	}
-
 	public Point getContentsOfPoint(Coord c) {
 		return null;
+	}
+
+	@Override
+	public void removeStone(Coord c) {
 	}
 
 	@Override

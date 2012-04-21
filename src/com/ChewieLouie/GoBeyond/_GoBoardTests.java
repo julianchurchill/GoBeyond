@@ -15,6 +15,24 @@ public class _GoBoardTests {
 	}
 	
 	@Test
+	public void BoardIsValueObject() {
+		GoBoard board1 = new GoBoard( 4 );
+		board1.playStone(Board.Point.BlackStone, new Coord( 1, 1 ) );
+		board1.playStone(Board.Point.WhiteStone, new Coord( 3, 2 ) );
+		GoBoard board2 = new GoBoard( 4 );
+		board2.playStone(Board.Point.BlackStone, new Coord( 1, 1 ) );
+		board2.playStone(Board.Point.WhiteStone, new Coord( 3, 2 ) );
+		GoBoard board3 = new GoBoard( 4 );
+		board3.playStone(Board.Point.BlackStone, new Coord( 0, 2 ) );
+		board3.playStone(Board.Point.WhiteStone, new Coord( 1, 2 ) );
+
+		assertTrue( "same boards are equal to each other", board1.equals( board2 ) );
+		assertFalse( "different boards are not equal to each other", board1.equals( board3 ) );
+		assertTrue( "same boards have the same hash code", board1.hashCode() == board2.hashCode() );
+		assertFalse( "different boards have different hash codes", board1.hashCode() == board3.hashCode() );
+	}
+
+	@Test
 	public void CanDuplicate() {
 		b.playStone( Board.Point.BlackStone, new Coord( 14, 7 ) );
 		b.playStone( Board.Point.WhiteStone, new Coord( 5, 9 ) );

@@ -1,9 +1,36 @@
 package com.ChewieLouie.GoBeyond;
 
+import java.util.Arrays;
+
 public class GoBoard implements Board {
 
-	private int size = 19;
-	private Point[][] contents;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.deepHashCode(contents);
+		result = prime * result + size;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GoBoard other = (GoBoard) obj;
+		if (!Arrays.deepEquals(contents, other.contents))
+			return false;
+		if (size != other.size)
+			return false;
+		return true;
+	}
+
+	protected int size = 19;
+	protected Point[][] contents;
 
 	public GoBoard(int size) {
 		this.size = size;

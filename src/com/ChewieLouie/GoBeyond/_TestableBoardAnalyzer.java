@@ -1,19 +1,20 @@
 package com.ChewieLouie.GoBeyond;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 public class _TestableBoardAnalyzer implements BoardAnalyzer {
 
 	public boolean isStringAliveCalled = false;
-	public Map<Coord, Boolean> isStringAliveReturn = new HashMap<Coord, Boolean>();
+	public boolean isStringAliveReturnDefault = false;
+	public Set<Coord> stringIsDead = new HashSet<Coord>();
 
 	@Override
 	public boolean isStringAlive(Board b, Coord c) {
 		isStringAliveCalled  = true;
-		if( isStringAliveReturn.containsKey(c) )
-			return (Boolean) isStringAliveReturn.get(c);
-		return false;
+		if( stringIsDead.contains(c) )
+			return false;
+		return isStringAliveReturnDefault;
 	}
 
 }

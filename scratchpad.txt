@@ -1,7 +1,8 @@
-
+  
 Rules
   - isLegal()
-    = Ko, super-ko / chinese, japanese
+    - tidy up compound if
+    = super-ko / chinese, japanese
   - isLegalMoveAvailable()
 
 Packaging - Util (Move, Coord, Board), Engine {Game, Referee, Player, Rules}  ?

@@ -13,7 +13,7 @@ public class _GoBoardAnalyzerTests {
 	@Before
 	public void SetUp() {
 		board = new GoBoard( 19 );
-		analyzer = new GoBoardAnalyzer(board);
+		analyzer = new GoBoardAnalyzer();
 	}
 
 	@Test

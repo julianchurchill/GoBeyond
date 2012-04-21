@@ -9,12 +9,12 @@ public class GoBoardAnalyzer implements BoardAnalyzer {
 
 	private Board board;
 
-	public GoBoardAnalyzer(Board board) {
-		this.board = board;
+	public GoBoardAnalyzer() {
 	}
 
 	@Override
 	public boolean isStringAlive(Board b, Coord c ) {
+		this.board = b;
 		Set<Coord> visitedPoints = new HashSet<Coord>();
 		Point colour = board.getContentsOfPoint(c);
 		return stringHasLibertiesRecursive(c, colour, visitedPoints);
