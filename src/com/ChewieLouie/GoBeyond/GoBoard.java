@@ -29,20 +29,40 @@ public class GoBoard implements Board {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		String str = new String();
+		for( int y = 0; y < size; ++y ) {
+			for( int x = 0; x < size; ++x )
+				str += pointToString( contents[x][y] );
+			str += "\n";
+		}
+		return str;
+	}
+
+	private String pointToString(Point point) {
+		if( point == Point.BlackStone )
+			return "b";
+		else if( point == Point.WhiteStone )
+			return "w";
+		return ".";
+	}
+
 	protected int size = 19;
 	protected Point[][] contents;
 
 	public GoBoard(int size) {
 		this.size = size;
 		this.contents = new Point[size][size];
+		for( int y = 0; y < size; ++y )
+			for( int x = 0; x < size; ++x )
+				contents[x][y] = Point.Empty;
 	}
 
 	@Override
 	public Point getContentsOfPoint(Coord c) {
 		if( c.x() < 0 || c.y() < 0 || c.x() >= size || c.y() >= size )
 			return Board.Point.OffBoard;
-		if( contents[c.x()][c.y()] == null )
-			contents[c.x()][c.y()] = Point.Empty;
 		return contents[c.x()][c.y()];
 	}
 
@@ -53,7 +73,7 @@ public class GoBoard implements Board {
 
 	@Override
 	public void removeStone(Coord c) {
-		contents[c.x()][c.y()] = null;
+		contents[c.x()][c.y()] = Point.Empty;
 	}
 
 	@Override
@@ -63,5 +83,23 @@ public class GoBoard implements Board {
 			for( int y = 0; y < size; ++y )
 				b.playStone( contents[x][y], new Coord( x, y ) );
 		return b;
+	}
+
+	public static GoBoard makeBoard(String string) {
+		int size = (int) Math.sqrt( string.length() );
+		GoBoard b = new GoBoard( size );
+		int i = 0;
+		for( int y = 0; y < size; ++y )
+			for( int x = 0; x < size; ++x )
+				b.playStone( charToPoint( string.charAt( i++ ) ), new Coord( x, y ) );
+		return b;
+	}
+
+	private static Point charToPoint(char c) {
+		if( c == 'b' )
+			return Board.Point.BlackStone;
+		else if( c == 'w' )
+			return Board.Point.WhiteStone;
+		return Board.Point.Empty;
 	}
 }

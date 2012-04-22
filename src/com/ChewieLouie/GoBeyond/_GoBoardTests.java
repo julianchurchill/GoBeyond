@@ -30,6 +30,7 @@ public class _GoBoardTests {
 		assertFalse( "different boards are not equal to each other", board1.equals( board3 ) );
 		assertTrue( "same boards have the same hash code", board1.hashCode() == board2.hashCode() );
 		assertFalse( "different boards have different hash codes", board1.hashCode() == board3.hashCode() );
+		assertEquals( "to string", "....\n.b..\n...w\n....\n", board1.toString() );
 	}
 
 	@Test
@@ -71,5 +72,21 @@ public class _GoBoardTests {
 		assertEquals( Board.Point.OffBoard, b.getContentsOfPoint( new Coord( 0, 19 ) ) );
 		assertEquals( Board.Point.OffBoard, b.getContentsOfPoint( new Coord( 19, 0 ) ) );
 		assertEquals( Board.Point.OffBoard, b.getContentsOfPoint( new Coord( 19, 19 ) ) );
+	}
+
+	@Test
+	public void CanCreateGoBoardsFromText() {
+		Board newBoard = GoBoard.makeBoard( "wbw" + 
+			    							"b.b" +
+			    							"wbw" );
+		assertEquals( Board.Point.WhiteStone, newBoard.getContentsOfPoint( new Coord( 0, 0 ) ) );
+		assertEquals( Board.Point.BlackStone, newBoard.getContentsOfPoint( new Coord( 1, 0 ) ) );
+		assertEquals( Board.Point.WhiteStone, newBoard.getContentsOfPoint( new Coord( 2, 0 ) ) );
+		assertEquals( Board.Point.BlackStone, newBoard.getContentsOfPoint( new Coord( 0, 1 ) ) );
+		assertEquals( Board.Point.Empty, newBoard.getContentsOfPoint( new Coord( 1, 1 ) ) );
+		assertEquals( Board.Point.BlackStone, newBoard.getContentsOfPoint( new Coord( 2, 1 ) ) );
+		assertEquals( Board.Point.WhiteStone, newBoard.getContentsOfPoint( new Coord( 0, 2 ) ) );
+		assertEquals( Board.Point.BlackStone, newBoard.getContentsOfPoint( new Coord( 1, 2 ) ) );
+		assertEquals( Board.Point.WhiteStone, newBoard.getContentsOfPoint( new Coord( 2, 2 ) ) );
 	}
 }
