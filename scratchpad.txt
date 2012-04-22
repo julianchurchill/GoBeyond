@@ -1,4 +1,8 @@
   
+Expand GameHistory to take a Move with each Board added
+GameEndDetector should be absorbed into GoRules and uses GameHistory to detect two passes.
+StrictReferee should keep a GameHistory and pass to GoRules.isLegal() and GoRules.endDetected()
+
 Rules
   - isLegal()
     - tidy up compound if

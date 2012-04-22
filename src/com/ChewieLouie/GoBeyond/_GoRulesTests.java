@@ -131,8 +131,8 @@ public class _GoRulesTests {
 		tb1.equalsReturn = true;
 		_TestableBoard tb2 = new _TestableBoard( 19 );
 		GameHistory history = new GameHistory();
-		history.add( tb1 );
-		history.add( tb2 );
+		history.add( tb1, null );
+		history.add( tb2, null );
 
 		assertFalse( "taking a ko immediately is illegal", 
 				rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, history ) );
@@ -158,10 +158,18 @@ public class _GoRulesTests {
 		_TestableBoard tb1 = new _TestableBoard( 19 );
 		_TestableBoard tb2 = new _TestableBoard( 19 );
 		GameHistory history = new GameHistory();
-		history.add( tb1 );
-		history.add( tb2 );
+		history.add( tb1, null );
+		history.add( tb2, null );
 
 		assertTrue( "taking a Ko after a different move is legal",
 				rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, history ) );
 	}
+
+//	@Test
+//	public void endIsNotDetectedBeforeMaxMovesReached() {
+//		for( int i = 0; i < 10; ++i ) {
+//			assertEquals( false, rules.endDetected( gameHistory ) );
+//			gameHistory.add( null, new Move( new Coord( 0, 0 ), Move.Colour.Black ) );
+//		}
+//	}
 }
