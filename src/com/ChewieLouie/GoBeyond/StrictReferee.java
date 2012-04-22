@@ -4,25 +4,24 @@ public class StrictReferee implements Referee {
 
 	private Rules rules;
 	private Board board;
-	private GameEndDetector gameEndDetector;
+	private GameHistory history = new GameHistory();
 
-	public StrictReferee(Rules rules, Board board, GameEndDetector gameEndDetector) {
+	public StrictReferee(Rules rules, Board board ) {
 		this.rules = rules;
 		this.board = board;
-		this.gameEndDetector = gameEndDetector;
 	}
 
 	@Override
 	public MoveStatus submitMove( Move m ) {
-		if( rules.isLegal( m, board, null ) == false )
+		if( rules.isLegal( m, board, history ) == false )
 			return MoveStatus.IllegalMove;
 		board.playStone( Move.toStone( m.colour() ), m.coord() );
-		gameEndDetector.movePlayed( m );
+		history.add( board.duplicate(), m );
 		return MoveStatus.LegalMove;
 	}
 	
 	@Override
 	public boolean endDetected() {
-		return gameEndDetector.endDetected();
+		return rules.endDetected( history );
 	}
 }

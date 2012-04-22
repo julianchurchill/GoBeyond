@@ -8,7 +8,7 @@ import org.junit.Test;
 public class _GoRulesTests {
 
 	private GoBoard board;
-	private GoRules rules;
+	private Rules rules;
 	private _TestableBoardAnalyzer boardAnalyzer;
 
 	@Before
@@ -165,11 +165,33 @@ public class _GoRulesTests {
 				rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, history ) );
 	}
 
-//	@Test
-//	public void endIsNotDetectedBeforeMaxMovesReached() {
-//		for( int i = 0; i < 10; ++i ) {
-//			assertEquals( false, rules.endDetected( gameHistory ) );
-//			gameHistory.add( null, new Move( new Coord( 0, 0 ), Move.Colour.Black ) );
-//		}
-//	}
+	@Test
+	public void endIsNotDetectedIfLastTwoMovesAreNotPasses() {
+		GameHistory history = new GameHistory();
+		history.add( null, new Move( new Coord( 1, 1 ), Move.Colour.Black ) );
+		history.add( null, new Move( new Coord( 1, 1 ), Move.Colour.White ) );
+		
+		assertEquals( "no passes does not end the game", false, rules.endDetected( history ) );
+	}
+
+	@Test
+	public void endIsNotDetectedIfEitherLastTwoMovesAreNotPasses() {
+		GameHistory history = new GameHistory();
+		history.add( null, new Move( new Coord( 1, 1 ), Move.Colour.White ) );
+		history.add( null, Move.passMove( Move.Colour.Black ) );
+		assertEquals( "move then pass does not end the game", false, rules.endDetected( history ) );
+
+		history.add( null, Move.passMove( Move.Colour.Black ) );
+		history.add( null, new Move( new Coord( 1, 1 ), Move.Colour.White ) );
+		assertEquals( "pass the move does not end the game", false, rules.endDetected( history ) );
+	}
+	
+	@Test
+	public void endIsDetectedIfLastTwoMovesArePasses() {
+		GameHistory history = new GameHistory();
+		history.add( null, Move.passMove( Move.Colour.Black ) );
+		history.add( null, Move.passMove( Move.Colour.White ) );
+		
+		assertEquals( "two passes ends the game", true, rules.endDetected( history ) );
+	}
 }

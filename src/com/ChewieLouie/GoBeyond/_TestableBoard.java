@@ -7,6 +7,7 @@ public class _TestableBoard implements Board {
 	public int playStoneX = 0;
 	public int playStoneY = 0;
 	public boolean equalsReturn = false;
+	public Board duplicateReturn = null;
 
 	public _TestableBoard(int size) {
 	}
@@ -33,6 +34,6 @@ public class _TestableBoard implements Board {
 
 	@Override
 	public Board duplicate() {
-		return null;
+		return duplicateReturn;
 	}
 }

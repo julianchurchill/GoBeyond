@@ -68,7 +68,8 @@ public class GoRules implements Rules {
 	}
 
 	@Override
-	public boolean isLegalMoveAvailable() {
-		return false;
+	public boolean endDetected(GameHistory history) {
+		return history.lastMove().equals(Move.passMove(history.lastMove().colour())) &&
+			history.lastButOneMove().equals(Move.passMove(history.lastButOneMove().colour()));
 	}
 }

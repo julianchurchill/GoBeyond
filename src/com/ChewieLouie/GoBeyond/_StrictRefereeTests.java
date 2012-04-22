@@ -10,21 +10,36 @@ public class _StrictRefereeTests {
 	private _TestableRules rules;
 	private _TestableBoard board;
 	private Referee referee;
-	private _TestableGameEndDetector gameEndDetector;
 
 	@Before
 	public void SetUp() {
 		rules = new _TestableRules();
 		board = new _TestableBoard( 19 );
-		gameEndDetector = new _TestableGameEndDetector();
-		referee = new StrictReferee( rules, board, gameEndDetector );
+		referee = new StrictReferee( rules, board );
 	}
 	
 	@Test
 	public void RefereeChecksWithRulesWhetherMoveIsLegal() {
-		referee.submitMove( new Move( new Coord( 1, 1 ), null ) );
-		assertEquals( true, rules.isLegalCalled );
-		assertEquals( new Move( new Coord( 1, 1 ), null ), rules.isLegalCalledWithMove );
+		rules.isLegalReturnValue = false;
+		Move m = new Move( new Coord( 1, 1 ), null );
+		referee.submitMove( m );
+
+		assertTrue( "rules.isLegal() is called", rules.isLegalCalled );
+		assertEquals( "move is passed to rules", m, rules.isLegalCalledWithMove );
+	}
+	
+	@Test
+	public void UpdateGameHistoryIsPassedToRulesWhenMoveIsCheckedForLegalality() {
+		board.duplicateReturn = new GoBoard(5);
+		Move m = new Move( new Coord( 1, 1 ), null );
+		GameHistory history = new GameHistory();
+		history.add( board.duplicate(), m );
+
+		referee.submitMove( m );
+		rules.isLegalReturnValue = false;
+		referee.submitMove( new Move( new Coord( 2, 3 ), null ) );
+
+		assertEquals( "updated history is passed to rules", history, rules.isLegalHistory );
 	}
 
 	@Test
@@ -55,13 +70,26 @@ public class _StrictRefereeTests {
 	}
 
 	@Test
-	public void UsesGameEndDetector() {
-		assertEquals( 0, gameEndDetector.endDetectedCalledCount );
+	public void UsesRulesToDetermineIfGameHasEnded() {
+		assertEquals( "rules.endDetected() is not called on creation", 0, rules.endDetectedCalledCount );
 		referee.endDetected();
-		assertEquals( 1, gameEndDetector.endDetectedCalledCount );
-		gameEndDetector.endDetectedReturnValue = true;
-		assertEquals( true, referee.endDetected() );
-		gameEndDetector.endDetectedReturnValue = false;
-		assertEquals( false, referee.endDetected() );
+		assertEquals( "calling endDetected() calls rules", 1, rules.endDetectedCalledCount );
+		rules.endDetectedReturnValue = true;
+		assertEquals( "referee returns value given by rules - true", true, referee.endDetected() );
+		rules.endDetectedReturnValue = false;
+		assertEquals( "referee returns value given by rules - false", false, referee.endDetected() );
+	}
+	
+	@Test
+	public void UpdateGameHistoryIsPassedToRulesWhenGameEndIsBeingChecked() {
+		board.duplicateReturn = new GoBoard(5);
+		Move m = new Move( new Coord( 1, 1 ), null );
+		GameHistory history = new GameHistory();
+		history.add( board.duplicate(), m );
+
+		referee.submitMove( m );
+		referee.endDetected();
+	
+		assertEquals( "updated history is passed to rules", history, rules.endDetectedHistory );
 	}
 }

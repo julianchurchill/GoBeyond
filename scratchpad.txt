@@ -1,20 +1,15 @@
-  
-Expand GameHistory to take a Move with each Board added
-GameEndDetector should be absorbed into GoRules and uses GameHistory to detect two passes.
-StrictReferee should keep a GameHistory and pass to GoRules.isLegal() and GoRules.endDetected()
 
 Rules
   - isLegal()
-    - tidy up compound if
+    - tidy up compound if - factor out a new class which contains the board, move and history?
     = super-ko / chinese, japanese
-  - isLegalMoveAvailable()
 
 Packaging - Util (Move, Coord, Board), Engine {Game, Referee, Player, Rules}  ?
 
 StrictReferee
-  - Referee should check the submitted move is for the current player
-    - Toggle expected player
   - Referee should remove captured stones after player moves
+  - Referee should check the submitted move is for the current player?
+    - Toggle expected player
 
 Strategy
   = Random strategy
@@ -27,8 +22,7 @@ Game
   
 Time
   - Where does this belong?
-    - Referee to reject moves if the player takes too long?
-    - Game end detector to signal game end if time ran out for one player?
+    - Referee/timekeeper to signal game end/change player if time ran out for one player?
 
 GTP
   - KGS, NNGS, Computer Go server
