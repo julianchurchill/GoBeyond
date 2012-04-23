@@ -7,12 +7,12 @@ public class StrictReferee implements Referee {
 	private Rules rules;
 	private Board board;
 	private GameHistory history = new GameHistory();
-	private BoardAnalyzer boardAnalyzer;
+	private StringLifeAnalyzer boardAnalyzer;
 
 	public StrictReferee(Rules rules, Board board ) {
 		this.rules = rules;
 		this.board = board;
-		this.boardAnalyzer = new GoBoardAnalyzer();
+		this.boardAnalyzer = new GoStringLifeAnalyzer();
 	}
 
 	@Override

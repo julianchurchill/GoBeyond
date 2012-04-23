@@ -9,9 +9,9 @@ public class GoRules implements Rules {
 		private Move move;
 		private GameHistory history;
 		private Point moveStoneColour;
-		private BoardAnalyzer boardAnalyzer;
+		private StringLifeAnalyzer boardAnalyzer;
 
-		public LegalityChecker( Move m, Board b, GameHistory h, BoardAnalyzer a ) {
+		public LegalityChecker( Move m, Board b, GameHistory h, StringLifeAnalyzer a ) {
 			this.move = m;
 			this.board = b;
 			this.history = h;
@@ -68,9 +68,9 @@ public class GoRules implements Rules {
 		}
 	}
 
-	private BoardAnalyzer boardAnalyzer;
+	private StringLifeAnalyzer boardAnalyzer;
 
-	public GoRules(BoardAnalyzer boardAnalyzer) {
+	public GoRules(StringLifeAnalyzer boardAnalyzer) {
 		this.boardAnalyzer = boardAnalyzer;
 	}
 

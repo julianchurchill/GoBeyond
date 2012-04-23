@@ -8,12 +8,12 @@ import org.junit.Test;
 public class _GoBoardAnalyzerTests {
 
 	private Board board;
-	private BoardAnalyzer analyzer;
+	private StringLifeAnalyzer analyzer;
 
 	@Before
 	public void SetUp() {
 		board = new GoBoard( 19 );
-		analyzer = new GoBoardAnalyzer();
+		analyzer = new GoStringLifeAnalyzer();
 	}
 
 	@Test

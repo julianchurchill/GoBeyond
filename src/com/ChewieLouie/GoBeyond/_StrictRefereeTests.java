@@ -94,41 +94,41 @@ public class _StrictRefereeTests {
 		assertEquals( "updated history is passed to rules", history, rules.endDetectedHistory );
 	}
 	
-	@Test
-	public void ShouldRemoveSingleStoneDeadStringsAfterMovePlayedOnBoard() {
-		// wbw
-		// b*b
-		// wbw
-		GoBoard newBoard = GoBoard.makeBoard( "wbw" + 
-										      "b.b" +
-										      "wbw" );				
-		referee = new StrictReferee(rules, newBoard);
-		referee.submitMove( new Move( new Coord( 1, 1 ), Move.Colour.White ) );
-
-		GoBoard expectedBoard = GoBoard.makeBoard( "w.w" + 
-												   ".w." +
-			    								   "w.w" );
-		assertEquals( "single stone dead strings are removed and live ones remain", expectedBoard, newBoard );
-	}
-
-	@Ignore
-	@Test
-	public void ShouldRemoveMultiStoneDeadStringsAfterMovePlayedOnBoard() {
-		// wbw.
-		// b*bw
-		// wbw.
-		// wbw.
-		GoBoard newBoard = GoBoard.makeBoard( "wbw." + 
-										      "b.bw" +
-										      "wbw." +				
-										      "wbw." );				
-		referee = new StrictReferee(rules, newBoard);
-		referee.submitMove( new Move( new Coord( 1, 1 ), Move.Colour.White ) );
-
-		GoBoard expectedBoard = GoBoard.makeBoard( "w.w." + 
-												   ".w.w" +
-												   "w.w." +
-			    								   "w.w." );
-		assertEquals( "multi stone dead strings are removed and live ones remain", expectedBoard, newBoard );
-	}
+//	@Test
+//	public void ShouldRemoveSingleStoneDeadStringsAfterMovePlayedOnBoard() {
+//		// wbw
+//		// b*b
+//		// wbw
+//		GoBoard newBoard = GoBoard.makeBoard( "wbw" + 
+//										      "b.b" +
+//										      "wbw" );				
+//		referee = new StrictReferee(rules, newBoard);
+//		referee.submitMove( new Move( new Coord( 1, 1 ), Move.Colour.White ) );
+//
+//		GoBoard expectedBoard = GoBoard.makeBoard( "w.w" + 
+//												   ".w." +
+//			    								   "w.w" );
+//		assertEquals( "single stone dead strings are removed and live ones remain", expectedBoard, newBoard );
+//	}
+//
+//	#error move this test to new RemovedDeadStringsBoard
+//	@Test
+//	public void ShouldRemoveMultiStoneDeadStringsAfterMovePlayedOnBoard() {
+//		// wbw.
+//		// b*bw
+//		// wbw.
+//		// wbw.
+//		GoBoard newBoard = GoBoard.makeBoard( "wbw." + 
+//										      "b.bw" +
+//										      "wbw." +				
+//										      "wbw." );				
+//		referee = new StrictReferee(rules, newBoard);
+//		referee.submitMove( new Move( new Coord( 1, 1 ), Move.Colour.White ) );
+//
+//		GoBoard expectedBoard = GoBoard.makeBoard( "w.w." + 
+//												   ".w.w" +
+//												   "w.w." +
+//			    								   "w.w." );
+//		assertEquals( "multi stone dead strings are removed and live ones remain", expectedBoard, newBoard );
+//	}
 }

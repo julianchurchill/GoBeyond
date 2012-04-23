@@ -5,11 +5,11 @@ import java.util.Set;
 
 import com.ChewieLouie.GoBeyond.Board.Point;
 
-public class GoBoardAnalyzer implements BoardAnalyzer {
+public class GoStringLifeAnalyzer implements StringLifeAnalyzer {
 
 	private Board board;
 
-	public GoBoardAnalyzer() {
+	public GoStringLifeAnalyzer() {
 	}
 
 	@Override

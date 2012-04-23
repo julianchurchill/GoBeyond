@@ -1,9 +1,13 @@
 
-StrictReferee
-  - Referee should remove captured stones after player moves
+BoardAnalyzer rename to StringLifeAnalyzer
+New class decorator for Board - RemovedDeadStringsBoard
+  - Uses StringLifeAnalyzer
+Add new method to StringLifeAnalyzer - stonesOfString( Coord ) for RemovedDeadStringsBoard to use 
+StrictReferee should wrap it's given Board with RemovedDeadStringsBoard
+  - Use the RemovedDeadStringsBoard to play successfully submitted moves on
 
 Strategy
-  = Random strategy or as decorator to Player class? 
+  - Random strategy or as decorator to Player class? 
 
 UI
   - Basic text UI
