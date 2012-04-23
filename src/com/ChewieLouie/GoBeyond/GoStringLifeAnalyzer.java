@@ -1,7 +1,6 @@
 package com.ChewieLouie.GoBeyond;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.ChewieLouie.GoBeyond.Board.Point;
@@ -50,8 +49,22 @@ public class GoStringLifeAnalyzer implements StringLifeAnalyzer {
 	}
 
 	@Override
-	public List<Coord> stonesOfString(Coord c) {
-		return null;
+	public StringOfStones stonesOfString(Coord c, Board b) {
+		Point colour = b.getContentsOfPoint(c);
+		StringOfStones stones = new StringOfStones();
+		if( colour == Point.BlackStone || colour == Point.WhiteStone )
+			findConnectedStones( c, colour, b, stones );
+		return stones;
+	}
+
+	private void findConnectedStones(Coord c, Point colour, Board b, StringOfStones stones) {
+		if( b.getContentsOfPoint(c) != colour || stones.find( c ) )
+			return;
+		stones.add(c);
+		findConnectedStones( c.up(), colour, b, stones );
+		findConnectedStones( c.down(), colour, b, stones );
+		findConnectedStones( c.left(), colour, b, stones );
+		findConnectedStones( c.right(), colour, b, stones );
 	}
 
 }

@@ -12,7 +12,7 @@ public class _TestableStringLifeAnalyzer implements StringLifeAnalyzer {
 	public Set<Coord> stringIsDead = new HashSet<Coord>();
 	public List<Coord> isStringAliveCoordAll = new ArrayList<Coord>();
 	public boolean stonesOfStringCalled = false;
-	public List<Coord> stonesOfStringReturn = new ArrayList<Coord>();
+	public StringOfStones stonesOfStringReturn = new StringOfStones();
 	public List<Coord> stonesOfStringCoordAll = new ArrayList<Coord>();
 
 	@Override
@@ -25,7 +25,7 @@ public class _TestableStringLifeAnalyzer implements StringLifeAnalyzer {
 	}
 
 	@Override
-	public List<Coord> stonesOfString(Coord c) {
+	public StringOfStones stonesOfString(Coord c, Board b) {
 		stonesOfStringCalled = true;
 		stonesOfStringCoordAll.add( c );
 		return stonesOfStringReturn;

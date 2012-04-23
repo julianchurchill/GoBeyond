@@ -1,7 +1,7 @@
 package com.ChewieLouie.GoBeyond;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class RemovedDeadStonesBoard implements Board {
 
@@ -26,17 +26,18 @@ public class RemovedDeadStonesBoard implements Board {
 
 	private void removeDeadStrings(Point p, Coord c) {
 		Point enemyColour = p == Point.BlackStone ? Point.WhiteStone : Point.BlackStone;
-		List<Coord> deadStones = new ArrayList<Coord>();
-		if( isStringDead( c.up(), enemyColour ) )
-			deadStones.addAll( analyzer.stonesOfString( c.up() ) );
-		if( isStringDead( c.down(), enemyColour ) )
-			deadStones.addAll( analyzer.stonesOfString( c.down() ) );
-		if( isStringDead( c.left(), enemyColour ) )
-			deadStones.addAll( analyzer.stonesOfString( c.left() ) );
-		if( isStringDead( c.right(), enemyColour ) )
-			deadStones.addAll( analyzer.stonesOfString( c.right() ) );
+		Set<Coord> deadStones = new HashSet<Coord>();
+		collectDeadStones(c.up(), enemyColour, deadStones);
+		collectDeadStones(c.down(), enemyColour, deadStones);
+		collectDeadStones(c.left(), enemyColour, deadStones);
+		collectDeadStones(c.right(), enemyColour, deadStones);
 		for( Coord stone: deadStones )
 			removeStone( stone );
+	}
+
+	private void collectDeadStones(Coord c, Point enemyColour, Set<Coord> deadStones) {
+		if( isStringDead( c, enemyColour ) )
+			analyzer.stonesOfString( c, board ).addTo(deadStones);
 	}
 
 	private boolean isStringDead(Coord c, Point enemyColour) {

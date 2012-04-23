@@ -7,78 +7,72 @@ import org.junit.Test;
 
 public class _GoStringLifeAnalyzerTests {
 
-	private Board board;
 	private StringLifeAnalyzer analyzer;
 
 	@Before
 	public void SetUp() {
-		board = new GoBoard( 19 );
 		analyzer = new GoStringLifeAnalyzer();
 	}
 
 	@Test
 	public void singleStoneWithOnlyEmptyNeighboursIsAlive() {
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 1 ) );
-		assertEquals( true, analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
+		Board board = GoBoard.makeBoard("..." +
+									    ".b." +
+					  				    "..." );
+		assertTrue( analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
 	}
 
 	@Test
 	public void multiStoneStringWithOnlyEmptyNeighboursIsAlive() {
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 3, 1 ) );
-		assertEquals( true, analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
+		Board board = GoBoard.makeBoard("....." +
+								  ".b..." +
+								  ".b..." +
+								  ".b..." +
+								  "....." );
+		assertTrue( analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
 	}
 
 	@Test
 	public void singleStoneWithNoEmptyNeighboursIsDead() {
-		// .b...
-		// bwb..
-		// .b...
-		// .....
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 0, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
-		assertEquals( false, analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
+		Board board = GoBoard.makeBoard(".b.." +
+				  				  "bwb." +
+				  				  ".b.." +
+								  "...." );
+		assertFalse( analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
 	}
 
 	@Test
 	public void multiStoneStringWithNoEmptyNeighboursIsDead() {
-		// .bbb.
-		// bwwwb
-		// .bbb.
-		// .....
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 3, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 0, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 1, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 3, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 4, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 2 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 3, 2 ) );
-		assertEquals( false, analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
+		Board board = GoBoard.makeBoard(".bbb." +
+								  "bwwwb" +
+								  ".bbb." +
+								  "....." +
+								  "....." );
+		assertFalse( analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
 	}
 
 	@Test
 	public void multiStoneStringWithOneEmptyNeighbourIsAlive() {
-		// .bbb.
-		// bwww.
-		// .bbb.
-		// .....
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 3, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 0, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 1, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 3, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 2 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 3, 2 ) );
-		assertEquals( true, analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
+		Board board = GoBoard.makeBoard(".bbb." +
+								  "bwww." +
+								  ".bbb." +
+								  "....." +
+								  "....." );
+		assertTrue( analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
+	}
+	
+	@Test
+	public void stonesOfStringReturnsAllStonesInAString() {
+		Board board = GoBoard.makeBoard("bb.." +
+									    "b.b." +
+									    "bbw." +
+									    "...." );
+		StringOfStones stones = analyzer.stonesOfString( new Coord( 0, 0 ), board );
+		assertEquals( 5, stones.size() );
+		assertTrue( stones.find( new Coord( 0, 0 ) ) );
+		assertTrue( stones.find( new Coord( 1, 0 ) ) );
+		assertTrue( stones.find( new Coord( 0, 1 ) ) );
+		assertTrue( stones.find( new Coord( 0, 2 ) ) );
+		assertTrue( stones.find( new Coord( 1, 2 ) ) );
 	}
 }
