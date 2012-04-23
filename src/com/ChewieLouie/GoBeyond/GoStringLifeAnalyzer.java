@@ -1,6 +1,7 @@
 package com.ChewieLouie.GoBeyond;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.ChewieLouie.GoBeyond.Board.Point;
@@ -46,6 +47,11 @@ public class GoStringLifeAnalyzer implements StringLifeAnalyzer {
 
 	private boolean isEmptyBoardPoint(Coord c) {
 		return boardPointContains(c, Board.Point.Empty);
+	}
+
+	@Override
+	public List<Coord> stonesOfString(Coord c) {
+		return null;
 	}
 
 }

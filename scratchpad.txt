@@ -1,7 +1,4 @@
 
-BoardAnalyzer rename to StringLifeAnalyzer
-New class decorator for Board - RemovedDeadStringsBoard
-  - Uses StringLifeAnalyzer
 Add new method to StringLifeAnalyzer - stonesOfString( Coord ) for RemovedDeadStringsBoard to use 
 StrictReferee should wrap it's given Board with RemovedDeadStringsBoard
   - Use the RemovedDeadStringsBoard to play successfully submitted moves on

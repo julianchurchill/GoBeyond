@@ -9,12 +9,12 @@ public class _GoRulesTests {
 
 	private GoBoard board;
 	private Rules rules;
-	private _TestableBoardAnalyzer boardAnalyzer;
+	private _TestableStringLifeAnalyzer boardAnalyzer;
 
 	@Before
 	public void SetUp() {
 		board = new GoBoard( 19 );
-		boardAnalyzer = new _TestableBoardAnalyzer();
+		boardAnalyzer = new _TestableStringLifeAnalyzer();
 		rules = new GoRules( boardAnalyzer );
 	}
 
