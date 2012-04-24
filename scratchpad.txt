@@ -1,6 +1,5 @@
 
-StrictReferee should wrap it's given Board with RemovedDeadStringsBoard
-  - Use the RemovedDeadStringsBoard to play successfully submitted moves on
+Rename GoBoard - to SimpleBoard
 
 Strategy
   - Random strategy or as decorator to Player class? 

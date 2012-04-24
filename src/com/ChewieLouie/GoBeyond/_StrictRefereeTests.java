@@ -93,4 +93,18 @@ public class _StrictRefereeTests {
 		assertEquals( "updated history is passed to rules", history, rules.endDetectedHistory );
 	}
 	
+	@Test
+	public void DeadStonesAreRemovedFromBoardAfterLegalSubmittedMove() {
+		Board newBoard = GoBoard.makeBoard("bw." +
+										   "..." +
+						  				   "..." );
+		referee = new StrictReferee(rules, newBoard);
+
+		referee.submitMove( new Move( new Coord( 0, 1 ), Move.Colour.White ) );
+
+		Board expectedBoard = GoBoard.makeBoard(".w." +
+												"w.." +
+											    "..." );
+		assertEquals( "dead stones have been removed from board", expectedBoard, newBoard );
+	}
 }
