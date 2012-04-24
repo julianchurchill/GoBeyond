@@ -2,10 +2,10 @@ package com.ChewieLouie.GoBeyond;
 
 public class _TestableStrategy implements Strategy {
 
-	public Move generateMoveReturnValue;
+	public Coord generateMoveReturnValue;
 
 	@Override
-	public Move generateMove() {
+	public Coord generateMove(SimpleBoard simpleBoard) {
 		return generateMoveReturnValue;
 	}
 

@@ -12,7 +12,7 @@ public class GoPlayer implements Player {
 
 	@Override
 	public void playMove() {
-		referee.submitMove( strategy.generateMove() );
+		referee.submitMove( new Move( strategy.generateMove(null), Move.Colour.Black ) );
 	}
 
 }
