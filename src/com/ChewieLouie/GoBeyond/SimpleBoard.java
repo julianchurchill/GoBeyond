@@ -2,7 +2,7 @@ package com.ChewieLouie.GoBeyond;
 
 import java.util.Arrays;
 
-public class GoBoard implements Board {
+public class SimpleBoard implements Board {
 
 	@Override
 	public int hashCode() {
@@ -21,7 +21,7 @@ public class GoBoard implements Board {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GoBoard other = (GoBoard) obj;
+		SimpleBoard other = (SimpleBoard) obj;
 		if (!Arrays.deepEquals(contents, other.contents))
 			return false;
 		if (size != other.size)
@@ -51,7 +51,7 @@ public class GoBoard implements Board {
 	protected int size = 19;
 	protected Point[][] contents;
 
-	public GoBoard(int size) {
+	public SimpleBoard(int size) {
 		this.size = size;
 		this.contents = new Point[size][size];
 		for( int y = 0; y < size; ++y )
@@ -78,16 +78,16 @@ public class GoBoard implements Board {
 
 	@Override
 	public Board duplicate() {
-		Board b = new GoBoard( size );
+		Board b = new SimpleBoard( size );
 		for( int x = 0; x < size; ++x )
 			for( int y = 0; y < size; ++y )
 				b.playStone( contents[x][y], new Coord( x, y ) );
 		return b;
 	}
 
-	public static GoBoard makeBoard(String string) {
+	public static SimpleBoard makeBoard(String string) {
 		int size = (int) Math.sqrt( string.length() );
-		GoBoard b = new GoBoard( size );
+		SimpleBoard b = new SimpleBoard( size );
 		int i = 0;
 		for( int y = 0; y < size; ++y )
 			for( int x = 0; x < size; ++x )

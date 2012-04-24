@@ -7,13 +7,13 @@ import org.junit.Test;
 
 public class _GoRulesTests {
 
-	private GoBoard board;
+	private SimpleBoard board;
 	private Rules rules;
 	private _TestableStringLifeAnalyzer boardAnalyzer;
 
 	@Before
 	public void SetUp() {
-		board = new GoBoard( 19 );
+		board = new SimpleBoard( 19 );
 		boardAnalyzer = new _TestableStringLifeAnalyzer();
 		rules = new GoRules( boardAnalyzer );
 	}

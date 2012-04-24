@@ -1,6 +1,4 @@
 
-Rename GoBoard - to SimpleBoard
-
 Strategy
   - Random strategy or as decorator to Player class? 
 

@@ -30,7 +30,7 @@ public class _StrictRefereeTests {
 	
 	@Test
 	public void UpdateGameHistoryIsPassedToRulesWhenMoveIsCheckedForLegalality() {
-		board.duplicateReturn = new GoBoard(5);
+		board.duplicateReturn = new SimpleBoard(5);
 		Move m = new Move( new Coord( 1, 1 ), null );
 		GameHistory history = new GameHistory();
 		history.add( board.duplicate(), m );
@@ -82,7 +82,7 @@ public class _StrictRefereeTests {
 	
 	@Test
 	public void UpdateGameHistoryIsPassedToRulesWhenGameEndIsBeingChecked() {
-		board.duplicateReturn = new GoBoard(5);
+		board.duplicateReturn = new SimpleBoard(5);
 		Move m = new Move( new Coord( 1, 1 ), null );
 		GameHistory history = new GameHistory();
 		history.add( board.duplicate(), m );
@@ -95,14 +95,14 @@ public class _StrictRefereeTests {
 	
 	@Test
 	public void DeadStonesAreRemovedFromBoardAfterLegalSubmittedMove() {
-		Board newBoard = GoBoard.makeBoard("bw." +
+		Board newBoard = SimpleBoard.makeBoard("bw." +
 										   "..." +
 						  				   "..." );
 		referee = new StrictReferee(rules, newBoard);
 
 		referee.submitMove( new Move( new Coord( 0, 1 ), Move.Colour.White ) );
 
-		Board expectedBoard = GoBoard.makeBoard(".w." +
+		Board expectedBoard = SimpleBoard.makeBoard(".w." +
 												"w.." +
 											    "..." );
 		assertEquals( "dead stones have been removed from board", expectedBoard, newBoard );

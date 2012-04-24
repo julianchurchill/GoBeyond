@@ -8,7 +8,7 @@ public class _RemovedDeadStonesBoardTests {
 
 	@Test
 	public void ShouldRemoveSingleStoneDeadStringsAfterMovePlayedOnBoard() {
-		GoBoard board = GoBoard.makeBoard( "wbw" + 
+		SimpleBoard board = SimpleBoard.makeBoard( "wbw" + 
 									       "b.b" +
 									       "wbw" );				
 		_TestableStringLifeAnalyzer analyzer = new _TestableStringLifeAnalyzer();
@@ -20,7 +20,7 @@ public class _RemovedDeadStonesBoardTests {
 		RemovedDeadStonesBoard consistentBoard = new RemovedDeadStonesBoard( board, analyzer );
 		consistentBoard.playStone( Board.Point.WhiteStone, new Coord( 1, 1 ) );
 
-		GoBoard expectedBoard = GoBoard.makeBoard( "w.w" + 
+		SimpleBoard expectedBoard = SimpleBoard.makeBoard( "w.w" + 
 												   ".w." +
 			    								   "w.w" );
 		assertEquals( "single stone dead strings are removed and live ones remain", expectedBoard, board );
@@ -30,7 +30,7 @@ public class _RemovedDeadStonesBoardTests {
 	public void playStoneUsesAnalyzerToFindStringLifeOfAdjacentEnemyStrings() {
 		Coord moveCoord = new Coord( 1, 1 );
 		_TestableStringLifeAnalyzer analyzer = new _TestableStringLifeAnalyzer();
-		GoBoard board = GoBoard.makeBoard( "wbw" + 
+		SimpleBoard board = SimpleBoard.makeBoard( "wbw" + 
 			       "b.b" +
 			       "wbw" );				
 		RemovedDeadStonesBoard consistentBoard = new RemovedDeadStonesBoard( board, analyzer );
@@ -53,7 +53,7 @@ public class _RemovedDeadStonesBoardTests {
 		analyzer.stonesOfStringReturn.add( new Coord( 2, 1 ) );
 		analyzer.stonesOfStringReturn.add( new Coord( 1, 2 ) );
 		analyzer.stonesOfStringReturn.add( new Coord( 1, 3 ) );
-		GoBoard board = GoBoard.makeBoard( "wbw." + 
+		SimpleBoard board = SimpleBoard.makeBoard( "wbw." + 
 									       "b.bw" +
 										   "wbw." +				
 										   "wbw." );				
@@ -65,7 +65,7 @@ public class _RemovedDeadStonesBoardTests {
 		assertTrue( "string below move is checked", Utils.find( moveCoord.down(), analyzer.stonesOfStringCoordAll ) );
 		assertTrue( "string right of move is checked", Utils.find( moveCoord.right(), analyzer.stonesOfStringCoordAll ) );
 		assertTrue( "string left of move is checked", Utils.find( moveCoord.left(), analyzer.stonesOfStringCoordAll ) );
-		GoBoard expectedBoard = GoBoard.makeBoard( "w.w." + 
+		SimpleBoard expectedBoard = SimpleBoard.makeBoard( "w.w." + 
 												   ".w.w" +
 												   "w.w." +
 												   "w.w." );

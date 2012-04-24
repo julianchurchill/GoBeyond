@@ -11,18 +11,18 @@ public class _GoBoardTests {
 	
 	@Before
 	public void SetUp() {
-		b = new GoBoard( 19 );
+		b = new SimpleBoard( 19 );
 	}
 	
 	@Test
 	public void BoardIsValueObject() {
-		GoBoard board1 = new GoBoard( 4 );
+		SimpleBoard board1 = new SimpleBoard( 4 );
 		board1.playStone(Board.Point.BlackStone, new Coord( 1, 1 ) );
 		board1.playStone(Board.Point.WhiteStone, new Coord( 3, 2 ) );
-		GoBoard board2 = new GoBoard( 4 );
+		SimpleBoard board2 = new SimpleBoard( 4 );
 		board2.playStone(Board.Point.BlackStone, new Coord( 1, 1 ) );
 		board2.playStone(Board.Point.WhiteStone, new Coord( 3, 2 ) );
-		GoBoard board3 = new GoBoard( 4 );
+		SimpleBoard board3 = new SimpleBoard( 4 );
 		board3.playStone(Board.Point.BlackStone, new Coord( 0, 2 ) );
 		board3.playStone(Board.Point.WhiteStone, new Coord( 1, 2 ) );
 
@@ -76,7 +76,7 @@ public class _GoBoardTests {
 
 	@Test
 	public void CanCreateGoBoardsFromText() {
-		Board newBoard = GoBoard.makeBoard( "wbw" + 
+		Board newBoard = SimpleBoard.makeBoard( "wbw" + 
 			    							"b.b" +
 			    							"wbw" );
 		assertEquals( Board.Point.WhiteStone, newBoard.getContentsOfPoint( new Coord( 0, 0 ) ) );

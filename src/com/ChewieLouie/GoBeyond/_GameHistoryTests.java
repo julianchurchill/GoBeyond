@@ -17,13 +17,13 @@ public class _GameHistoryTests {
 	@Test
 	public void valueObject() {
 		GameHistory h1 = new GameHistory();
-		GoBoard b = new GoBoard(5);
+		SimpleBoard b = new SimpleBoard(5);
 		Move m = new Move( new Coord( 1, 1 ), Move.Colour.Black );
 		h1.add( b, m );
 		GameHistory h2 = new GameHistory();
 		h2.add( b, m );
 		GameHistory h3 = new GameHistory();
-		h3.add( new GoBoard(5), new Move( new Coord( 2, 3 ), Move.Colour.Black ) );
+		h3.add( new SimpleBoard(5), new Move( new Coord( 2, 3 ), Move.Colour.Black ) );
 		
 		assertEquals( "game histories with same content are equal", h1, h2 );
 		assertFalse( "game histories with differing content are not equal", h1.equals( h3 ) );

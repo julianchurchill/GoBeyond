@@ -16,7 +16,7 @@ public class _GoStringLifeAnalyzerTests {
 
 	@Test
 	public void singleStoneWithOnlyEmptyNeighboursIsAlive() {
-		Board board = GoBoard.makeBoard("..." +
+		Board board = SimpleBoard.makeBoard("..." +
 									    ".b." +
 					  				    "..." );
 		assertTrue( analyzer.isStringAlive( board, new Coord( 1, 1 ) ) );
@@ -24,7 +24,7 @@ public class _GoStringLifeAnalyzerTests {
 
 	@Test
 	public void multiStoneStringWithOnlyEmptyNeighboursIsAlive() {
-		Board board = GoBoard.makeBoard("....." +
+		Board board = SimpleBoard.makeBoard("....." +
 								  ".b..." +
 								  ".b..." +
 								  ".b..." +
@@ -34,7 +34,7 @@ public class _GoStringLifeAnalyzerTests {
 
 	@Test
 	public void singleStoneWithNoEmptyNeighboursIsDead() {
-		Board board = GoBoard.makeBoard(".b.." +
+		Board board = SimpleBoard.makeBoard(".b.." +
 				  				  "bwb." +
 				  				  ".b.." +
 								  "...." );
@@ -43,7 +43,7 @@ public class _GoStringLifeAnalyzerTests {
 
 	@Test
 	public void multiStoneStringWithNoEmptyNeighboursIsDead() {
-		Board board = GoBoard.makeBoard(".bbb." +
+		Board board = SimpleBoard.makeBoard(".bbb." +
 								  "bwwwb" +
 								  ".bbb." +
 								  "....." +
@@ -53,7 +53,7 @@ public class _GoStringLifeAnalyzerTests {
 
 	@Test
 	public void multiStoneStringWithOneEmptyNeighbourIsAlive() {
-		Board board = GoBoard.makeBoard(".bbb." +
+		Board board = SimpleBoard.makeBoard(".bbb." +
 								  "bwww." +
 								  ".bbb." +
 								  "....." +
@@ -63,7 +63,7 @@ public class _GoStringLifeAnalyzerTests {
 	
 	@Test
 	public void stonesOfStringReturnsAllStonesInAString() {
-		Board board = GoBoard.makeBoard("bb.." +
+		Board board = SimpleBoard.makeBoard("bb.." +
 									    "b.b." +
 									    "bbw." +
 									    "...." );
