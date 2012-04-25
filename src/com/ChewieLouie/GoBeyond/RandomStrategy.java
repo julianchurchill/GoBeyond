@@ -11,9 +11,11 @@ public class RandomStrategy implements Strategy {
 	private RandomGenerator randGenerator;
 	private Board board;
 	private Colour colour;
+	private Rules rules;
 
-	public RandomStrategy(RandomGenerator rand) {
+	public RandomStrategy(RandomGenerator rand, Rules rules) {
 		this.randGenerator = rand;
+		this.rules = rules;
 	}
 
 	@Override
@@ -31,7 +33,7 @@ public class RandomStrategy implements Strategy {
 		for( int y = 0; y < board.size(); ++y ) {
 			for( int x = 0; x < board.size(); ++x ) {
 				Coord c = new Coord( x, y );
-				if( isEmpty(c) && isNotAFriendlyEye( c ) )
+				if( isEmpty(c) && isNotAFriendlyEye( c ) && rules.isLegal( new Move( c, colour ), board, null ) )
 					availablePoints.add( c );
 			}
 		}
@@ -45,28 +47,13 @@ public class RandomStrategy implements Strategy {
 	private boolean isNotAFriendlyEye(Coord c) {
 		int numberOfSurroundingStones = 0;
 		Point stoneColour = Move.toStone(colour);
-		if( isStoneOrEdge(c.up(), stoneColour) )
-			numberOfSurroundingStones++;
-		if( isStoneOrEdge(c.upLeft(), stoneColour) )
-			numberOfSurroundingStones++;
-		if( isStoneOrEdge(c.upRight(), stoneColour) )
-			numberOfSurroundingStones++;
-		if( isStoneOrEdge(c.down(), stoneColour) )
-			numberOfSurroundingStones++;
-		if( isStoneOrEdge(c.downLeft(), stoneColour) )
-			numberOfSurroundingStones++;
-		if( isStoneOrEdge(c.downRight(), stoneColour) )
-			numberOfSurroundingStones++;
-		if( isStoneOrEdge(c.left(), stoneColour) )
-			numberOfSurroundingStones++;
-		if( isStoneOrEdge(c.right(), stoneColour) )
-			numberOfSurroundingStones++;
+		for( Coord a : c.orthogonalCoords() )
+			numberOfSurroundingStones += countStoneOrEdge( a, stoneColour );
 		return numberOfSurroundingStones < 7;
 	}
 
-	private boolean isStoneOrEdge(Coord c, Point stoneColour) {
-		return board.getContentsOfPoint(c) == stoneColour ||
-				board.getContentsOfPoint(c) == Point.OffBoard;
+	private int countStoneOrEdge(Coord c, Point stoneColour) {
+		return ( board.getContentsOfPoint(c) == stoneColour ||
+				 board.getContentsOfPoint(c) == Point.OffBoard ) ? 1 : 0;
 	}
-
 }

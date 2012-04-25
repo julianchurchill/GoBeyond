@@ -9,13 +9,15 @@ public class _RandomStrategyTests {
 
 	_TestableRandomGenerator rand;
 	RandomStrategy r;
+	private _TestableRules rules;
 
 	@Before
 	public void SetUp() {
 		rand = new _TestableRandomGenerator();
 		rand.primeWith( 1 );
 		rand.primeWith( 0 );
-		r = new RandomStrategy( rand );
+		rules = new _TestableRules();
+		r = new RandomStrategy( rand, rules );
 	}
 
 	@Test
@@ -35,8 +37,19 @@ public class _RandomStrategyTests {
 	public void doesNotFillInCompletelySurroundedEmptyPoints() {
 		SimpleBoard board = SimpleBoard.makeBoard( "wwww" +
 												   ".w.w" +
-											 	   "wwww" );
+											 	   "wwww" +
+												   "wwww" );
 		Move m = r.generateMove( board, Move.Colour.White );
-		assertEquals( "pass when only empty points are friendly eyes", m, Move.passMove(Move.Colour.White) );
+		assertEquals( "pass when only empty points are friendly eyes", Move.passMove(Move.Colour.White), m );
+	}
+
+	@Test
+	public void returnsAPassIfNoLegalMoveAvailable() {
+		rules.isLegalReturnValue = false;
+		SimpleBoard board = SimpleBoard.makeBoard( "..." +
+												   "..." +
+												   "..." );
+		Move m = r.generateMove( board, Move.Colour.Black );
+		assertEquals( "pass when only illegal moves available", Move.passMove(Move.Colour.Black), m );
 	}
 }

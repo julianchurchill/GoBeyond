@@ -1,5 +1,8 @@
 package com.ChewieLouie.GoBeyond;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Coord {
 
 	private int x;
@@ -75,4 +78,16 @@ public class Coord {
 		return true;
 	}
 
+	public List<Coord> orthogonalCoords() {
+		List<Coord> coords = new ArrayList<Coord>();
+		coords.add( this.up() );
+		coords.add( this.upLeft() );
+		coords.add( this.upRight() );
+		coords.add( this.down() );
+		coords.add( this.downLeft() );
+		coords.add( this.downRight() );
+		coords.add( this.left() );
+		coords.add( this.right() );
+		return coords;
+	}
 }

@@ -31,7 +31,7 @@ public class _GoPlayerTests {
 	}
 
 	@Test
-	public void generateMoveUsesTheStrategyToGenerateAMove() {		
+	public void generateMoveUsesTheStrategyToGenerateAMove() {
 		player.playMove();
 
 		assertTrue( "calls Strategy.generateMove()", strategy.generateMoveCalled );

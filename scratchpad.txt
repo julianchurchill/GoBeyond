@@ -1,5 +1,14 @@
 
-Random strategy must not return illegal moves and if there is no available move must return a pass
+Random strategy should take game history into account when avoiding illegal moves (i.e. Ko)
+
+Dependencies are complicated and entangled  (maybe draw out class diagram)
+  - Referee depends on Board and Rules
+  - Player depends on Referee, Strategy and Board
+  - RandomStrategy relies on Board and Rules
+  - Game depends on Referee and Player
+  * Referee should be able to provide Board and Rules
+  * Player should probably rely on Referee and Strategy
+  * RandomStrategy should probably rely on Referee
 
 Player
   - must submit move to referee for their own colour

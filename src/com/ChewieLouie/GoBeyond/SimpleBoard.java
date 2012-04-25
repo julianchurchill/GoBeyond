@@ -87,6 +87,8 @@ public class SimpleBoard implements Board {
 
 	public static SimpleBoard makeBoard(String string) {
 		int size = (int) Math.sqrt( string.length() );
+		if( size * size != string.length() )
+			throw new RuntimeException("board must be square (width == height)");
 		SimpleBoard b = new SimpleBoard( size );
 		int i = 0;
 		for( int y = 0; y < size; ++y )

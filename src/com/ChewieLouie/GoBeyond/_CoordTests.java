@@ -2,6 +2,8 @@ package com.ChewieLouie.GoBeyond;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 public class _CoordTests {
@@ -67,6 +69,28 @@ public class _CoordTests {
 		Coord c = new Coord( 1, 2 );
 		assertEquals( 2, c.downRight().x() );
 		assertEquals( 3, c.downRight().y() );
+	}
+
+	@Test
+	public void OrthogonalCoordsReturnsAllOrthogonallyAdjacentCoords() {
+		Coord c = new Coord( 1, 1 );
+		List<Coord> coords = c.orthogonalCoords();
+		assertEquals( "there are always 8 orthogonally adjacent points", 8, coords.size() );
+		assertTrue( "the up coord is included", find( coords, c.up() ) );
+		assertTrue( "the up left coord is included", find( coords, c.upLeft() ) );
+		assertTrue( "the up right coord is included", find( coords, c.upRight() ) );
+		assertTrue( "the down coord is included", find( coords, c.down() ) );
+		assertTrue( "the down left coord is included", find( coords, c.downLeft() ) );
+		assertTrue( "the down right coord is included", find( coords, c.downRight() ) );
+		assertTrue( "the left coord is included", find( coords, c.left() ) );
+		assertTrue( "the right coord is included", find( coords, c.right() ) );
+	}
+
+	public boolean find(List<Coord> coords, Coord target) {
+		for(Coord c: coords )
+			if( c.equals( target ) )
+				return true;
+		return false;
 	}
 
 	@Test
