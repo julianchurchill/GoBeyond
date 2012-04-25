@@ -9,7 +9,7 @@ import com.ChewieLouie.GoBeyond.Move.Colour;
 public class RandomStrategy implements Strategy {
 
 	private RandomGenerator randGenerator;
-	private SimpleBoard board;
+	private Board board;
 	private Colour colour;
 
 	public RandomStrategy(RandomGenerator rand) {
@@ -17,7 +17,7 @@ public class RandomStrategy implements Strategy {
 	}
 
 	@Override
-	public Move generateMove(SimpleBoard board, Colour colour) {
+	public Move generateMove(Board board, Colour colour) {
 		this.board = board;
 		this.colour = colour;
 		List<Coord> points = availablePoints();
@@ -28,8 +28,8 @@ public class RandomStrategy implements Strategy {
 
 	private List<Coord> availablePoints() {
 		List<Coord> availablePoints = new ArrayList<Coord>();
-		for( int y = 0; y < board.size; ++y ) {
-			for( int x = 0; x < board.size; ++x ) {
+		for( int y = 0; y < board.size(); ++y ) {
+			for( int x = 0; x < board.size(); ++x ) {
 				Coord c = new Coord( x, y );
 				if( isEmpty(c) && isNotAFriendlyEye( c ) )
 					availablePoints.add( c );

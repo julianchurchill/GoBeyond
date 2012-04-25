@@ -2,6 +2,11 @@ package com.ChewieLouie.GoBeyond;
 
 public class Move {
 
+	@Override
+	public String toString() {
+		return colour + "[" + c.x() + "," + c.y() + "]";
+	}
+
 	public enum Colour { Black, White };
 	
 	private Coord c;

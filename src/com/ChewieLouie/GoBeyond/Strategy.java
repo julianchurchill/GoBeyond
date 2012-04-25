@@ -4,6 +4,6 @@ import com.ChewieLouie.GoBeyond.Move.Colour;
 
 public interface Strategy {
 
-	public abstract Move generateMove(SimpleBoard simpleBoard, Colour colour);
+	public abstract Move generateMove(Board board, Colour colour);
 
 }

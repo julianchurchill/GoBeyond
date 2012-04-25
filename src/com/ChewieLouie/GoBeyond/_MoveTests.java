@@ -22,4 +22,10 @@ public class _MoveTests {
 		assertEquals( Move.Colour.Black, Move.passMove( Move.Colour.Black ).colour() ); 
 		assertEquals( new Coord( -1, -1 ), Move.passMove( Move.Colour.Black ).coord() ); 
 	}
+	
+	@Test
+	public void toStringGivesExpectedString() {
+		assertEquals( "converts white move to string", "White[0,1]", new Move( new Coord( 0, 1 ), Move.Colour.White ).toString() );
+		assertEquals( "converts black move to string", "Black[0,1]", new Move( new Coord( 0, 1 ), Move.Colour.Black ).toString() );
+	}
 }

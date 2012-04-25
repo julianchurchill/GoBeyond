@@ -36,4 +36,9 @@ public class _TestableBoard implements Board {
 	public Board duplicate() {
 		return duplicateReturn;
 	}
+
+	@Override
+	public int size() {
+		return 0;
+	}
 }

@@ -1,7 +1,5 @@
 
-GoPlayer must pass board and colour to strategy
-
-Move toString()
+Random strategy must not return illegal moves and if there is no available move must return a pass
 
 Player
   - must submit move to referee for their own colour

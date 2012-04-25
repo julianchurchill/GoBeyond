@@ -54,4 +54,9 @@ public class RemovedDeadStonesBoard implements Board {
 		return board.duplicate();
 	}
 
+	@Override
+	public int size() {
+		return board.size();
+	}
+
 }

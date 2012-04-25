@@ -12,4 +12,6 @@ public interface Board {
 
 	public abstract Board duplicate();
 
+	public abstract int size();
+
 }

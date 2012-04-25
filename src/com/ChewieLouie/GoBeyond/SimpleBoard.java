@@ -102,4 +102,9 @@ public class SimpleBoard implements Board {
 			return Board.Point.WhiteStone;
 		return Board.Point.Empty;
 	}
+
+	@Override
+	public int size() {
+		return size;
+	}
 }
