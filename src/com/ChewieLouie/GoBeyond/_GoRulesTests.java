@@ -34,17 +34,11 @@ public class _GoRulesTests {
 	// I don't like them but not sure how to compress...
 	@Test
 	public void suicideToCaptureIsLegal_eastCapture() {
-		// .bw..
-		// b*bw.
-		// .bw..
-		// .....
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 0 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 0, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 3, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 2 ) );
+		board = SimpleBoard.makeBoard( ".bw.." +
+									   "b.bw." +
+									   ".bw.." +
+									   "....." +
+									   "....." );
 		boardAnalyzer.isStringAliveReturnDefault = true;
 		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
 		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
@@ -52,20 +46,11 @@ public class _GoRulesTests {
 
 	@Test
 	public void suicideToCaptureIsLegal_westCapture() {
-		// wwbb.
-		// b*wb.
-		// wbb..
-		// .....
-		board.playStone( Board.Point.WhiteStone, new Coord( 0, 0 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 1, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 3, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 0, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 3, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 0, 2 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 2 ) );
+		board = SimpleBoard.makeBoard( "wwbb." +
+									   "b.wb." +
+									   "wbb.." +
+									   "....." +
+									   "....." );
 		boardAnalyzer.isStringAliveReturnDefault = true;
 		boardAnalyzer.stringIsDead.add( new Coord( 0, 1 ) );
 		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
@@ -73,20 +58,11 @@ public class _GoRulesTests {
 
 	@Test
 	public void suicideToCaptureIsLegal_northCapture() {
-		// wbwb.
-		// w*wb.
-		// bbb..
-		// .....
-		board.playStone( Board.Point.WhiteStone, new Coord( 0, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 0 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 3, 0 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 0, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 3, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 0, 2 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 2 ) );
+		board = SimpleBoard.makeBoard( "wbwb." +
+									   "w.wb." +
+									   "bbb.." +
+									   "....." +
+									   "....." );
 		boardAnalyzer.isStringAliveReturnDefault = true;
 		boardAnalyzer.stringIsDead.add( new Coord( 1, 0 ) );
 		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
@@ -94,17 +70,11 @@ public class _GoRulesTests {
 
 	@Test
 	public void suicideToCaptureIsLegal_southCapture() {
-		// .b...
-		// b*b..
-		// wbw..
-		// .w...
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 0, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 0, 2 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 2 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 1, 3 ) );
+		board = SimpleBoard.makeBoard( ".b..." +
+									   "b.b.." +
+									   "wbw.." +
+									   ".w..." +
+									   "....." );
 		boardAnalyzer.isStringAliveReturnDefault = true;
 		boardAnalyzer.stringIsDead.add( new Coord( 1, 2 ) );
 		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
@@ -112,17 +82,11 @@ public class _GoRulesTests {
 
 	@Test
 	public void ImmediatelyTakingAKoIsIllegal() {
-		// .bw..
-		// b*bw.
-		// .bw..
-		// .....
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 0 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 0, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 3, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 2 ) );
+		board = SimpleBoard.makeBoard( ".bw.." +
+									   "b.bw." +
+									   ".bw.." +
+									   "....." +
+									   "....." );
 		boardAnalyzer.isStringAliveReturnDefault = true;
 		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
 		boardAnalyzer.stringIsDead.add( new Coord( 1, 1 ) );
@@ -140,17 +104,11 @@ public class _GoRulesTests {
 
 	@Test
 	public void TakingAKoAfterADifferentMoveIsLegal() {
-		// .bw..
-		// b*bw.
-		// .bw..
-		// .....
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 0 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 0 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 0, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 2, 1 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 3, 1 ) );
-		board.playStone( Board.Point.BlackStone, new Coord( 1, 2 ) );
-		board.playStone( Board.Point.WhiteStone, new Coord( 2, 2 ) );
+		board = SimpleBoard.makeBoard( ".bw.." +
+									   "b.bw." +
+									   ".bw.." +
+									   "....." +
+									   "....." );
 		boardAnalyzer.isStringAliveReturnDefault = true;
 		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
 		boardAnalyzer.stringIsDead.add( new Coord( 1, 1 ) );

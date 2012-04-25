@@ -81,7 +81,10 @@ public class GoRules implements Rules {
 
 	@Override
 	public boolean endDetected(GameHistory history) {
-		return history.lastMove().equals(Move.passMove(history.lastMove().colour())) &&
-			history.lastButOneMove().equals(Move.passMove(history.lastButOneMove().colour()));
+		return isPassMove(history.lastMove()) && isPassMove(history.lastButOneMove());
+	}
+
+	private boolean isPassMove(Move m) {
+		return m.equals(Move.passMove(m.colour()));
 	}
 }

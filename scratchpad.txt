@@ -1,4 +1,7 @@
 
+Random strategy must not fill in own eyes otherwise will keep killing its own living strings
+and therefore leading to never ending games between two random players
+
 Player
   - must submit move to referee for their own colour
 
