@@ -1,11 +1,13 @@
 package com.ChewieLouie.GoBeyond;
 
+import com.ChewieLouie.GoBeyond.Move.Colour;
+
 public class _TestableStrategy implements Strategy {
 
-	public Coord generateMoveReturnValue;
+	public Move generateMoveReturnValue;
 
 	@Override
-	public Coord generateMove(SimpleBoard simpleBoard) {
+	public Move generateMove(SimpleBoard simpleBoard, Colour colour) {
 		return generateMoveReturnValue;
 	}
 

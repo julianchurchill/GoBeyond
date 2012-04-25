@@ -34,6 +34,22 @@ public class Coord {
 		return new Coord( x, y + 1 );
 	}
 
+	public Coord upLeft() {
+		return new Coord( x - 1, y - 1 );
+	}
+
+	public Coord upRight() {
+		return new Coord( x + 1, y - 1 );
+	}
+
+	public Coord downLeft() {
+		return new Coord( x - 1, y + 1 );
+	}
+
+	public Coord downRight() {
+		return new Coord( x + 1, y + 1 );
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

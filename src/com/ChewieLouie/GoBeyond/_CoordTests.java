@@ -42,6 +42,34 @@ public class _CoordTests {
 	}
 
 	@Test
+	public void CoordUpLeftCreatesNewCoordOneUnitUpAndOneLeft() {
+		Coord c = new Coord( 1, 2 );
+		assertEquals( 0, c.upLeft().x() );
+		assertEquals( 1, c.upLeft().y() );
+	}
+
+	@Test
+	public void CoordUpRightCreatesNewCoordOneUnitUpAndOneRight() {
+		Coord c = new Coord( 1, 2 );
+		assertEquals( 2, c.upRight().x() );
+		assertEquals( 1, c.upRight().y() );
+	}
+
+	@Test
+	public void CoordDownLeftCreatesNewCoordOneUnitDownAndOneLeft() {
+		Coord c = new Coord( 1, 2 );
+		assertEquals( 0, c.downLeft().x() );
+		assertEquals( 3, c.downLeft().y() );
+	}
+
+	@Test
+	public void CoordDownRightCreatesNewCoordOneUnitDownAndOneRight() {
+		Coord c = new Coord( 1, 2 );
+		assertEquals( 2, c.downRight().x() );
+		assertEquals( 3, c.downRight().y() );
+	}
+
+	@Test
 	public void ValueObject() {
 		Coord c1 = new Coord( 4, 8 );
 		Coord c2 = new Coord( 4, 8 );
