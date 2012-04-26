@@ -9,7 +9,7 @@ public class _StrictRefereeTests {
 
 	private _TestableRules rules;
 	private _TestableBoard board;
-	private Referee referee;
+	private StrictReferee referee;
 
 	@Before
 	public void SetUp() {
@@ -65,6 +65,12 @@ public class _StrictRefereeTests {
 		assertEquals( Board.Point.WhiteStone, board.playStonePoint );
 		assertEquals( 1, board.playStoneX );
 		assertEquals( 2, board.playStoneY );
+	}
+
+	@Test
+	public void IfMoveIsPassMoveRefereeDoesNotUpdateTheBoard() {
+		referee.submitMove( Move.passMove( Move.Colour.White ) );
+		assertFalse( "pass moves do not cause the board to be updated", board.playStoneCalled );
 	}
 
 	@Test
@@ -124,5 +130,23 @@ public class _StrictRefereeTests {
 		assertEquals( "referee passes move straight through to rules for isLegal calls", move, rules.isLegalCalledWithMove );
 		assertTrue( "referee passes board straight through to rules for isLegal calls", board == rules.isLegalCalledWithBoard );
 		assertEquals( "referee returns value from rules.isLegal()", rules.isLegalReturnValue, result );
+	}
+	
+	@Test
+	public void RefereeObserverIsNotifiedWhenMovesAreAccepted() {
+		_TestableRefereeMoveObserver observer1 = new _TestableRefereeMoveObserver();
+		_TestableRefereeMoveObserver observer2 = new _TestableRefereeMoveObserver();
+		referee.addObserver( observer1 );
+		referee.addObserver( observer2 );
+		
+		Move move = new Move( new Coord( 1, 2 ), Move.Colour.Black );
+		referee.submitMove( move );
+
+		assertTrue( "when referee accepts a move observers are notified", observer1.moveAcceptedCalled );
+		assertTrue( "when referee accepts a move observers are notified", observer2.moveAcceptedCalled );
+		assertEquals( "when referee accepts a move observers are notified with move", move, observer1.moveAcceptedCalledWithMove );
+		assertEquals( "when referee accepts a move observers are notified with move", move, observer2.moveAcceptedCalledWithMove );
+		assertTrue( "when referee accepts a move observers are notified with new board", board == observer1.moveAcceptedCalledWithBoard );
+		assertTrue( "when referee accepts a move observers are notified with new board", board == observer2.moveAcceptedCalledWithBoard );
 	}
 }

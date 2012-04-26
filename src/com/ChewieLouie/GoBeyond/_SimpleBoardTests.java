@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class _SimpleBoardTests {
 
-	private Board b;
+	private SimpleBoard b;
 	
 	@Before
 	public void SetUp() {

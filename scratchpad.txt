@@ -1,9 +1,7 @@
 
-RandomPlayer
-  - must submit move to referee for their own colour
-
 UI
   - Basic text UI
+  - Application should observer GameHistory so it can print out game moves and boards
 
 Packaging - Util (Move, Coord, Board), Engine/Domain {Game, Referee, Player, Rules}, UI { Application }  ?
 

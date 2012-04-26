@@ -30,6 +30,17 @@ public class _GameHistoryTests {
 		assertEquals( "game histories with same content have the same hash code", h1.hashCode(), h2.hashCode() );
 		assertTrue( "game histories with differing content do not have the same hash code", h1.hashCode() != h3.hashCode() );
 	}
+	
+	@Test
+	public void historySizeIncreasesAsMovesAreAdded() {
+		assertEquals( "empty history has size 0", 0, history.size() );
+
+		history.add( new SimpleBoard(5), new Move( new Coord( 2, 3 ), Move.Colour.Black ) );
+		assertEquals( "history with one move has size 1", 1, history.size() );
+		
+		history.add( new SimpleBoard(5), new Move( new Coord( 2, 3 ), Move.Colour.Black ) );
+		assertEquals( "history with two moves has size 2", 2, history.size() );
+	}
 
 	@Test
 	public void lastbutOneBoardReturnsNullIfLessThanTwoBoardInTheHistory() {

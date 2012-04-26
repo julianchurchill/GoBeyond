@@ -62,4 +62,8 @@ public class GameHistory {
 		return null;
 	}
 
+	public int size() {
+		return moves.size();
+	}
+
 }

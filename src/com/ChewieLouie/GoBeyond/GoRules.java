@@ -19,40 +19,28 @@ public class GoRules implements Rules {
 			this.boardAnalyzer = a;
 		}
 		
-		public boolean check() {
-			return isEmptyBoardPoint() && ( isNotSuicide() || ( capturesEnemies() && isNotIllegalKo() ) );
+		public boolean isLegal() {
+			return isPassMove() || isNotSuicide() || isLegalCapture();
 		}
 
-		private boolean isNotIllegalKo() {
-			if( boardAvailableForTwoMovesAgo() && history.lastButOneBoard().equals( makeBoardWithMovePlayed() ) )
-					return false;
-			return true;
+		private boolean isPassMove() {
+			return move.equals( Move.passMove(move.colour() ) );
 		}
 
-		private boolean boardAvailableForTwoMovesAgo() {
-			return history != null && history.lastButOneBoard() != null;
+		private boolean isNotSuicide() {
+			return isEmptyBoardPoint() && boardAnalyzer.isStringAlive( makeBoardWithMovePlayed(), move.coord() );
 		}
 
 		private boolean isEmptyBoardPoint() {
 			return board.getContentsOfPoint( move.coord() ) == Board.Point.Empty;
 		}
 
-		private boolean isNotSuicide() {
-			return boardAnalyzer.isStringAlive( makeBoardWithMovePlayed(), move.coord() );
-		}
-
-		private Board makeBoardWithMovePlayed() {
-			Board testBoard = board.duplicate();
-			testBoard.playStone( moveStoneColour, move.coord() );
-			return testBoard;
+		private boolean isLegalCapture() {
+			return isEmptyBoardPoint() && capturesEnemies() && isNotAnIllegalKo();
 		}
 
 		private boolean capturesEnemies() {
 			return areAnyAdjacentStringsDead( makeBoardWithMovePlayed(), enemyBoardPoint() );
-		}
-
-		private Board.Point enemyBoardPoint() {
-			return moveStoneColour == Board.Point.BlackStone ? Board.Point.WhiteStone : Board.Point.BlackStone;
 		}
 
 		private boolean areAnyAdjacentStringsDead(Board board, Point enemyColour) {
@@ -66,6 +54,26 @@ public class GoRules implements Rules {
 			return board.getContentsOfPoint(coord) == enemyColour &&
 				boardAnalyzer.isStringAlive(board, coord) == false;
 		}
+
+		private boolean isNotAnIllegalKo() {
+			if( boardAvailableForTwoMovesAgo() && history.lastButOneBoard().equals( makeBoardWithMovePlayed() ) )
+					return false;
+			return true;
+		}
+
+		private boolean boardAvailableForTwoMovesAgo() {
+			return history != null && history.lastButOneBoard() != null;
+		}
+
+		private Board makeBoardWithMovePlayed() {
+			Board testBoard = board.duplicate();
+			testBoard.playStone( moveStoneColour, move.coord() );
+			return testBoard;
+		}
+
+		private Board.Point enemyBoardPoint() {
+			return moveStoneColour == Board.Point.BlackStone ? Board.Point.WhiteStone : Board.Point.BlackStone;
+		}
 	}
 
 	private StringLifeAnalyzer boardAnalyzer;
@@ -76,11 +84,13 @@ public class GoRules implements Rules {
 
 	@Override
 	public boolean isLegal(Move m, Board b, GameHistory h) {
-		return new LegalityChecker( m, b, h, boardAnalyzer ).check();
+		return new LegalityChecker( m, b, h, boardAnalyzer ).isLegal();
 	}
 
 	@Override
 	public boolean endDetected(GameHistory history) {
+		if( history.size() < 2 )
+			return false;
 		return isPassMove(history.lastMove()) && isPassMove(history.lastButOneMove());
 	}
 

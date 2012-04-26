@@ -23,6 +23,11 @@ public class _GoRulesTests {
 		rules.isLegal( new Move( new Coord( 0, 0 ), Move.Colour.Black ), board, null );
 		assertTrue( boardAnalyzer.isStringAliveCalled );
 	}
+	
+	@Test
+	public void aPassIsAlwaysLegal() {
+		assertTrue( "pass move is always legal", rules.isLegal(Move.passMove(Move.Colour.Black), null, null) );
+	}
 
 	@Test
     public void moveOnAnOccupiedIntersectionIsIllegal() {
@@ -151,5 +156,12 @@ public class _GoRulesTests {
 		history.add( null, Move.passMove( Move.Colour.White ) );
 		
 		assertEquals( "two passes ends the game", true, rules.endDetected( history ) );
+	}
+	
+	@Test
+	public void endIsNotDetectedUntilAtLeastTwoMovesHaveBeenPlayed() {
+		GameHistory history = new GameHistory();
+		assertFalse( "no moves played yet means end is not detected", rules.endDetected( history ) );
+		assertFalse( "one move played means end is not detected", rules.endDetected( history ) );
 	}
 }
