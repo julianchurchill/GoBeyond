@@ -36,7 +36,7 @@ public class GoRules implements Rules {
 		}
 
 		private boolean isLegalCapture() {
-			return isEmptyBoardPoint() && capturesEnemies() && isNotAnIllegalKo();
+			return isEmptyBoardPoint() && capturesEnemies() && isAnIllegalKo() == false;
 		}
 
 		private boolean capturesEnemies() {
@@ -55,10 +55,15 @@ public class GoRules implements Rules {
 				boardAnalyzer.isStringAlive(board, coord) == false;
 		}
 
-		private boolean isNotAnIllegalKo() {
-			if( boardAvailableForTwoMovesAgo() && history.lastButOneBoard().equals( makeBoardWithMovePlayed() ) )
-					return false;
-			return true;
+		private boolean isAnIllegalKo() {
+			Board boardWithoutDeadStones = makeBoardWithMovePlayedAndDeadStonesRemoved();
+			return boardAvailableForTwoMovesAgo() && history.lastButOneBoard().equals( boardWithoutDeadStones );
+		}
+
+		private Board makeBoardWithMovePlayedAndDeadStonesRemoved() {
+			RemovedDeadStonesBoard testBoard = new RemovedDeadStonesBoard(board.duplicate(), boardAnalyzer);
+			testBoard.playStone( moveStoneColour, move.coord() );
+			return testBoard.originalBoard();
 		}
 
 		private boolean boardAvailableForTwoMovesAgo() {

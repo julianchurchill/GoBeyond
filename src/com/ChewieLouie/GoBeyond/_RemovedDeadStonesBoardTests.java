@@ -7,6 +7,15 @@ import org.junit.Test;
 public class _RemovedDeadStonesBoardTests {
 
 	@Test
+	public void originalBoardCanBeRetrieved() {
+		SimpleBoard board = SimpleBoard.makeBoard( "wbw" + 
+			       "b.b" +
+			       "wbw" );				
+		RemovedDeadStonesBoard consistentBoard = new RemovedDeadStonesBoard( board, null );
+		assertTrue( "original board can be retrieved", board == consistentBoard.originalBoard() );
+	}
+	
+	@Test
 	public void ShouldRemoveSingleStoneDeadStringsAfterMovePlayedOnBoard() {
 		SimpleBoard board = SimpleBoard.makeBoard( "wbw" + 
 									       "b.b" +

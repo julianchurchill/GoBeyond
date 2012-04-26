@@ -59,4 +59,8 @@ public class RemovedDeadStonesBoard implements Board {
 		return board.size();
 	}
 
+	public Board originalBoard() {
+		return board;
+	}
+
 }

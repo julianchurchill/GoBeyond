@@ -1,7 +1,4 @@
 
-RandomPlayer seems to miss moves (i.e. thinks points are eyes when they aren't really)
-  - Check this by looking at the output of a 9x9 game with seeds of 0 in the text ui
-
 UI
   - Basic text UI
   - GUI - Swing + TDD?

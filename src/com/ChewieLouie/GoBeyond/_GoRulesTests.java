@@ -93,15 +93,18 @@ public class _GoRulesTests {
 									   "....." +
 									   "....." );
 		boardAnalyzer.isStringAliveReturnDefault = true;
-		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
 		boardAnalyzer.stringIsDead.add( new Coord( 1, 1 ) );
+		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
+		boardAnalyzer.stonesOfStringReturn.add( new Coord( 2, 1 ) );
 
-		_TestableBoard tb1 = new _TestableBoard( 19 );
-		tb1.equalsReturn = true;
-		_TestableBoard tb2 = new _TestableBoard( 19 );
+		Board tb1 = SimpleBoard.makeBoard( ".bw.." +
+										   "bw.w." +
+										   ".bw.." +
+										   "....." +
+										   "....." );
 		GameHistory history = new GameHistory();
 		history.add( tb1, null );
-		history.add( tb2, null );
+		history.add( new _TestableBoard( 19 ), null );
 
 		assertFalse( "taking a ko immediately is illegal", 
 				rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, history ) );

@@ -25,7 +25,7 @@ public class Application implements RefereeMoveObserver {
 		StrictReferee referee = new StrictReferee( rules, board );
 		referee.addObserver( this );
 		Player player1 = new RandomPlayer( referee, Move.Colour.Black, new PseudoRandomGenerator( 0 ) );
-		Player player2 = new RandomPlayer( referee, Move.Colour.White, new PseudoRandomGenerator( 0 ) );
+		Player player2 = new RandomPlayer( referee, Move.Colour.White, new PseudoRandomGenerator( 1 ) );
 		Game g = new Game(player1, player2, referee);
 		g.start();
 		
