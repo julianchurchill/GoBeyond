@@ -31,4 +31,9 @@ public class StrictReferee implements Referee {
 	public Board board() {
 		return undecoratedBoard;
 	}
+
+	@Override
+	public boolean isLegal(Move move, Board board, GameHistory history) {
+		return rules.isLegal(move, board, history);
+	}
 }

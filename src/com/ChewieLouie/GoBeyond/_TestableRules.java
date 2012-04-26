@@ -10,13 +10,15 @@ public class _TestableRules implements Rules {
 	public int endDetectedCalledCount = 0;
 	public boolean endDetectedReturnValue = false;
 	public GameHistory endDetectedHistory;
-	public GameHistory isLegalHistory;
+	public GameHistory isLegalCalledWithHistory;
+	public Board isLegalCalledWithBoard;
 
 	@Override
 	public boolean isLegal( Move m, Board b, GameHistory history ) {
 		isLegalCalled = true;
 		isLegalCalledWithMove = m;
-		isLegalHistory = history;
+		isLegalCalledWithBoard = b;
+		isLegalCalledWithHistory = history;
 		return isLegalReturnValue;
 	}
 	

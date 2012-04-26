@@ -12,13 +12,11 @@ public class RandomPlayer implements Player {
 	private Colour colour;
 	private Board board;
 	private RandomGenerator randGenerator;
-	private Rules rules;
 	
-	public RandomPlayer(Referee referee, Colour colour, RandomGenerator gen, Rules rules) {
+	public RandomPlayer(Referee referee, Colour colour, RandomGenerator gen) {
 		this.referee = referee;
 		this.colour = colour;
 		this.randGenerator = gen;
-		this.rules = rules;
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class RandomPlayer implements Player {
 		for( int y = 0; y < board.size(); ++y ) {
 			for( int x = 0; x < board.size(); ++x ) {
 				Coord c = new Coord( x, y );
-				if( isEmpty(c) && isNotAFriendlyEye( c ) && rules.isLegal( new Move( c, colour ), board, null ) )
+				if( isEmpty(c) && isNotAFriendlyEye( c ) && referee.isLegal( new Move( c, colour ), board, null ) )
 					availablePoints.add( c );
 			}
 		}

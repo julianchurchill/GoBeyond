@@ -1,16 +1,6 @@
 
-Referee should provide isLegal()
-RandomPlayer should use Referee.isLegal() instead of Rules
-
-Dependencies are complicated and entangled  (maybe draw out class diagram)
-  - Referee depends on Board and Rules
-  - RandomPlayer depends on Referee and Rules
-  - Game depends on Referee and Player
-  * Referee should be able to provide Rules
-  * RandomPlayer should rely on Referee
-
+GameHistory should be retrievable from Referee
 Random strategy should take game history into account when avoiding illegal moves (i.e. Ko)
-  - GameHistory should be retrieved from Referee
 
 GoPlayer
   - must submit move to referee for their own colour

@@ -19,26 +19,27 @@ public class _RandomPlayerTests {
 		rand.primeWith( 0 );
 		rules = new _TestableRules();
 		referee = new _TestableReferee();
+		referee.isLegalReturn = true;
 		referee.boardReturn = new SimpleBoard(9);
-		player = new RandomPlayer(referee, Move.Colour.White, rand, rules);
+		player = new RandomPlayer(referee, Move.Colour.White, rand);
 	}
 
 	@Test
-	public void generateMoveSubmitsTheMoveToTheReferee() {
+	public void playMoveSubmitsTheMoveToTheReferee() {
 		player.playMove();
 		
 		assertTrue( referee.submitMoveCalled );
 	}
 
 	@Test
-	public void generateMoveProducesARandomMove() {
+	public void playMoveProducesARandomMove() {
 		player.playMove();
 
 		assertTrue( "random move generated is not null", referee.submitMoveArg != null );
 	}
 
 	@Test
-	public void generatedMoveUsesRandomGenerator() {
+	public void playMoveUsesRandomGenerator() {
 		player.playMove();
 
 		assertTrue( "random generator is used", rand.generateCalled );
@@ -58,13 +59,22 @@ public class _RandomPlayerTests {
 
 	@Test
 	public void returnsAPassIfNoLegalMoveAvailable() {
-		rules.isLegalReturnValue = false;
+		referee.isLegalReturn = false;
 		referee.boardReturn = SimpleBoard.makeBoard( "..." +
 												   "..." +
 												   "..." );
-		player = new RandomPlayer(referee, Move.Colour.Black, rand, rules);
+		player = new RandomPlayer(referee, Move.Colour.Black, rand);
 		player.playMove();
 
 		assertEquals( "pass when only illegal moves available", Move.passMove(Move.Colour.Black), referee.submitMoveArg );
+	}
+	
+	@Test
+	public void playMoveUsesRefereeToCheckLegalityOfPotentialMoves() {
+		player.playMove();
+
+		assertTrue( "play move calls referee.isLegal()", referee.isLegalCalled );
+		assertEquals( "call to isLegal uses current board", referee.boardReturn, referee.isLegalCalledWithBoard );
+//		assertEquals( "call to isLegal uses game history", history, referee.isLegalCalledWithHistory );
 	}
 }

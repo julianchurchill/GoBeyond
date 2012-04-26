@@ -7,6 +7,11 @@ public class _TestableReferee implements Referee {
 	public int endAfterThisManyGameEndDetections = 0;
 	public int endDetectedCalledCount = 0;
 	public Board boardReturn;
+	public boolean isLegalCalled = false;
+	public Move isLegalCalledWithMove;
+	public Board isLegalCalledWithBoard;
+	public GameHistory isLegalCalledWithHistory;
+	public boolean isLegalReturn = false;
 
 	@Override
 	public MoveStatus submitMove(Move m) {
@@ -24,6 +29,15 @@ public class _TestableReferee implements Referee {
 	@Override
 	public Board board() {
 		return boardReturn;
+	}
+
+	@Override
+	public boolean isLegal(Move move, Board board, GameHistory history) {
+		isLegalCalled = true;
+		isLegalCalledWithMove = move;
+		isLegalCalledWithBoard = board;
+		isLegalCalledWithHistory = history;
+		return isLegalReturn;
 	}
 
 }
