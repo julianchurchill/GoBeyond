@@ -1,6 +1,5 @@
 
 UI
-  - Basic text UI
   - GUI - Swing + TDD?
 
 Packaging - Util (Move, Coord, Board), Engine/Domain {Game, Referee, Player, Rules}, UI { Application }  ?

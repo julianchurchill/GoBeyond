@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ChewieLouie.GoBeyond.Board.Point;
+
 public class _SimpleBoardTests {
 
 	private SimpleBoard b;
@@ -88,5 +90,34 @@ public class _SimpleBoardTests {
 		assertEquals( Board.Point.WhiteStone, newBoard.getContentsOfPoint( new Coord( 0, 2 ) ) );
 		assertEquals( Board.Point.BlackStone, newBoard.getContentsOfPoint( new Coord( 1, 2 ) ) );
 		assertEquals( Board.Point.WhiteStone, newBoard.getContentsOfPoint( new Coord( 2, 2 ) ) );
+	}
+	
+	@Test
+	public void ObserversAreNotifiedWhenStonesAreAdded() {
+		_TestableBoardObserver observer1 = new _TestableBoardObserver();
+		_TestableBoardObserver observer2 = new _TestableBoardObserver();
+		b.addObserver( observer1 );
+		b.addObserver( observer2 );
+
+		b.playStone(Point.BlackStone, new Coord( 1, 1 ) );
+
+		assertTrue( "first observer is called", observer1.boardChangedCalled );
+		assertTrue( "second observer is called", observer2.boardChangedCalled );
+	}
+	
+	@Test
+	public void ObserversAreNotifiedWhenStonesAreRemoved() {
+		_TestableBoardObserver observer1 = new _TestableBoardObserver();
+		_TestableBoardObserver observer2 = new _TestableBoardObserver();
+		b.addObserver( observer1 );
+		b.addObserver( observer2 );
+		b.playStone(Point.BlackStone, new Coord( 1, 1 ) );
+		observer1.boardChangedCalled = false;
+		observer2.boardChangedCalled = false;
+
+		b.removeStone( new Coord( 1, 1 ) );
+
+		assertTrue( observer1.boardChangedCalled );
+		assertTrue( observer2.boardChangedCalled );
 	}
 }

@@ -1,11 +1,14 @@
 package com.ChewieLouie.GoBeyond;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SimpleBoard implements Board {
 
 	protected int size = 19;
 	protected Point[][] contents;
+	private Set<BoardObserver> observers = new HashSet<BoardObserver>();
 
 	public SimpleBoard(int size) {
 		this.size = size;
@@ -29,6 +32,8 @@ public class SimpleBoard implements Board {
 
 	private void updatePoint(Point p, Coord c) {
 		contents[c.x()][c.y()] = p;
+		for( BoardObserver o : observers )
+			o.boardChanged();
 	}
 
 	@Override
@@ -112,6 +117,10 @@ public class SimpleBoard implements Board {
 		else if( point == Point.WhiteStone )
 			return "w";
 		return ".";
+	}
+
+	public void addObserver(BoardObserver o) {
+		this.observers.add( o );
 	}
 
 }

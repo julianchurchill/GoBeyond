@@ -13,13 +13,13 @@ import com.ChewieLouie.GoBeyond.Rules;
 import com.ChewieLouie.GoBeyond.SimpleBoard;
 import com.ChewieLouie.GoBeyond.StrictReferee;
 
-public class Application implements RefereeMoveObserver {
+public class TextUI implements RefereeMoveObserver {
 
 	public static void main(String [] args) {
-		new Application();
+		new TextUI();
 	}
 
-	public Application() {
+	public TextUI() {
 		Rules rules = new GoRules( new GoStringLifeAnalyzer() );
 		SimpleBoard board = new SimpleBoard( 9 );
 		StrictReferee referee = new StrictReferee( rules, board );
