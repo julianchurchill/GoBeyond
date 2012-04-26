@@ -4,6 +4,7 @@ RandomPlayer seems to miss moves (i.e. thinks points are eyes when they aren't r
 
 UI
   - Basic text UI
+  - GUI - Swing + TDD?
 
 Packaging - Util (Move, Coord, Board), Engine/Domain {Game, Referee, Player, Rules}, UI { Application }  ?
 

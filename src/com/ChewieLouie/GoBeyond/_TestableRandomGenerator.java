@@ -22,4 +22,8 @@ public class _TestableRandomGenerator implements RandomGenerator {
 		randomNumbers .add( i );
 	}
 
+	public void clearPrimedNumbers() {
+		randomNumbers.clear();
+	}
+
 }

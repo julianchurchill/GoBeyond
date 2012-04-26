@@ -76,4 +76,32 @@ public class _RandomPlayerTests {
 		assertTrue( "play move calls referee.isLegal()", referee.isLegalCalled );
 		assertEquals( "call to isLegal uses current board", referee.boardReturn, referee.isLegalCalledWithBoard );
 	}
+	
+	@Test
+	public void playMoveWillConsiderEmptyPointWithOneEmptyNeighbour() {
+		referee.boardReturn = SimpleBoard.makeBoard( "w..w" +
+													 "wwww" +
+												 	 "wwww" +
+													 ".www" );
+		
+		player.playMove();
+		
+		assertEquals( "empty points with one empty neighbour is considered to be a playable move",
+				new Move( new Coord( 2, 0 ), Move.Colour.White ), referee.submitMoveArg );
+	}
+	
+	@Test
+	public void playMoveWillConsiderEmptyPointWithOneNonFriendlyNeighbour() {
+		referee.boardReturn = SimpleBoard.makeBoard( "w.bw" +
+													 "wwww" +
+												 	 "wwww" +
+													 ".www" );
+		
+		rand.clearPrimedNumbers();
+		rand.primeWith( 0 );
+		player.playMove();
+		
+		assertEquals( "empty points with one non friendly neighbour is considered to be a playable move",
+				new Move( new Coord( 1, 0 ), Move.Colour.White ), referee.submitMoveArg );
+	}
 }

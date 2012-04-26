@@ -37,23 +37,45 @@ public class RandomPlayer implements Player {
 		for( int y = 0; y < board.size(); ++y ) {
 			for( int x = 0; x < board.size(); ++x ) {
 				Coord c = new Coord( x, y );
-				if( isEmpty(c) && isNotAFriendlyEye( c ) && referee.isLegal( new Move( c, colour ), board ) )
+				if( isPlayable(c) )
 					availablePoints.add( c );
 			}
 		}
 		return availablePoints;
 	}
 
+	private boolean isPlayable(Coord c) {
+		return isEmpty(c) && isATrueEye( c ) == false && referee.isLegal( new Move( c, colour ), board );
+	}
+
 	private boolean isEmpty(Coord c) {
 		return board.getContentsOfPoint( c ) == Board.Point.Empty;
 	}
 
-	private boolean isNotAFriendlyEye(Coord c) {
-		int numberOfSurroundingStones = 0;
+	private boolean isATrueEye(Coord c) {
 		Point stoneColour = Move.toStone(colour);
+		if( hasAdjacentEmptyOrEnemyPoint(c, enemyColour(stoneColour)) )
+			return false;
+		return countOrthogonallyAdjacentFriendlyPoints(c, stoneColour) >= 7;
+	}
+
+	private int countOrthogonallyAdjacentFriendlyPoints(Coord c,
+			Point stoneColour) {
+		int numberOfSurroundingStones = 0;
 		for( Coord a : c.orthogonalCoords() )
 			numberOfSurroundingStones += countStoneOrEdge( a, stoneColour );
-		return numberOfSurroundingStones < 7;
+		return numberOfSurroundingStones;
+	}
+
+	private Point enemyColour(Point stoneColour) {
+		return stoneColour == Point.BlackStone ? Point.WhiteStone : Point.BlackStone;
+	}
+
+	private boolean hasAdjacentEmptyOrEnemyPoint(Coord c, Point enemyColour) {
+		return board.getContentsOfPoint(c.up()) == Point.Empty || board.getContentsOfPoint(c.up()) == enemyColour ||
+				board.getContentsOfPoint(c.down()) == Point.Empty || board.getContentsOfPoint(c.down()) == enemyColour ||
+				board.getContentsOfPoint(c.left()) == Point.Empty || board.getContentsOfPoint(c.left()) == enemyColour ||
+				board.getContentsOfPoint(c.right()) == Point.Empty || board.getContentsOfPoint(c.right()) == enemyColour;
 	}
 
 	private int countStoneOrEdge(Coord c, Point stoneColour) {
