@@ -21,7 +21,7 @@ public class Application implements RefereeMoveObserver {
 
 	public Application() {
 		Rules rules = new GoRules( new GoStringLifeAnalyzer() );
-		SimpleBoard board = new SimpleBoard( 5 );
+		SimpleBoard board = new SimpleBoard( 9 );
 		StrictReferee referee = new StrictReferee( rules, board );
 		referee.addObserver( this );
 		Player player1 = new RandomPlayer( referee, Move.Colour.Black, new PseudoRandomGenerator( 0 ) );

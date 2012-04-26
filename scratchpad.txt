@@ -1,7 +1,9 @@
 
+RandomPlayer seems to miss moves (i.e. thinks points are eyes when they aren't really)
+  - Check this by looking at the output of a 9x9 game with seeds of 0 in the text ui
+
 UI
   - Basic text UI
-  - Application should observer GameHistory so it can print out game moves and boards
 
 Packaging - Util (Move, Coord, Board), Engine/Domain {Game, Referee, Player, Rules}, UI { Application }  ?
 
