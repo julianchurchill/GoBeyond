@@ -75,6 +75,5 @@ public class _RandomPlayerTests {
 
 		assertTrue( "play move calls referee.isLegal()", referee.isLegalCalled );
 		assertEquals( "call to isLegal uses current board", referee.boardReturn, referee.isLegalCalledWithBoard );
-//		assertEquals( "call to isLegal uses game history", history, referee.isLegalCalledWithHistory );
 	}
 }

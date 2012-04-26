@@ -116,15 +116,13 @@ public class _StrictRefereeTests {
 	@Test
 	public void IsLegalUsesRules() {
 		Move move = new Move( new Coord( 1, 2 ), Move.Colour.Black );
-		GameHistory history = new GameHistory();
 		rules.isLegalReturnValue = true;
 
-		boolean result = referee.isLegal( move, board, history );
+		boolean result = referee.isLegal( move, board );
 
 		assertTrue( "referee delegates isLegal calls to rules", rules.isLegalCalled );
 		assertEquals( "referee passes move straight through to rules for isLegal calls", move, rules.isLegalCalledWithMove );
 		assertTrue( "referee passes board straight through to rules for isLegal calls", board == rules.isLegalCalledWithBoard );
-		assertEquals( "referee passes history straight through to rules for isLegal calls", history, rules.isLegalCalledWithHistory );
 		assertEquals( "referee returns value from rules.isLegal()", rules.isLegalReturnValue, result );
 	}
 }

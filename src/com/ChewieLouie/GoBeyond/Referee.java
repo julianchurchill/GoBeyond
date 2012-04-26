@@ -10,6 +10,6 @@ public interface Referee {
 
 	public abstract Board board();
 
-	public abstract boolean isLegal(Move move, Board board, GameHistory history);
+	public abstract boolean isLegal(Move move, Board board);
 
 }

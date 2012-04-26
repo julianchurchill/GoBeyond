@@ -1,8 +1,5 @@
 
-GameHistory should be retrievable from Referee
-Random strategy should take game history into account when avoiding illegal moves (i.e. Ko)
-
-GoPlayer
+RandomPlayer
   - must submit move to referee for their own colour
 
 UI

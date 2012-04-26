@@ -10,7 +10,6 @@ public class _TestableReferee implements Referee {
 	public boolean isLegalCalled = false;
 	public Move isLegalCalledWithMove;
 	public Board isLegalCalledWithBoard;
-	public GameHistory isLegalCalledWithHistory;
 	public boolean isLegalReturn = false;
 
 	@Override
@@ -32,11 +31,10 @@ public class _TestableReferee implements Referee {
 	}
 
 	@Override
-	public boolean isLegal(Move move, Board board, GameHistory history) {
+	public boolean isLegal(Move move, Board board) {
 		isLegalCalled = true;
 		isLegalCalledWithMove = move;
 		isLegalCalledWithBoard = board;
-		isLegalCalledWithHistory = history;
 		return isLegalReturn;
 	}
 

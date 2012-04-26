@@ -37,7 +37,7 @@ public class RandomPlayer implements Player {
 		for( int y = 0; y < board.size(); ++y ) {
 			for( int x = 0; x < board.size(); ++x ) {
 				Coord c = new Coord( x, y );
-				if( isEmpty(c) && isNotAFriendlyEye( c ) && referee.isLegal( new Move( c, colour ), board, null ) )
+				if( isEmpty(c) && isNotAFriendlyEye( c ) && referee.isLegal( new Move( c, colour ), board ) )
 					availablePoints.add( c );
 			}
 		}

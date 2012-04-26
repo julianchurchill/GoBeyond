@@ -33,7 +33,7 @@ public class StrictReferee implements Referee {
 	}
 
 	@Override
-	public boolean isLegal(Move move, Board board, GameHistory history) {
+	public boolean isLegal(Move move, Board board) {
 		return rules.isLegal(move, board, history);
 	}
 }
