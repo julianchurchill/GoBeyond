@@ -19,6 +19,11 @@ public class _StrictRefereeTests {
 	}
 	
 	@Test
+	public void boardReturnsTheBoardThatTheRefereeIsConstructedWith() {
+		assertTrue( "board constructed with is the same as the one returned by board()", referee.board() == board );
+	}
+
+	@Test
 	public void RefereeChecksWithRulesWhetherMoveIsLegal() {
 		rules.isLegalReturnValue = false;
 		Move m = new Move( new Coord( 1, 1 ), null );

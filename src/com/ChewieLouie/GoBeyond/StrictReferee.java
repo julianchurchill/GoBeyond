@@ -5,9 +5,11 @@ public class StrictReferee implements Referee {
 	private Rules rules;
 	private RemovedDeadStonesBoard board;
 	private GameHistory history = new GameHistory();
+	private Board undecoratedBoard;
 
 	public StrictReferee(Rules rules, Board board ) {
 		this.rules = rules;
+		this.undecoratedBoard = board;
 		this.board = new RemovedDeadStonesBoard(board, new GoStringLifeAnalyzer());
 	}
 
@@ -23,5 +25,10 @@ public class StrictReferee implements Referee {
 	@Override
 	public boolean endDetected() {
 		return rules.endDetected( history );
+	}
+
+	@Override
+	public Board board() {
+		return undecoratedBoard;
 	}
 }

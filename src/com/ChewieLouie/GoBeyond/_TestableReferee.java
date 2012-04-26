@@ -6,6 +6,7 @@ public class _TestableReferee implements Referee {
 	public Move submitMoveArg;
 	public int endAfterThisManyGameEndDetections = 0;
 	public int endDetectedCalledCount = 0;
+	public Board boardReturn;
 
 	@Override
 	public MoveStatus submitMove(Move m) {
@@ -18,6 +19,11 @@ public class _TestableReferee implements Referee {
 	public boolean endDetected() {
 		endDetectedCalledCount++;
 		return endDetectedCalledCount >= endAfterThisManyGameEndDetections;
+	}
+
+	@Override
+	public Board board() {
+		return boardReturn;
 	}
 
 }

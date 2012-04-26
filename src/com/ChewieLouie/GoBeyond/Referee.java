@@ -8,4 +8,6 @@ public interface Referee {
 
 	public abstract boolean endDetected();
 
+	public abstract Board board();
+
 }
