@@ -66,4 +66,12 @@ public class GameHistory {
 		return moves.size();
 	}
 
+	public Board boardNumber(int i) {
+		return boards.get( i );
+	}
+
+	public Move moveNumber(int i) {
+		return moves.get( i );
+	}
+
 }

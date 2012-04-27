@@ -51,4 +51,8 @@ public class StrictReferee implements Referee {
 	public void addObserver(RefereeMoveObserver observer) {
 		this.observers.add( observer );
 	}
+
+	public GameHistory gameHistory() {
+		return history;
+	}
 }

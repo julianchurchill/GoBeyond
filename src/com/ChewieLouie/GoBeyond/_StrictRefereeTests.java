@@ -149,4 +149,21 @@ public class _StrictRefereeTests {
 		assertTrue( "when referee accepts a move observers are notified with new board", board == observer1.moveAcceptedCalledWithBoard );
 		assertTrue( "when referee accepts a move observers are notified with new board", board == observer2.moveAcceptedCalledWithBoard );
 	}
+	
+	@Test
+	public void GameHistoryMatchesWhatHasBeenPlayed() {
+		board.duplicateReturn = new _TestableBoard( 19 );
+		Move move1 = new Move( new Coord( 1, 2 ), Move.Colour.Black ); 
+		Move move2 = new Move( new Coord( 0, 3 ), Move.Colour.White ); 
+		referee.submitMove( move1 );
+		referee.submitMove( move2 );
+
+		GameHistory h = referee.gameHistory();
+
+		assertEquals( "history has size equal to the number of submitted moves", 2, h.size() );
+		assertTrue( "board 1 matches the first board", board.duplicateReturn == h.boardNumber( 0 ) );
+		assertTrue( "board 2 matches the second board", board.duplicateReturn == h.boardNumber( 1 ) );
+		assertEquals( "move 1 matches the first move played", move1, h.moveNumber( 0 ) );
+		assertEquals( "move 2 matches the second move played", move2, h.moveNumber( 1 ) );
+	}
 }

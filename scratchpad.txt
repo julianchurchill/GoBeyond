@@ -1,8 +1,6 @@
 
 UI
   - GUI - Swing + TDD?
-    - GameBrowser - next(), previous(), goToEnd(), addObserver(GameBrowserObserver)
-       - GameBrowserObserver - browserChanged( Move, Board )
 
 Packaging - Util (Move, Coord, Board), Engine/Domain {Game, Referee, Player, Rules}, UI { Application }  ?
 
@@ -26,3 +24,7 @@ GTP
 
 Save/Load
   - SGF
+
+Write new Players
+  - In new languages?
+    - Scala and Clojure both target the JVM, perhaps easy to integrate?
