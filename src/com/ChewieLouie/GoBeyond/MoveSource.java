@@ -4,6 +4,6 @@ import com.ChewieLouie.GoBeyond.Move.Colour;
 
 public interface MoveSource {
 
-	public abstract Move getMove(Colour colour);
+	public abstract Move getMove(Colour colour, Board board);
 
 }

@@ -1,13 +1,14 @@
 package com.ChewieLouie.GoBeyond.ui;
 
 import com.ChewieLouie.GoBeyond.Board;
+import com.ChewieLouie.GoBeyond.DelegatingPlayer;
 import com.ChewieLouie.GoBeyond.Game;
 import com.ChewieLouie.GoBeyond.GoRules;
 import com.ChewieLouie.GoBeyond.GoStringLifeAnalyzer;
 import com.ChewieLouie.GoBeyond.Move;
 import com.ChewieLouie.GoBeyond.Player;
 import com.ChewieLouie.GoBeyond.PseudoRandomGenerator;
-import com.ChewieLouie.GoBeyond.RandomPlayer;
+import com.ChewieLouie.GoBeyond.RandomMoveSource;
 import com.ChewieLouie.GoBeyond.RefereeMoveObserver;
 import com.ChewieLouie.GoBeyond.Rules;
 import com.ChewieLouie.GoBeyond.SimpleBoard;
@@ -24,8 +25,8 @@ public class TextUI implements RefereeMoveObserver {
 		SimpleBoard board = new SimpleBoard( 9 );
 		StrictReferee referee = new StrictReferee( rules, board );
 		referee.addObserver( this );
-		Player player1 = new RandomPlayer( referee, Move.Colour.Black, new PseudoRandomGenerator( 0 ) );
-		Player player2 = new RandomPlayer( referee, Move.Colour.White, new PseudoRandomGenerator( 1 ) );
+		Player player1 = new DelegatingPlayer( referee, Move.Colour.Black, new RandomMoveSource( new PseudoRandomGenerator( 0 ), referee ) );
+		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new RandomMoveSource( new PseudoRandomGenerator( 1 ), referee ) );
 		Game g = new Game(player1, player2, referee);
 		g.start();
 		

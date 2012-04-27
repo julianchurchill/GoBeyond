@@ -17,10 +17,9 @@ import com.ChewieLouie.GoBeyond.GameBrowserObserver;
 import com.ChewieLouie.GoBeyond.GoRules;
 import com.ChewieLouie.GoBeyond.GoStringLifeAnalyzer;
 import com.ChewieLouie.GoBeyond.Move;
-import com.ChewieLouie.GoBeyond.PassingMoveSource;
 import com.ChewieLouie.GoBeyond.Player;
 import com.ChewieLouie.GoBeyond.PseudoRandomGenerator;
-import com.ChewieLouie.GoBeyond.RandomPlayer;
+import com.ChewieLouie.GoBeyond.RandomMoveSource;
 import com.ChewieLouie.GoBeyond.Rules;
 import com.ChewieLouie.GoBeyond.SimpleBoard;
 import com.ChewieLouie.GoBeyond.StrictReferee;
@@ -57,9 +56,9 @@ public class GUI extends JFrame implements BoardObserver, ActionListener, GameBr
 		board = new SimpleBoard( 9 );
 		board.addObserver( this );
 		referee = new StrictReferee( rules, board );
-		Player player1 = new RandomPlayer( referee, Move.Colour.Black, new PseudoRandomGenerator( 0 ) );
-//		Player player2 = new RandomPlayer( referee, Move.Colour.White, new PseudoRandomGenerator( 1 ) );
-		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new PassingMoveSource() );
+		Player player1 = new DelegatingPlayer( referee, Move.Colour.Black, new RandomMoveSource( new PseudoRandomGenerator( 0 ), referee ) );
+		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new RandomMoveSource( new PseudoRandomGenerator( 1 ), referee ) );
+//		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new PassingMoveSource() );
 		return new Game(player1, player2, referee);
 	}
 

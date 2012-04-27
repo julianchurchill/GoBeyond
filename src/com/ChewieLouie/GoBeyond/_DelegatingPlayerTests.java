@@ -19,6 +19,13 @@ public class _DelegatingPlayerTests {
 	}
 
 	@Test
+	public void passesBoardFromRefereeToMoveSource() {
+		referee.boardReturn = new SimpleBoard(9);
+		player.playMove();
+		assertTrue( referee.boardReturn == moveSource.getMoveCalledWithBoard );
+	}
+
+	@Test
 	public void submitsMoveToReferee() {
 		moveSource.getMoveReturn = new Move( new Coord( 1, 1 ), Move.Colour.Black );
 		

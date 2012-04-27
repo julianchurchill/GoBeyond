@@ -6,26 +6,22 @@ import java.util.List;
 import com.ChewieLouie.GoBeyond.Board.Point;
 import com.ChewieLouie.GoBeyond.Move.Colour;
 
-public class RandomPlayer implements Player {
+public class RandomMoveSource implements MoveSource {
 
+	private RandomGenerator randGenerator;
+	private Board board;
 	private Referee referee;
 	private Colour colour;
-	private Board board;
-	private RandomGenerator randGenerator;
-	
-	public RandomPlayer(Referee referee, Colour colour, RandomGenerator gen) {
+
+	public RandomMoveSource(RandomGenerator rand, Referee referee) {
+		this.randGenerator = rand;
 		this.referee = referee;
-		this.colour = colour;
-		this.randGenerator = gen;
 	}
 
 	@Override
-	public void playMove() {
-		referee.submitMove( generateMove(referee.board(), colour ) );
-	}
-
-	private Move generateMove(Board board, Colour colour) {
+	public Move getMove(Colour colour, Board board) {
 		this.board = board;
+		this.colour = colour;
 		List<Coord> points = availablePoints();
 		if( points.size() == 0 )
 			return Move.passMove(colour);
@@ -82,4 +78,5 @@ public class RandomPlayer implements Player {
 		return ( board.getContentsOfPoint(c) == stoneColour ||
 				 board.getContentsOfPoint(c) == Point.OffBoard ) ? 1 : 0;
 	}
+
 }

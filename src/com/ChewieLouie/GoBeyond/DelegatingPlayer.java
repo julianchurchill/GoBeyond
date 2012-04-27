@@ -16,7 +16,7 @@ public class DelegatingPlayer implements Player {
 
 	@Override
 	public void playMove() {
-		referee.submitMove(moveSource.getMove(colour));
+		referee.submitMove(moveSource.getMove(colour, referee.board()));
 	}
 
 }
