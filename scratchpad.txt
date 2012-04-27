@@ -1,7 +1,7 @@
 
 UI
   - GUI - Swing + TDD?
-    - board widget
+    - graphical and interactive board widget
     - UI player?
       - Use DelegatingPlayer with a GUIMoveSource
 

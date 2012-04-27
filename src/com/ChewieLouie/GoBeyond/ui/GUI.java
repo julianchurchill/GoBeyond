@@ -1,19 +1,15 @@
 package com.ChewieLouie.GoBeyond.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
 
-import com.ChewieLouie.GoBeyond.BoardObserver;
 import com.ChewieLouie.GoBeyond.DelegatingPlayer;
 import com.ChewieLouie.GoBeyond.Game;
 import com.ChewieLouie.GoBeyond.GameBrowser;
-import com.ChewieLouie.GoBeyond.GameBrowserObserver;
 import com.ChewieLouie.GoBeyond.GoRules;
 import com.ChewieLouie.GoBeyond.GoStringLifeAnalyzer;
 import com.ChewieLouie.GoBeyond.Move;
@@ -24,17 +20,15 @@ import com.ChewieLouie.GoBeyond.Rules;
 import com.ChewieLouie.GoBeyond.SimpleBoard;
 import com.ChewieLouie.GoBeyond.StrictReferee;
 
-public class GUI extends JFrame implements BoardObserver, ActionListener, GameBrowserObserver {
+public class GUI extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
 	private SimpleBoard board;
 	private Game game;
 	private StrictReferee referee;
-
-	private JTextArea boardAsTextBox;
-
 	private GameBrowser gameBrowser;
+	private BoardWidget boardWidget;
 
 	public static void main(String [] args) {
 		new GUI();
@@ -54,7 +48,6 @@ public class GUI extends JFrame implements BoardObserver, ActionListener, GameBr
 	private Game setupGame() {
 		Rules rules = new GoRules( new GoStringLifeAnalyzer() );
 		board = new SimpleBoard( 9 );
-		board.addObserver( this );
 		referee = new StrictReferee( rules, board );
 		Player player1 = new DelegatingPlayer( referee, Move.Colour.Black, new RandomMoveSource( new PseudoRandomGenerator( 0 ), referee ) );
 		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new RandomMoveSource( new PseudoRandomGenerator( 1 ), referee ) );
@@ -77,9 +70,7 @@ public class GUI extends JFrame implements BoardObserver, ActionListener, GameBr
 	}
 
 	private void addBoard() {
-		boardAsTextBox = new JTextArea();
-	    boardAsTextBox.setFont(new Font("Courier", Font.PLAIN, 12));
-	    getContentPane().add(boardAsTextBox, BorderLayout.CENTER);
+		boardWidget = new TextBasedBoardWidget( board, getContentPane() );
 	}
 
 	@Override
@@ -98,7 +89,7 @@ public class GUI extends JFrame implements BoardObserver, ActionListener, GameBr
 		addButton("Next", "next", BorderLayout.EAST);
 		addButton("Previous", "previous", BorderLayout.WEST);
 		gameBrowser = new GameBrowser( referee.gameHistory() );
-		gameBrowser.addObserver(this);
+		boardWidget.addGameBrowser(gameBrowser);
 		gameBrowser.goToLastPosition();
 	}
 
@@ -106,15 +97,4 @@ public class GUI extends JFrame implements BoardObserver, ActionListener, GameBr
 		setSize(400, 400);
 		setVisible(true);
 	}
-
-	@Override
-	public void boardChanged() {
-		boardAsTextBox.setText( board.toString() );
-	}
-
-	@Override
-	public void browserPositionChanged() {
-		boardAsTextBox.setText( gameBrowser.currentBoard().toString() );
-	}
-
 }
