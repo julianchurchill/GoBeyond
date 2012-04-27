@@ -1,6 +1,10 @@
 
+Should RandomPlayer be replaced with DelegatingPlayer that takes a RandomMoveSource?
+
 UI
   - GUI - Swing + TDD?
+    - board widget
+    - UI player?
 
 Packaging - Util (Move, Coord, Board), Engine/Domain {Game, Referee, Player, Rules}, UI { Application }  ?
 
