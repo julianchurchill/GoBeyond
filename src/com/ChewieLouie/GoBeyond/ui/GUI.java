@@ -1,7 +1,13 @@
 package com.ChewieLouie.GoBeyond.ui;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 import com.ChewieLouie.GoBeyond.BoardObserver;
 import com.ChewieLouie.GoBeyond.Game;
@@ -15,14 +21,14 @@ import com.ChewieLouie.GoBeyond.Rules;
 import com.ChewieLouie.GoBeyond.SimpleBoard;
 import com.ChewieLouie.GoBeyond.StrictReferee;
 
-public class GUI extends JFrame implements BoardObserver {
+public class GUI extends JFrame implements BoardObserver, ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
 	private SimpleBoard board;
 	private Game game;
 
-	private JLabel label;
+	private JTextArea boardAsTextBox;
 
 	public static void main(String [] args) {
 		new GUI();
@@ -35,7 +41,6 @@ public class GUI extends JFrame implements BoardObserver {
             public void run() {
         		setupMainFrame();
         		showMainFrame();
-        		playGame();
             }
         });
 	}
@@ -52,8 +57,27 @@ public class GUI extends JFrame implements BoardObserver {
 
 	private void setupMainFrame() {
 		setTitle( "GoBeyond" );
-		label = new JLabel();
-	    getContentPane().add(label);
+
+	    addPlayButton();
+	    addBoard();
+	}
+
+	private void addBoard() {
+		boardAsTextBox = new JTextArea();
+	    boardAsTextBox.setFont(new Font("Courier", Font.PLAIN, 12));
+	    getContentPane().add(boardAsTextBox, BorderLayout.CENTER);
+	}
+
+	private void addPlayButton() {
+		JButton playButton = new JButton("Play");
+		playButton.setActionCommand("play");
+		playButton.addActionListener(this);
+	    getContentPane().add(playButton, BorderLayout.NORTH);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		game.start();
 	}
 
 	private void showMainFrame() {
@@ -61,14 +85,9 @@ public class GUI extends JFrame implements BoardObserver {
 		setVisible(true);
 	}
 
-	private void playGame() {
-		game.start();
-		setTitle( "GoBeyond: " + board.toString() );
-	}
-
 	@Override
 	public void boardChanged() {
-		label.setText( board.toString() );
+		boardAsTextBox.setText( board.toString() );
 	}
 
 }

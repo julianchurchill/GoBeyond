@@ -1,6 +1,8 @@
 
 UI
   - GUI - Swing + TDD?
+    - GameBrowser - next(), previous(), goToEnd(), addObserver(GameBrowserObserver)
+       - GameBrowserObserver - browserChanged( Move, Board )
 
 Packaging - Util (Move, Coord, Board), Engine/Domain {Game, Referee, Player, Rules}, UI { Application }  ?
 
