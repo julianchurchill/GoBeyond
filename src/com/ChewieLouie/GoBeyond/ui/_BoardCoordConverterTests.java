@@ -13,12 +13,16 @@ public class _BoardCoordConverterTests {
 
 	@Before
 	public void SetUp() {
-		converter = new BoardCoordConverter(100);
+		converter = new BoardCoordConverter(100, new Coord( 0, 0 ) );
 	}
 
 	@Test
 	public void screenOriginCoordIsConvertedToBoardOriginCoord() {
 		assertEquals( "0,0 coord on screen is 0,0 on board", new Coord( 0, 0 ), converter.toBoard( new Coord( 0, 0 ) ) );
+
+		BoardCoordConverter converterWithAlternativeOrigin = new BoardCoordConverter( 100, new Coord( 100, 100 ) );
+		assertEquals( "screen with origin of 100,100 has origin on board of 0,0", 
+				new Coord( 0, 0 ), converterWithAlternativeOrigin.toBoard( new Coord( 100, 100 ) ) );
 	}
 
 	@Test
@@ -35,6 +39,10 @@ public class _BoardCoordConverterTests {
 	@Test
 	public void boardOriginCoordIsConvertedToScreenOriginCoord() {
 		assertEquals( "0,0 coord on board is 0,0 on screen", new Coord( 0, 0 ), converter.toScreen( new Coord( 0, 0 ) ) );
+
+		BoardCoordConverter converterWithAlternativeOrigin = new BoardCoordConverter( 100, new Coord( 100, 100 ) );
+		assertEquals( "screen with origin of 100,100 converts board coord of 0,0 to 100,100", 
+				new Coord( 100, 100 ), converterWithAlternativeOrigin.toScreen( new Coord( 0, 0 ) ) );
 	}
 
 	@Test

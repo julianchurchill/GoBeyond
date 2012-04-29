@@ -70,7 +70,8 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	private void addBoard() {
-		boardWidget = new TextBasedBoardWidget( board, getContentPane() );
+//		boardWidget = new TextBasedBoardWidget( board, getContentPane() );
+		boardWidget = new SimpleBoardWidget( board, getContentPane() );
 	}
 
 	@Override
