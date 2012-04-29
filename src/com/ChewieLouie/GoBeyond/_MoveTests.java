@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.ChewieLouie.GoBeyond.util.Coord;
+
 public class _MoveTests {
 
 	@Test

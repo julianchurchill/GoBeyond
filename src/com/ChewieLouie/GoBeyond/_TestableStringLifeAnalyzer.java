@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.ChewieLouie.GoBeyond.util.Coord;
+
 public class _TestableStringLifeAnalyzer implements StringLifeAnalyzer {
 
 	public boolean isStringAliveCalled = false;

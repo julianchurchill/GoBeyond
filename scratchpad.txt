@@ -1,18 +1,20 @@
 
-UI
-  - GUI - Swing + TDD?
-    - graphical and interactive board widget
-    - UI player?
-      - Use DelegatingPlayer with a GUIMoveSource
+GUI
+  - graphical and interactive board widget
+    - use BoardCoordConverter
+
+StrictReferee
+  - Referee should check the submitted move is for the current player?
+    - Toggle expected player
+
+GUI
+  - UI player?
+    - Use DelegatingPlayer with a GUIMoveSource
 
 Packaging - Util (Move, Coord, Board), Engine/Domain {Game, Referee, Player, Rules}, UI { Application }  ?
 
 Game
   - Game scorer... linked to rules for scoring (same Rules object as for verifying moves?), chinese, japanese, computer Go
-
-StrictReferee
-  - Referee should check the submitted move is for the current player?
-    - Toggle expected player
 
 Rules
   - isLegal()

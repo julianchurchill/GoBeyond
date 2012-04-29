@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ChewieLouie.GoBeyond.util.Coord;
+
 public class StringOfStones {
 
 	private Set<Coord> stones = new HashSet<Coord>();

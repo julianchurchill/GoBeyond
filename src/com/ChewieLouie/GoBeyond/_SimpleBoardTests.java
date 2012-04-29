@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ChewieLouie.GoBeyond.Board.Point;
+import com.ChewieLouie.GoBeyond.util.Coord;
 
 public class _SimpleBoardTests {
 

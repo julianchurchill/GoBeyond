@@ -3,6 +3,8 @@ package com.ChewieLouie.GoBeyond;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ChewieLouie.GoBeyond.util.Coord;
+
 public class RemovedDeadStonesBoard implements Board {
 
 	private Board board;

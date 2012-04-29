@@ -1,10 +1,11 @@
-package com.ChewieLouie.GoBeyond;
+package com.ChewieLouie.GoBeyond.util;
 
 import static org.junit.Assert.*;
 
 import java.util.List;
 
 import org.junit.Test;
+
 
 public class _CoordTests {
 

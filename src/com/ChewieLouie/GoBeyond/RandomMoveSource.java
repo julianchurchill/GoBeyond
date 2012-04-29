@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ChewieLouie.GoBeyond.Board.Point;
 import com.ChewieLouie.GoBeyond.Move.Colour;
+import com.ChewieLouie.GoBeyond.util.Coord;
 
 public class RandomMoveSource implements MoveSource {
 

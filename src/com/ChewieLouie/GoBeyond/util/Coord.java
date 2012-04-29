@@ -1,4 +1,4 @@
-package com.ChewieLouie.GoBeyond;
+package com.ChewieLouie.GoBeyond.util;
 
 import java.util.ArrayList;
 import java.util.List;

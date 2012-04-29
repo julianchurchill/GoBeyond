@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.ChewieLouie.GoBeyond.Board.Point;
+import com.ChewieLouie.GoBeyond.util.Coord;
 
 public class GoStringLifeAnalyzer implements StringLifeAnalyzer {
 

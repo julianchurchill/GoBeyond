@@ -1,5 +1,7 @@
 package com.ChewieLouie.GoBeyond;
 
+import com.ChewieLouie.GoBeyond.util.Coord;
+
 public interface StringLifeAnalyzer {
 
 	public abstract boolean isStringAlive(Board testBoard, Coord coord);

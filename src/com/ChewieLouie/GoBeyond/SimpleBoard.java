@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ChewieLouie.GoBeyond.util.Coord;
+
 public class SimpleBoard implements Board {
 
 	protected int size = 19;

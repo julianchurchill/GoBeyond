@@ -1,5 +1,7 @@
 package com.ChewieLouie.GoBeyond;
 
+import com.ChewieLouie.GoBeyond.util.Coord;
+
 public class Move {
 
 	@Override

@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.ChewieLouie.GoBeyond.util.Coord;
+import com.ChewieLouie.GoBeyond.util.Utils;
+
 public class _RemovedDeadStonesBoardTests {
 
 	@Test
