@@ -3,23 +3,28 @@ package com.ChewieLouie.GoBeyond.ui;
 import java.awt.BorderLayout;
 import java.awt.Container;
 
+import com.ChewieLouie.GoBeyond.Board;
 import com.ChewieLouie.GoBeyond.BoardObserver;
 import com.ChewieLouie.GoBeyond.GameBrowser;
 import com.ChewieLouie.GoBeyond.GameBrowserObserver;
+import com.ChewieLouie.GoBeyond.Move;
+import com.ChewieLouie.GoBeyond.RefereeMoveObserver;
 import com.ChewieLouie.GoBeyond.SimpleBoard;
+import com.ChewieLouie.GoBeyond.StrictReferee;
 import com.ChewieLouie.GoBeyond.util.Coord;
 
-public class SimpleBoardWidget implements BoardWidget, GameBrowserObserver, BoardObserver {
+public class SimpleBoardWidget implements BoardWidget, GameBrowserObserver, BoardObserver, RefereeMoveObserver {
 
 	private SimpleBoard board;
 	private GameBrowser gameBrowser;
 	private SimpleBoardCanvas canvas;
 
-	public SimpleBoardWidget(SimpleBoard board, Container container) {
+	public SimpleBoardWidget(SimpleBoard board, Container container, StrictReferee referee) {
 		this.board = board;
 		this.board.addObserver(this);
 		this.canvas = new SimpleBoardCanvas();
 	    container.add(canvas, BorderLayout.CENTER);
+	    referee.addObserver( this );
 	}
 
 	@Override
@@ -52,5 +57,10 @@ public class SimpleBoardWidget implements BoardWidget, GameBrowserObserver, Boar
 	@Override
 	public void allowBoardClicks() {
 		canvas.allowBoardClicks();
+	}
+
+	@Override
+	public void moveAccepted(Move m, Board b) {
+		canvas.lastMove( m.coord() );
 	}
 }

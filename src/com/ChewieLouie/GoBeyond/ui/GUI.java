@@ -69,7 +69,7 @@ public class GUI extends JFrame implements ActionListener, GameEndObserver {
 	}
 
 	private void addBoard() {
-		boardWidget = new SimpleBoardWidget( board, getContentPane() );
+		boardWidget = new SimpleBoardWidget( board, getContentPane(), referee );
 	}
 
 	@Override

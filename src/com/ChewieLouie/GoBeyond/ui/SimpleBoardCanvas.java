@@ -21,6 +21,7 @@ public class SimpleBoardCanvas extends JPanel {
 	private int lastClickedY = -1;
 	private boolean mouseClickAvailable = false;
 	private boolean allowBoardClicks = false;
+	private Coord lastMoveCoord = null;
 
 	public SimpleBoardCanvas() {
 		super();
@@ -50,6 +51,7 @@ public class SimpleBoardCanvas extends JPanel {
 		this.graphics = g;
 		drawGrid();
 		drawBoardContents();
+		drawLastMoveHighlight();
 		this.graphics = null;
 	}
 
@@ -116,6 +118,14 @@ public class SimpleBoardCanvas extends JPanel {
 		}
 	}
 
+	private void drawLastMoveHighlight() {
+		if( lastMoveCoord != null ) {
+			Coord screenCoord = coordConverter.toScreen( lastMoveCoord  );
+			graphics.setColor(Color.red);
+			graphics.drawOval(screenCoord.x(), screenCoord.y(), gridSizeInPixels, gridSizeInPixels);
+		}
+	}
+
 	private void setPenColour(Point point) {
 		if( point == Point.BlackStone )
 			graphics.setColor( Color.black );
@@ -145,6 +155,10 @@ public class SimpleBoardCanvas extends JPanel {
 
 	public void allowBoardClicks() {
 		allowBoardClicks  = true;
+	}
+
+	public void lastMove(Coord c) {
+		lastMoveCoord = c;
 	}
 
 }
