@@ -12,6 +12,5 @@ FitNesseRoot/files/testProgress
 *.class
 
 # Package Files #
-*.jar
 *.war
 *.ear
