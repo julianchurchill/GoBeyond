@@ -3,6 +3,8 @@ package com.ChewieLouie.GoBeyond;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.ChewieLouie.GoBeyond.Referee.MoveStatus;
+
 public class Game {
 
 	private Player player1;
@@ -20,11 +22,18 @@ public class Game {
 	public void start() {
 		currentPlayer = player1;
 		while( referee.endDetected() == false ) {
-			currentPlayer.playMove();
+			playMoveByCurrentPlayer();
 			swapCurrentPlayer();
 		}
 		for( GameEndObserver o : observers )
 			o.gameEnded();
+	}
+
+	private void playMoveByCurrentPlayer() {
+		MoveStatus s;
+		do {
+			s = currentPlayer.playMove();
+		} while( s != MoveStatus.LegalMove );
 	}
 
 	private void swapCurrentPlayer() {

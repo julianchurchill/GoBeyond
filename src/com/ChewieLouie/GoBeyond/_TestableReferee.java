@@ -11,12 +11,13 @@ public class _TestableReferee implements Referee {
 	public Move isLegalCalledWithMove;
 	public Board isLegalCalledWithBoard;
 	public boolean isLegalReturn = false;
+	public MoveStatus submitMoveReturn = MoveStatus.LegalMove;
 
 	@Override
 	public MoveStatus submitMove(Move m) {
 		submitMoveCalled = true;
 		submitMoveArg = m;
-		return null;
+		return submitMoveReturn;
 	}
 
 	@Override

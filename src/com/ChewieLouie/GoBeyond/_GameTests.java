@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ChewieLouie.GoBeyond.Referee.MoveStatus;
+
 public class _GameTests {
 
 	private _TestablePlayer player1;
@@ -36,6 +38,16 @@ public class _GameTests {
 
 		assertEquals( 1, player1.generateMoveCalledCount );
 		assertEquals( 0, player2.generateMoveCalledCount );
+	}
+	
+	@Test
+	public void gameAsksSamePlayerForMoveUntilTheyReturnAMoveAcceptedByTheReferee() {
+		referee.endAfterThisManyGameEndDetections = 2;
+		player1.playMoveReturnQueue.add( MoveStatus.IllegalMove );
+
+		game.start();
+		
+		assertEquals( 2, player1.generateMoveCalledCount );
 	}
 
 	@Test

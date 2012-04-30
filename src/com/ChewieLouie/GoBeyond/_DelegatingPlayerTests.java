@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ChewieLouie.GoBeyond.Referee.MoveStatus;
 import com.ChewieLouie.GoBeyond.util.Coord;
 
 public class _DelegatingPlayerTests {
@@ -41,5 +42,13 @@ public class _DelegatingPlayerTests {
 		player.playMove();
 		assertTrue( "retrieves move from source", moveSource.getMoveCalled );
 		assertEquals( "passes colour to source", Move.Colour.White, moveSource.getMoveCalledWithColour );
+	}
+	
+	@Test
+	public void returnsMoveStatusFromReferee() {
+		referee.submitMoveReturn = MoveStatus.IllegalMove;
+		assertEquals( "", MoveStatus.IllegalMove, player.playMove() );
+		referee.submitMoveReturn = MoveStatus.LegalMove;
+		assertEquals( "", MoveStatus.LegalMove, player.playMove() );
 	}
 }

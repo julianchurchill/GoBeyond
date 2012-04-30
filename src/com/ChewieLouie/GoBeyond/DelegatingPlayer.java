@@ -1,6 +1,7 @@
 package com.ChewieLouie.GoBeyond;
 
 import com.ChewieLouie.GoBeyond.Move.Colour;
+import com.ChewieLouie.GoBeyond.Referee.MoveStatus;
 
 public class DelegatingPlayer implements Player {
 
@@ -15,8 +16,8 @@ public class DelegatingPlayer implements Player {
 	}
 
 	@Override
-	public void playMove() {
-		referee.submitMove(moveSource.getMove(colour, referee.board()));
+	public MoveStatus playMove() {
+		return referee.submitMove(moveSource.getMove(colour, referee.board()));
 	}
 
 }

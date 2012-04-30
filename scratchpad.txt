@@ -1,11 +1,7 @@
 
-Game
-  - Moves rejected by Referee should not cause Game to ask next player - keep asking the same
-    player until the referee accepts a move... 
-
 GUI
-  - Illegal moves should generate a warning for UI player - beep, dialog, screen colouring (red border)?
   - Last move highlight so UI player can see random player has moved
+  - Illegal moves should generate a warning for UI player - beep, dialog, screen colouring (red border)?
   - Add tick boxes to select random/ui player
 
 StrictReferee
