@@ -11,4 +11,6 @@ public interface BoardWidget {
 
 	public abstract boolean clickAvailable();
 
+	public abstract void allowBoardClicks();
+
 }

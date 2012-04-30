@@ -20,6 +20,7 @@ public class SimpleBoardCanvas extends JPanel {
 	private int lastClickedX = -1;
 	private int lastClickedY = -1;
 	private boolean mouseClickAvailable = false;
+	private boolean allowBoardClicks = false;
 
 	public SimpleBoardCanvas() {
 		super();
@@ -27,9 +28,11 @@ public class SimpleBoardCanvas extends JPanel {
 		coordConverter = new BoardCoordConverter(gridSizeInPixels, new Coord( 0, 0 ) );
 		addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-            	lastClickedX = evt.getPoint().x;
-            	lastClickedY = evt.getPoint().y;
-            	mouseClickAvailable = true;
+            	if( allowBoardClicks ) {
+	            	lastClickedX = evt.getPoint().x;
+	            	lastClickedY = evt.getPoint().y;
+	            	mouseClickAvailable = true;
+            	}
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
             }
@@ -138,6 +141,10 @@ public class SimpleBoardCanvas extends JPanel {
 	
 	public boolean clickAvailable() {
 		return mouseClickAvailable;
+	}
+
+	public void allowBoardClicks() {
+		allowBoardClicks  = true;
 	}
 
 }

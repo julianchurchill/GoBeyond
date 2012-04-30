@@ -89,6 +89,7 @@ public class GUI extends JFrame implements ActionListener, GameEndObserver {
 	private void startGame() {
 		Thread t = new Thread(new Runnable() {
             public void run() {
+            	boardWidget.allowBoardClicks();
         		game.start();
             }
         });

@@ -1,7 +1,4 @@
 
-GUI
-  - Mouse clicks on SimpleBoardCanvas should be ignored until game is started!
-  
 Game
   - Moves rejected by Referee should not cause Game to ask next player - keep asking the same
     player until the referee accepts a move... 

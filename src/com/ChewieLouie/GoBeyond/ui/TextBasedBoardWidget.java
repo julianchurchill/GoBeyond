@@ -51,4 +51,8 @@ public class TextBasedBoardWidget implements BoardObserver, GameBrowserObserver,
 	public boolean clickAvailable() {
 		return false;
 	}
+
+	@Override
+	public void allowBoardClicks() {
+	}
 }

@@ -48,4 +48,9 @@ public class SimpleBoardWidget implements BoardWidget, GameBrowserObserver, Boar
 	public boolean clickAvailable() {
 		return canvas.clickAvailable();
 	}
+
+	@Override
+	public void allowBoardClicks() {
+		canvas.allowBoardClicks();
+	}
 }

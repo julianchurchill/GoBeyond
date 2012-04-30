@@ -21,4 +21,8 @@ public class _TestableBoardWidget implements BoardWidget {
 		return true;
 	}
 
+	@Override
+	public void allowBoardClicks() {
+	}
+
 }
