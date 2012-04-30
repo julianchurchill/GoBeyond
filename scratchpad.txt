@@ -9,6 +9,7 @@ Game
 
 GUI
   - Illegal moves should generate a warning for UI player - beep, dialog, screen colouring (red border)?
+  - Last move highlight so UI player can see random player has moved
   - Add tick boxes to select random/ui player
 
 StrictReferee

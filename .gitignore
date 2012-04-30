@@ -1,0 +1,11 @@
+bin
+local.properties
+*.em
+instrumented
+coverage
+.settings/ccw.repl.cmdhistory.prefs
+unittest/junit
+FitNesseRoot/ErrorLogs
+FitNesseRoot/files/testResults
+FitNesseRoot/files/testProgress
+*.zip
