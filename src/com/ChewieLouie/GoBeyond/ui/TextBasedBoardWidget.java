@@ -43,7 +43,12 @@ public class TextBasedBoardWidget implements BoardObserver, GameBrowserObserver,
 	}
 
 	@Override
-	public Coord getLastClickedBoardPoint() {
+	public Coord removeLastClickedBoardPoint() {
 		return null;
+	}
+
+	@Override
+	public boolean clickAvailable() {
+		return false;
 	}
 }

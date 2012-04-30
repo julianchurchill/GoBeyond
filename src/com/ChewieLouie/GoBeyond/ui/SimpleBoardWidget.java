@@ -40,7 +40,12 @@ public class SimpleBoardWidget implements BoardWidget, GameBrowserObserver, Boar
 	}
 
 	@Override
-	public Coord getLastClickedBoardPoint() {
+	public Coord removeLastClickedBoardPoint() {
 		return canvas.getLastClickedBoardPoint();
+	}
+
+	@Override
+	public boolean clickAvailable() {
+		return canvas.clickAvailable();
 	}
 }

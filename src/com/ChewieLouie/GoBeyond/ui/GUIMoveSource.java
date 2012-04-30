@@ -8,6 +8,7 @@ import com.ChewieLouie.GoBeyond.Move.Colour;
 public class GUIMoveSource implements MoveSource {
 
 	private BoardWidget boardWidget;
+	private boolean enqueuePass = false;
 
 	public GUIMoveSource(BoardWidget boardWidget) {
 		this.boardWidget = boardWidget;
@@ -15,7 +16,21 @@ public class GUIMoveSource implements MoveSource {
 
 	@Override
 	public Move getMove(Colour colour, Board board) {
-		return new Move( boardWidget.getLastClickedBoardPoint(), colour );
+		while( boardWidget.clickAvailable() == false && enqueuePass == false ) {
+			try {
+				Thread.sleep( 1 );
+			} catch (InterruptedException e) {
+			}
+		}
+		Move m = new Move( boardWidget.removeLastClickedBoardPoint(), colour );
+		if( enqueuePass )
+			m = Move.passMove(colour);
+		enqueuePass = false;
+		return m;
+	}
+
+	public void enqueuePass() {
+		enqueuePass = true;
 	}
 
 }

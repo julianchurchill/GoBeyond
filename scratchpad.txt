@@ -1,6 +1,5 @@
 
 GUI
-  - Add pass button for UI player to use
   - Mouse clicks on SimpleBoardCanvas should be ignored until game is started!
   
 Game

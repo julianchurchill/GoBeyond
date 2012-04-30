@@ -7,6 +7,8 @@ public interface BoardWidget {
 
 	public abstract void addGameBrowser(GameBrowser gameBrowser);
 
-	public abstract Coord getLastClickedBoardPoint();
+	public abstract Coord removeLastClickedBoardPoint();
+
+	public abstract boolean clickAvailable();
 
 }

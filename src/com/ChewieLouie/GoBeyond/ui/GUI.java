@@ -30,6 +30,7 @@ public class GUI extends JFrame implements ActionListener, GameEndObserver {
 	private StrictReferee referee;
 	private GameBrowser gameBrowser;
 	private BoardWidget boardWidget;
+	private GUIMoveSource guiMoveSource;
 
 	public static void main(String [] args) {
 		new GUI();
@@ -56,6 +57,7 @@ public class GUI extends JFrame implements ActionListener, GameEndObserver {
 		setTitle( "GoBeyond" );
 
 		addButton("Play", "play", BorderLayout.NORTH);
+		addButton("Pass", "pass", BorderLayout.SOUTH);
 	    addBoard();
 	}
 
@@ -76,6 +78,8 @@ public class GUI extends JFrame implements ActionListener, GameEndObserver {
 			setupGame();
 			startGame();
 		}
+		else if( event.getActionCommand() == "pass" )
+			guiMoveSource.enqueuePass();
 		else if( event.getActionCommand() == "next" )
 			gameBrowser.next();
 		else if( event.getActionCommand() == "previous" )
@@ -94,7 +98,8 @@ public class GUI extends JFrame implements ActionListener, GameEndObserver {
 	private void setupGame() {
 		Player player1 = new DelegatingPlayer( referee, Move.Colour.Black, new RandomMoveSource( new PseudoRandomGenerator( 0 ), referee ) );
 //		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new RandomMoveSource( new PseudoRandomGenerator( 1 ), referee ) );
-		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new GUIMoveSource( boardWidget ) );
+		guiMoveSource = new GUIMoveSource( boardWidget );
+		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, guiMoveSource );
 		game = new Game(player1, player2, referee);
 		game.addObserver(this);
 	}
