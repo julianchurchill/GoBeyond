@@ -1,5 +1,6 @@
 package com.ChewieLouie.GoBeyond;
 
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -11,19 +12,19 @@ public class _GoRulesTests {
 
 	private SimpleBoard board;
 	private Rules rules;
-	private _TestableStringLifeAnalyzer boardAnalyzer;
+	private StringLifeAnalyzer boardAnalyzer;
 
 	@Before
 	public void SetUp() {
 		board = new SimpleBoard( 19 );
-		boardAnalyzer = new _TestableStringLifeAnalyzer();
+		boardAnalyzer = mock( StringLifeAnalyzer.class );
 		rules = new GoRules( boardAnalyzer );
 	}
 
 	@Test
     public void shouldUseBoardAnalyzerDuringLegalityCheck() {
 		rules.isLegal( new Move( new Coord( 0, 0 ), Move.Colour.Black ), board, null );
-		assertTrue( boardAnalyzer.isStringAliveCalled );
+		verify(boardAnalyzer).isStringAlive((Board)any(), (Coord)any() );
 	}
 	
 	@Test
@@ -46,8 +47,8 @@ public class _GoRulesTests {
 									   ".bw.." +
 									   "....." +
 									   "....." );
-		boardAnalyzer.isStringAliveReturnDefault = true;
-		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
+		when(boardAnalyzer.isStringAlive((Board)any(), (Coord)any())).thenReturn(true);
+		when(boardAnalyzer.isStringAlive((Board)any(), eq(new Coord( 2, 1 )))).thenReturn(false);
 		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
 	}
 
@@ -58,8 +59,8 @@ public class _GoRulesTests {
 									   "wbb.." +
 									   "....." +
 									   "....." );
-		boardAnalyzer.isStringAliveReturnDefault = true;
-		boardAnalyzer.stringIsDead.add( new Coord( 0, 1 ) );
+		when(boardAnalyzer.isStringAlive((Board)any(), (Coord)any())).thenReturn(true);
+		when(boardAnalyzer.isStringAlive((Board)any(), eq( new Coord( 0, 1 )))).thenReturn(false);
 		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
 	}
 
@@ -70,8 +71,8 @@ public class _GoRulesTests {
 									   "bbb.." +
 									   "....." +
 									   "....." );
-		boardAnalyzer.isStringAliveReturnDefault = true;
-		boardAnalyzer.stringIsDead.add( new Coord( 1, 0 ) );
+		when(boardAnalyzer.isStringAlive((Board)any(), (Coord)any())).thenReturn(true);
+		when(boardAnalyzer.isStringAlive((Board)any(), eq(new Coord( 1, 0 )))).thenReturn(false);
 		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
 	}
 
@@ -82,8 +83,8 @@ public class _GoRulesTests {
 									   "wbw.." +
 									   ".w..." +
 									   "....." );
-		boardAnalyzer.isStringAliveReturnDefault = true;
-		boardAnalyzer.stringIsDead.add( new Coord( 1, 2 ) );
+		when(boardAnalyzer.isStringAlive((Board)any(), (Coord)any())).thenReturn(true);
+		when(boardAnalyzer.isStringAlive((Board)any(), eq( new Coord( 1, 2 )))).thenReturn(false);
 		assertTrue( rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, null ) );
 	}
 
@@ -94,11 +95,13 @@ public class _GoRulesTests {
 									   ".bw.." +
 									   "....." +
 									   "....." );
-		boardAnalyzer.isStringAliveReturnDefault = true;
-		boardAnalyzer.stringIsDead.add( new Coord( 1, 1 ) );
-		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
-		boardAnalyzer.stonesOfStringReturn.add( new Coord( 2, 1 ) );
-
+		when(boardAnalyzer.isStringAlive((Board)any(), (Coord)any())).thenReturn(true);
+		when(boardAnalyzer.isStringAlive((Board)any(), eq( new Coord( 1, 1 )))).thenReturn(false);
+		when(boardAnalyzer.isStringAlive((Board)any(), eq( new Coord( 2, 1 )))).thenReturn(false);
+		StringOfStones stones = new StringOfStones();
+		stones.add( new Coord( 2, 1 ) );
+		when(boardAnalyzer.stonesOfString((Coord)any(), (Board)any())).thenReturn( stones );
+		
 		Board tb1 = SimpleBoard.makeBoard( ".bw.." +
 										   "bw.w." +
 										   ".bw.." +
@@ -106,7 +109,7 @@ public class _GoRulesTests {
 										   "....." );
 		GameHistory history = new GameHistory();
 		history.add( tb1, null );
-		history.add( new _TestableBoard( 19 ), null );
+		history.add( new SimpleBoard( 19 ), null );
 
 		assertFalse( "taking a ko immediately is illegal", 
 				rules.isLegal( new Move( new Coord( 1, 1 ), Move.Colour.White ), board, history ) );
@@ -119,12 +122,13 @@ public class _GoRulesTests {
 									   ".bw.." +
 									   "....." +
 									   "....." );
-		boardAnalyzer.isStringAliveReturnDefault = true;
-		boardAnalyzer.stringIsDead.add( new Coord( 2, 1 ) );
-		boardAnalyzer.stringIsDead.add( new Coord( 1, 1 ) );
+		when(boardAnalyzer.isStringAlive((Board)any(), (Coord)any())).thenReturn(true);
+		when(boardAnalyzer.isStringAlive((Board)any(), eq( new Coord( 1, 1 )))).thenReturn(false);
+		when(boardAnalyzer.isStringAlive((Board)any(), eq( new Coord( 2, 1 )))).thenReturn(false);
+		when(boardAnalyzer.stonesOfString((Coord)any(), (Board)any())).thenReturn( new StringOfStones() );
 
-		_TestableBoard tb1 = new _TestableBoard( 19 );
-		_TestableBoard tb2 = new _TestableBoard( 19 );
+		SimpleBoard tb1 = new SimpleBoard( 19 );
+		SimpleBoard tb2 = new SimpleBoard( 19 );
 		GameHistory history = new GameHistory();
 		history.add( tb1, null );
 		history.add( tb2, null );
