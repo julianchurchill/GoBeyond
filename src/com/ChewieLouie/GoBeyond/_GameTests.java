@@ -1,6 +1,6 @@
 package com.ChewieLouie.GoBeyond;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,67 +9,67 @@ import com.ChewieLouie.GoBeyond.Referee.MoveStatus;
 
 public class _GameTests {
 
-	private _TestablePlayer player1;
-	private _TestablePlayer player2;
-	private _TestableReferee referee;
+	private Player player1;
+	private Player player2;
+	private Referee referee;
 	private Game game;
 
 	@Before
 	public void SetUp() {
-		player1 = new _TestablePlayer();
-		player2 = new _TestablePlayer();
-		referee = new _TestableReferee();
+		player1 = mock( Player.class );
+		player2 = mock( Player.class );
+		referee = mock(Referee.class);
 		game = new Game( player1, player2, referee );
 	}
 
 	@Test
 	public void gameAsksPlayersToGenerateMovesUntilGameEnds() {
-		referee.endAfterThisManyGameEndDetections = 11;
+		when(referee.endDetected()).thenReturn(false, false, false, false, true);
 		game.start();
 		
-		assertEquals( 5, player1.generateMoveCalledCount );
-		assertEquals( 5, player2.generateMoveCalledCount );
+		verify(player1, times(2)).playMove();
+		verify(player2, times(2)).playMove();
 	}
 
 	@Test
 	public void gameOfOneMoveOnlyAsksPlayer1ToGenerateAMove() {
-		referee.endAfterThisManyGameEndDetections = 2;
+		when(referee.endDetected()).thenReturn(false, true);
 		game.start();
 
-		assertEquals( 1, player1.generateMoveCalledCount );
-		assertEquals( 0, player2.generateMoveCalledCount );
+		verify(player1).playMove();
+		verify(player2, never()).playMove();
 	}
 	
 	@Test
 	public void gameAsksSamePlayerForMoveUntilTheyReturnAMoveAcceptedByTheReferee() {
-		referee.endAfterThisManyGameEndDetections = 2;
-		player1.playMoveReturnQueue.add( MoveStatus.IllegalMove );
+		when(referee.endDetected()).thenReturn(false, true);
+		when(player1.playMove()).thenReturn(MoveStatus.IllegalMove);
 
 		game.start();
 		
-		assertEquals( 2, player1.generateMoveCalledCount );
+		verify(player1, times(2)).playMove();
 	}
 
 	@Test
 	public void gameCallsGameEndDetectorOnceForEachMovePlusOnceForTheStartOfTheGame() {
-		referee.endAfterThisManyGameEndDetections = 11;
+		when(referee.endDetected()).thenReturn(false, false, false, false, true);
 		game.start();
 
-		assertEquals( 11, referee.endDetectedCalledCount );
+		verify(referee, times(5)).endDetected();
 	}
 	
 	@Test
 	public void gameEndObserversAreCalledWhenTheGameHasEnded() {
-		_TestableGameEndObserver observer1 = new _TestableGameEndObserver();
-		_TestableGameEndObserver observer2 = new _TestableGameEndObserver();
+		GameEndObserver observer1 = mock(GameEndObserver.class);
+		GameEndObserver observer2 = mock(GameEndObserver.class);
 		game.addObserver( observer1 );
 		game.addObserver( observer2 );
 
-		assertFalse( "observer is not called before game ends", observer1.gameEndedCalled );
-		assertFalse( "observer is not called before game ends", observer2.gameEndedCalled );
+		verify(observer1, never()).gameEnded();
+		verify(observer2, never()).gameEnded();
 
 		game.start();
-		assertTrue( "observer is called when game ends", observer1.gameEndedCalled );
-		assertTrue( "observer is called when game ends", observer2.gameEndedCalled );
+		verify(observer1).gameEnded();
+		verify(observer2).gameEnded();
 	}
 }

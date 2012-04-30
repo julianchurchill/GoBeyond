@@ -47,15 +47,15 @@ public class _GameHistoryTests {
 	@Test
 	public void lastbutOneBoardReturnsNullIfLessThanTwoBoardInTheHistory() {
 		assertEquals( null, history.lastButOneBoard() );
-		history.add( new _TestableBoard( 19 ), null );
+		history.add( new SimpleBoard( 19 ), null );
 		assertNull( history.lastButOneBoard() );
 	}
 
 	@Test
 	public void lastbutOneBoardReturnsBoardSubmittedTwoMovesAgo() {
-		_TestableBoard b = new _TestableBoard( 19 );
+		SimpleBoard b = new SimpleBoard( 19 );
 		history.add( b, null );
-		history.add( new _TestableBoard( 19 ), null );
+		history.add( new SimpleBoard( 19 ), null );
 		assertTrue( history.lastButOneBoard() == b );
 	}
 
@@ -67,29 +67,29 @@ public class _GameHistoryTests {
 	@Test
 	public void lastMoveReturnsLastMostSubmitted() {
 		Move move = new Move( new Coord( 1, 1 ), Move.Colour.Black );
-		history.add( new _TestableBoard( 19 ), move );
+		history.add( new SimpleBoard( 19 ), move );
 		assertTrue( history.lastMove() == move );
 	}
 
 	@Test
 	public void lastButOneMoveReturnsNullIfLessThanTwoMovesInTheHistory() {
 		assertNull( history.lastButOneMove() );
-		history.add( new _TestableBoard( 19 ), new Move( new Coord( 1, 1 ), Move.Colour.Black ) );
+		history.add( new SimpleBoard( 19 ), new Move( new Coord( 1, 1 ), Move.Colour.Black ) );
 		assertNull( history.lastButOneMove() );
 	}
 
 	@Test
 	public void lastButOneMoveReturnsLastButOneMoveSubmitted() {
 		Move move = new Move( new Coord( 1, 1 ), Move.Colour.Black );
-		history.add( new _TestableBoard( 19 ), move );
-		history.add( new _TestableBoard( 19 ), new Move( new Coord( 1, 1 ), Move.Colour.Black ) );
+		history.add( new SimpleBoard( 19 ), move );
+		history.add( new SimpleBoard( 19 ), new Move( new Coord( 1, 1 ), Move.Colour.Black ) );
 		assertTrue( history.lastButOneMove() == move );
 	}
 	
 	@Test
 	public void boardNumberAtIndexRetrievesTheBoardStored() {
-		_TestableBoard tb1 = new _TestableBoard( 9 );
-		_TestableBoard tb2 = new _TestableBoard( 9 );
+		SimpleBoard tb1 = new SimpleBoard( 9 );
+		SimpleBoard tb2 = new SimpleBoard( 9 );
 
 		history.add( tb1, new Move( new Coord( 1, 1 ), Move.Colour.Black ) );
 		history.add( tb2, new Move( new Coord( 1, 1 ), Move.Colour.Black ) );
@@ -103,8 +103,8 @@ public class _GameHistoryTests {
 		Move move1 = new Move( new Coord( 1, 1 ), Move.Colour.Black );
 		Move move2 = new Move( new Coord( 1, 1 ), Move.Colour.Black );
 
-		history.add( new _TestableBoard( 9 ), move1 );
-		history.add( new _TestableBoard( 9 ), move2 );
+		history.add( new SimpleBoard( 9 ), move1 );
+		history.add( new SimpleBoard( 9 ), move2 );
 
 		assertTrue( "move 0 is the same as the first one added to history", history.moveNumber(0) == move1 );
 		assertTrue( "move 1 is the same as the first one added to history", history.moveNumber(1) == move2 );

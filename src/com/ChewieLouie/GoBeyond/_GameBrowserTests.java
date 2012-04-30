@@ -1,5 +1,6 @@
 package com.ChewieLouie.GoBeyond;
 
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -78,81 +79,78 @@ public class _GameBrowserTests {
 
 	@Test
 	public void observersAreNotNotifiedUponBeingAdded() {
-		_TestableGameBrowserObserver observer = new _TestableGameBrowserObserver();
+		GameBrowserObserver observer = mock( GameBrowserObserver.class );
 		g.addObserver( observer );
 		
-		assertFalse( "observer is not notified before anything changes", observer.positionChangedCalled );
+		verify(observer, never()).browserPositionChanged();
 	}
 
 	@Test
 	public void observersAreNotifiedWhenCurrentPositionAdvances() {
-		_TestableGameBrowserObserver observer = new _TestableGameBrowserObserver();
+		GameBrowserObserver observer = mock( GameBrowserObserver.class );
 		g.addObserver( observer );
 		
 		g.next();
-		assertTrue( "observer is notified when browser advances to next position", observer.positionChangedCalled );
+		verify(observer).browserPositionChanged();
 	}
 
 	@Test
 	public void observersAreNotNotifiedWhenBrowserAttemptsToAdvanceBeyondLastPosition() {
-		_TestableGameBrowserObserver observer = new _TestableGameBrowserObserver();
+		GameBrowserObserver observer = mock( GameBrowserObserver.class );
 		g.addObserver( observer );		
 		g.next();
-		observer.positionChangedCalled = false;
 
 		g.next();
-		assertFalse( "observer is not notified when browser attempts to advance beyond last position", observer.positionChangedCalled );
+		verify(observer, times(1)).browserPositionChanged();
 	}
 	
 	@Test
 	public void observersAreNotifiedWhenCurrentPositionGoesBack() {
-		_TestableGameBrowserObserver observer = new _TestableGameBrowserObserver();
+		GameBrowserObserver observer = mock( GameBrowserObserver.class );
 		g.addObserver( observer );
 		g.next();
-		observer.positionChangedCalled = false;
 
 		g.previous();
-		assertTrue( "observer is notified when browser goes back to previous position", observer.positionChangedCalled );
+		verify(observer, times(2)).browserPositionChanged();
 	}
 	
 	@Test
 	public void observersAreNotNotifiedWhenCurrentPositionAttemptsToGoBackBeforeFirstPosition() {
-		_TestableGameBrowserObserver observer = new _TestableGameBrowserObserver();
+		GameBrowserObserver observer = mock( GameBrowserObserver.class );
 		g.addObserver( observer );
 
 		g.previous();
-		assertFalse( "observer is not notified when browser attempts to go back before first position", observer.positionChangedCalled );
+		verify(observer, never()).browserPositionChanged();
 	}
 	
 	@Test
 	public void observersAreNotifiedWhenCurrentPositionChangesToLastPosition() {
-		_TestableGameBrowserObserver observer = new _TestableGameBrowserObserver();
+		GameBrowserObserver observer = mock( GameBrowserObserver.class );
 		g.addObserver( observer );
 
 		g.goToLastPosition();
-		assertTrue( "observer is notified when browser goes to last position", observer.positionChangedCalled );
+		verify(observer).browserPositionChanged();
 	}
 	
 	@Test
 	public void observersAreNotNotifiedOnGoToLastPositionIfCurrentPositionIsAlreadyTheLastPosition() {
-		_TestableGameBrowserObserver observer = new _TestableGameBrowserObserver();
+		GameBrowserObserver observer = mock( GameBrowserObserver.class );
 		g.addObserver( observer );
 		g.goToLastPosition();
-		observer.positionChangedCalled = false;
 
 		g.goToLastPosition();
-		assertFalse( "observer is not notified if browser attempts to go to last position but is already there", observer.positionChangedCalled );
+		verify(observer, times(1)).browserPositionChanged();
 	}
 		
 	@Test
 	public void multipleObserversAreNotifiedWhenCurrentPositionChanges() {
-		_TestableGameBrowserObserver observer1 = new _TestableGameBrowserObserver();
-		_TestableGameBrowserObserver observer2 = new _TestableGameBrowserObserver();
+		GameBrowserObserver observer1 = mock( GameBrowserObserver.class );
+		GameBrowserObserver observer2 = mock( GameBrowserObserver.class );
 		g.addObserver( observer1 );
 		g.addObserver( observer2 );
 
 		g.next();
-		assertTrue( "first observer is notified when position changes", observer1.positionChangedCalled );
-		assertTrue( "second observer is notified when position changes", observer2.positionChangedCalled );
+		verify(observer1).browserPositionChanged();
+		verify(observer2).browserPositionChanged();
 	}
 }

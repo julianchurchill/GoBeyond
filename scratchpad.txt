@@ -1,4 +1,6 @@
 
+Mockito - replace handrolled mocks
+
 GUI
   - Last move highlight so UI player can see random player has moved
   - Illegal moves should generate a warning for UI player - beep, dialog, screen colouring (red border)?
