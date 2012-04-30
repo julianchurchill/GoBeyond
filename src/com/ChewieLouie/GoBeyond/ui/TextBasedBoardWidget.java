@@ -10,6 +10,7 @@ import com.ChewieLouie.GoBeyond.BoardObserver;
 import com.ChewieLouie.GoBeyond.GameBrowser;
 import com.ChewieLouie.GoBeyond.GameBrowserObserver;
 import com.ChewieLouie.GoBeyond.SimpleBoard;
+import com.ChewieLouie.GoBeyond.util.Coord;
 
 public class TextBasedBoardWidget implements BoardObserver, GameBrowserObserver, BoardWidget {
 
@@ -39,5 +40,10 @@ public class TextBasedBoardWidget implements BoardObserver, GameBrowserObserver,
 	@Override
 	public void browserPositionChanged() {
 		textArea.setText( gameBrowser.currentBoard().toString() );
+	}
+
+	@Override
+	public Coord getLastClickedBoardPoint() {
+		return null;
 	}
 }

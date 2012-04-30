@@ -1,11 +1,15 @@
 package com.ChewieLouie.GoBeyond;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Game {
 
 	private Player player1;
 	private Player player2;
 	private Player currentPlayer;
 	private Referee referee;
+	private Set<GameEndObserver> observers = new HashSet<GameEndObserver>();
 
 	public Game(Player player1, Player player2, Referee referee ) {
 		this.player1 = player1;
@@ -19,6 +23,8 @@ public class Game {
 			currentPlayer.playMove();
 			swapCurrentPlayer();
 		}
+		for( GameEndObserver o : observers )
+			o.gameEnded();
 	}
 
 	private void swapCurrentPlayer() {
@@ -26,5 +32,9 @@ public class Game {
 			currentPlayer = player2;
 		else
 			currentPlayer = player1;
+	}
+
+	public void addObserver(GameEndObserver o) {
+		observers .add( o );
 	}
 }

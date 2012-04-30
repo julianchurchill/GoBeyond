@@ -7,6 +7,7 @@ import com.ChewieLouie.GoBeyond.BoardObserver;
 import com.ChewieLouie.GoBeyond.GameBrowser;
 import com.ChewieLouie.GoBeyond.GameBrowserObserver;
 import com.ChewieLouie.GoBeyond.SimpleBoard;
+import com.ChewieLouie.GoBeyond.util.Coord;
 
 public class SimpleBoardWidget implements BoardWidget, GameBrowserObserver, BoardObserver {
 
@@ -36,5 +37,10 @@ public class SimpleBoardWidget implements BoardWidget, GameBrowserObserver, Boar
 	@Override
 	public void browserPositionChanged() {
 		canvas.redrawWithBoard( gameBrowser.currentBoard() );
+	}
+
+	@Override
+	public Coord getLastClickedBoardPoint() {
+		return canvas.getLastClickedBoardPoint();
 	}
 }

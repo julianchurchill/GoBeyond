@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import com.ChewieLouie.GoBeyond.DelegatingPlayer;
 import com.ChewieLouie.GoBeyond.Game;
 import com.ChewieLouie.GoBeyond.GameBrowser;
+import com.ChewieLouie.GoBeyond.GameEndObserver;
 import com.ChewieLouie.GoBeyond.GoRules;
 import com.ChewieLouie.GoBeyond.GoStringLifeAnalyzer;
 import com.ChewieLouie.GoBeyond.Move;
@@ -20,9 +21,9 @@ import com.ChewieLouie.GoBeyond.Rules;
 import com.ChewieLouie.GoBeyond.SimpleBoard;
 import com.ChewieLouie.GoBeyond.StrictReferee;
 
-public class GUI extends JFrame implements ActionListener {
+public class GUI extends JFrame implements ActionListener, GameEndObserver {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2978611770794322681L;
 
 	private SimpleBoard board;
 	private Game game;
@@ -35,7 +36,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public GUI() {
-		game = setupGame();
+		setupReferee();
 
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -45,14 +46,10 @@ public class GUI extends JFrame implements ActionListener {
         });
 	}
 
-	private Game setupGame() {
+	private void setupReferee() {
 		Rules rules = new GoRules( new GoStringLifeAnalyzer() );
-		board = new SimpleBoard( 9 );
+		board = new SimpleBoard( 5 );
 		referee = new StrictReferee( rules, board );
-		Player player1 = new DelegatingPlayer( referee, Move.Colour.Black, new RandomMoveSource( new PseudoRandomGenerator( 0 ), referee ) );
-		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new RandomMoveSource( new PseudoRandomGenerator( 1 ), referee ) );
-//		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new PassingMoveSource() );
-		return new Game(player1, player2, referee);
 	}
 
 	private void setupFrameForPlay() {
@@ -70,20 +67,36 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	private void addBoard() {
-//		boardWidget = new TextBasedBoardWidget( board, getContentPane() );
 		boardWidget = new SimpleBoardWidget( board, getContentPane() );
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if( event.getActionCommand() == "play" ) {
-			game.start();
-			setupFrameForBrowsing();
+			setupGame();
+			startGame();
 		}
 		else if( event.getActionCommand() == "next" )
 			gameBrowser.next();
 		else if( event.getActionCommand() == "previous" )
 			gameBrowser.previous();
+	}
+
+	private void startGame() {
+		Thread t = new Thread(new Runnable() {
+            public void run() {
+        		game.start();
+            }
+        });
+		t.start();
+	}
+
+	private void setupGame() {
+		Player player1 = new DelegatingPlayer( referee, Move.Colour.Black, new RandomMoveSource( new PseudoRandomGenerator( 0 ), referee ) );
+//		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new RandomMoveSource( new PseudoRandomGenerator( 1 ), referee ) );
+		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new GUIMoveSource( boardWidget ) );
+		game = new Game(player1, player2, referee);
+		game.addObserver(this);
 	}
 
 	private void setupFrameForBrowsing() {
@@ -97,5 +110,14 @@ public class GUI extends JFrame implements ActionListener {
 	private void showMainFrame() {
 		setSize(400, 400);
 		setVisible(true);
+	}
+
+	@Override
+	public void gameEnded() {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+        		setupFrameForBrowsing();
+            }
+        });
 	}
 }

@@ -45,4 +45,19 @@ public class _GameTests {
 
 		assertEquals( 11, referee.endDetectedCalledCount );
 	}
+	
+	@Test
+	public void gameEndObserversAreCalledWhenTheGameHasEnded() {
+		_TestableGameEndObserver observer1 = new _TestableGameEndObserver();
+		_TestableGameEndObserver observer2 = new _TestableGameEndObserver();
+		game.addObserver( observer1 );
+		game.addObserver( observer2 );
+
+		assertFalse( "observer is not called before game ends", observer1.gameEndedCalled );
+		assertFalse( "observer is not called before game ends", observer2.gameEndedCalled );
+
+		game.start();
+		assertTrue( "observer is called when game ends", observer1.gameEndedCalled );
+		assertTrue( "observer is called when game ends", observer2.gameEndedCalled );
+	}
 }

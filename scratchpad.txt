@@ -1,15 +1,20 @@
 
 GUI
-  - graphical and interactive board widget
-    - use BoardCoordConverter
+  - Add pass button for UI player to use
+  - Mouse clicks on SimpleBoardCanvas should be ignored until game is started!
+  
+Game
+  - Moves rejected by Referee should not cause Game to ask next player - keep asking the same
+    player until the referee accepts a move... 
+
+GUI
+  - Illegal moves should generate a warning for UI player - beep, dialog, screen colouring (red border)?
+  - Add tick boxes to select random/ui player
 
 StrictReferee
   - Referee should check the submitted move is for the current player?
     - Toggle expected player
-
-GUI
-  - UI player?
-    - Use DelegatingPlayer with a GUIMoveSource
+    - Why do we need to do this?
 
 Packaging - Util (Move, Coord, Board), Engine/Domain {Game, Referee, Player, Rules}, UI { Application }  ?
 

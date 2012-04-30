@@ -17,11 +17,29 @@ public class SimpleBoardCanvas extends JPanel {
 	private BoardCoordConverter coordConverter;
 	private Board board = new SimpleBoard(9);
 	private Graphics graphics;
+	private int lastClickedX = -1;
+	private int lastClickedY = -1;
+	private boolean mouseClickedSinceLastRequest = false;
 
 	public SimpleBoardCanvas() {
 		super();
 		this.gridSizeInPixels = 30;
 		coordConverter = new BoardCoordConverter(gridSizeInPixels, new Coord( 0, 0 ) );
+		addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+            	lastClickedX = evt.getPoint().x;
+            	lastClickedY = evt.getPoint().y;
+            	mouseClickedSinceLastRequest = true;
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+            }
+        });
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -110,6 +128,24 @@ public class SimpleBoardCanvas extends JPanel {
         		repaint();
             }
         });	
+	}
+
+	public Coord getLastClickedBoardPoint() {
+		waitForMouseClick();
+		Coord c = coordConverter.toBoard( new Coord( lastClickedX, lastClickedY ) );
+		lastClickedX = -1;
+		lastClickedX = -1;
+		mouseClickedSinceLastRequest = false;
+		return c;
+	}
+
+	private void waitForMouseClick() {
+		while( mouseClickedSinceLastRequest == false ) {
+			try {
+				Thread.sleep( 1 );
+			} catch (InterruptedException e) {
+			}
+		}
 	}
 
 }
