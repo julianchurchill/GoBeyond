@@ -1,5 +1,6 @@
 package com.ChewieLouie.GoBeyond;
 
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -9,32 +10,32 @@ import com.ChewieLouie.GoBeyond.util.Coord;
 
 public class _RandomMoveSourceTests {
 
-	_TestableReferee referee;
-	_TestableRandomGenerator rand;
+	Referee referee;
+	RandomGenerator rand;
 	RandomMoveSource moveSource;
+	SimpleBoard board;
 
 	@Before
 	public void SetUp() {
-		rand = new _TestableRandomGenerator();
-		rand.primeWith( 1 );
-		rand.primeWith( 0 );
-		referee = new _TestableReferee();
-		referee.isLegalReturn = true;
-		referee.boardReturn = new SimpleBoard(9);
+		rand = mock( RandomGenerator.class );
+		when(rand.generate(anyInt(), anyInt())).thenReturn(1, 0);
+		referee = mock( Referee.class );
+		when(referee.isLegal((Move)any(), (Board)any())).thenReturn( true );
+		board = new SimpleBoard(9);
+		when(referee.board()).thenReturn( board );
 		moveSource = new RandomMoveSource( rand, referee );
 	}
 
 	@Test
 	public void getMoveProducesARandomMove() {
-		assertTrue( "random move generated is not null", moveSource.getMove( Move.Colour.White, referee.boardReturn ) != null );
+		assertTrue( "random move generated is not null", moveSource.getMove( Move.Colour.White, new SimpleBoard(9) ) != null );
 	}
 
 	@Test
 	public void getMoveUsesRandomGenerator() {
-		moveSource.getMove( Move.Colour.Black, referee.boardReturn );
+		moveSource.getMove( Move.Colour.Black, new SimpleBoard(9) );
 
-		assertTrue( "random generator is used", rand.generateCalled );
-		assertEquals( "minimum bounds of random number is zero", 0, rand.generateMin );
+		verify(rand).generate(eq(0),  anyInt());
 	}
 	
 	@Test
@@ -50,7 +51,7 @@ public class _RandomMoveSourceTests {
 
 	@Test
 	public void returnsAPassIfNoLegalMoveAvailable() {
-		referee.isLegalReturn = false;
+		when(referee.isLegal((Move)any(), (Board)any())).thenReturn(false);
 		Board board = SimpleBoard.makeBoard( "..." +
 												   "..." +
 												   "..." );
@@ -61,10 +62,9 @@ public class _RandomMoveSourceTests {
 	
 	@Test
 	public void getMoveUsesRefereeToCheckLegalityOfPotentialMoves() {
-		moveSource.getMove( Move.Colour.White, referee.boardReturn );
+		moveSource.getMove( Move.Colour.White, new SimpleBoard(9) );
 
-		assertTrue( "get move calls referee.isLegal()", referee.isLegalCalled );
-		assertEquals( "call to isLegal uses current board", referee.boardReturn, referee.isLegalCalledWithBoard );
+		verify(referee, atLeastOnce()).isLegal((Move)any(), eq(board));
 	}
 	
 	@Test
@@ -86,8 +86,7 @@ public class _RandomMoveSourceTests {
 												 	 "wwww" +
 													 ".www" );
 		
-		rand.clearPrimedNumbers();
-		rand.primeWith( 0 );
+		when(rand.generate(anyInt(), anyInt())).thenReturn( 0 );
 
 		Move move = moveSource.getMove( Move.Colour.White, board );		
 		assertEquals( "empty points with one non friendly neighbour is considered to be a playable move",
