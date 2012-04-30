@@ -9,3 +9,9 @@ FitNesseRoot/ErrorLogs
 FitNesseRoot/files/testResults
 FitNesseRoot/files/testProgress
 *.zip
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear

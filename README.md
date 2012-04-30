@@ -1,0 +1,4 @@
+GoBeyond
+========
+
+Go playing engine
