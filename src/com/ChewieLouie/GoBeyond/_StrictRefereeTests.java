@@ -10,14 +10,16 @@ import com.ChewieLouie.GoBeyond.util.Coord;
 
 public class _StrictRefereeTests {
 
-	private _TestableRules rules;
-	private _TestableBoard board;
+	private Rules rules;
+	private Board board;
 	private StrictReferee referee;
 
 	@Before
 	public void SetUp() {
-		rules = new _TestableRules();
-		board = new _TestableBoard( 19 );
+		rules = mock( Rules.class );
+		when(rules.isLegal((Move)any(), (Board)any(), (GameHistory)any())).thenReturn( true );
+		board = mock( SimpleBoard.class );
+		when( board.duplicate()).thenReturn( new SimpleBoard(5) );
 		referee = new StrictReferee( rules, board );
 	}
 	
@@ -28,26 +30,24 @@ public class _StrictRefereeTests {
 
 	@Test
 	public void RefereeChecksWithRulesWhetherMoveIsLegal() {
-		rules.isLegalReturnValue = false;
+		when(rules.isLegal((Move)any(), (Board)any(), (GameHistory)any())).thenReturn( false );
 		Move m = new Move( new Coord( 1, 1 ), null );
 		referee.submitMove( m );
 
-		assertTrue( "rules.isLegal() is called", rules.isLegalCalled );
-		assertEquals( "move is passed to rules", m, rules.isLegalCalledWithMove );
+		verify(rules).isLegal(eq(m), (Board)any(), (GameHistory)any());
 	}
 	
 	@Test
 	public void UpdateGameHistoryIsPassedToRulesWhenMoveIsCheckedForLegalality() {
-		board.duplicateReturn = new SimpleBoard(5);
 		Move m = new Move( new Coord( 1, 1 ), null );
 		GameHistory history = new GameHistory();
 		history.add( board.duplicate(), m );
 
 		referee.submitMove( m );
-		rules.isLegalReturnValue = false;
+		when(rules.isLegal((Move)any(), (Board)any(), (GameHistory)any())).thenReturn( false );
 		referee.submitMove( new Move( new Coord( 2, 3 ), null ) );
 
-		assertEquals( "updated history is passed to rules", history, rules.isLegalCalledWithHistory );
+		verify(rules, atLeast(1)).isLegal((Move)any(), (Board)any(), eq(history));
 	}
 
 	@Test
@@ -57,46 +57,42 @@ public class _StrictRefereeTests {
 
 	@Test
 	public void IfMoveIsIllegalRefereeReturnsIllegalStatus() {
-		rules.isLegalReturnValue = false;
+		when(rules.isLegal((Move)any(), (Board)any(), (GameHistory)any())).thenReturn( false );
 		assertEquals( Referee.MoveStatus.IllegalMove, referee.submitMove( new Move( new Coord( 1, 1 ), null ) ) );
 	}
 
 	@Test
 	public void IfMoveIsLegalRefereeUpdatesTheBoard() {
 		referee.submitMove( new Move( new Coord( 1, 2 ), Move.Colour.White ) );
-		assertEquals( true, board.playStoneCalled );
-		assertEquals( Board.Point.WhiteStone, board.playStonePoint );
-		assertEquals( 1, board.playStoneX );
-		assertEquals( 2, board.playStoneY );
+		verify(board).playStone(Board.Point.WhiteStone, new Coord( 1, 2 ) );
 	}
 
 	@Test
 	public void IfMoveIsPassMoveRefereeDoesNotUpdateTheBoard() {
 		referee.submitMove( Move.passMove( Move.Colour.White ) );
-		assertFalse( "pass moves do not cause the board to be updated", board.playStoneCalled );
+		verify(board, never()).playStone((Board.Point)any(), (Coord)any());
 	}
 
 	@Test
 	public void IfMoveIsIllegalRefereeDoesNotUpdateTheBoard() {
-		rules.isLegalReturnValue = false;
+		when(rules.isLegal((Move)any(), (Board)any(), (GameHistory)any())).thenReturn( false );
 		referee.submitMove( new Move( new Coord( 1, 2 ), Move.Colour.White ) );
-		assertEquals( false, board.playStoneCalled );
+		verify(board, never()).playStone((Board.Point)any(), (Coord)any());
 	}
 
 	@Test
 	public void UsesRulesToDetermineIfGameHasEnded() {
-		assertEquals( "rules.endDetected() is not called on creation", 0, rules.endDetectedCalledCount );
+		verify(rules, never()).endDetected((GameHistory)any());
 		referee.endDetected();
-		assertEquals( "calling endDetected() calls rules", 1, rules.endDetectedCalledCount );
-		rules.endDetectedReturnValue = true;
+		verify(rules, times(1)).endDetected((GameHistory)any());
+		when(rules.endDetected((GameHistory)any())).thenReturn( true );
 		assertEquals( "referee returns value given by rules - true", true, referee.endDetected() );
-		rules.endDetectedReturnValue = false;
+		when(rules.endDetected((GameHistory)any())).thenReturn( false );
 		assertEquals( "referee returns value given by rules - false", false, referee.endDetected() );
 	}
 	
 	@Test
 	public void UpdateGameHistoryIsPassedToRulesWhenGameEndIsBeingChecked() {
-		board.duplicateReturn = new SimpleBoard(5);
 		Move m = new Move( new Coord( 1, 1 ), null );
 		GameHistory history = new GameHistory();
 		history.add( board.duplicate(), m );
@@ -104,7 +100,7 @@ public class _StrictRefereeTests {
 		referee.submitMove( m );
 		referee.endDetected();
 	
-		assertEquals( "updated history is passed to rules", history, rules.endDetectedHistory );
+		verify(rules).endDetected(history);
 	}
 	
 	@Test
@@ -125,40 +121,29 @@ public class _StrictRefereeTests {
 	@Test
 	public void IsLegalUsesRules() {
 		Move move = new Move( new Coord( 1, 2 ), Move.Colour.Black );
-		rules.isLegalReturnValue = true;
 
-		boolean result = referee.isLegal( move, board );
+		assertTrue( "referee forwards isLegal() result from rules", referee.isLegal( move, board ) );
 
-		assertTrue( "referee delegates isLegal calls to rules", rules.isLegalCalled );
-		assertEquals( "referee passes move straight through to rules for isLegal calls", move, rules.isLegalCalledWithMove );
-		assertTrue( "referee passes board straight through to rules for isLegal calls", board == rules.isLegalCalledWithBoard );
-		assertEquals( "referee returns value from rules.isLegal()", rules.isLegalReturnValue, result );
+		verify(rules).isLegal(eq(move), eq(board), (GameHistory)any());
 	}
 	
 	@Test
 	public void RefereeObserverIsNotifiedWhenMovesAreAccepted() {
-		_TestableRefereeMoveObserver observer1 = new _TestableRefereeMoveObserver();
-		_TestableRefereeMoveObserver observer2 = new _TestableRefereeMoveObserver();
-//		RefereeMoveObserver observer1 = mock(RefereeMoveObserver.class);
-//		RefereeMoveObserver observer2 = mock(RefereeMoveObserver.class);
+		RefereeMoveObserver observer1 = mock(RefereeMoveObserver.class);
+		RefereeMoveObserver observer2 = mock(RefereeMoveObserver.class);
 		referee.addObserver( observer1 );
 		referee.addObserver( observer2 );
 		
 		Move move = new Move( new Coord( 1, 2 ), Move.Colour.Black );
 		referee.submitMove( move );
 
-		assertTrue( "when referee accepts a move observers are notified", observer1.moveAcceptedCalled );
-		assertTrue( "when referee accepts a move observers are notified", observer2.moveAcceptedCalled );
-		assertEquals( "when referee accepts a move observers are notified with move", move, observer1.moveAcceptedCalledWithMove );
-		assertEquals( "when referee accepts a move observers are notified with move", move, observer2.moveAcceptedCalledWithMove );
-		assertTrue( "when referee accepts a move observers are notified with new board", board == observer1.moveAcceptedCalledWithBoard );
-		assertTrue( "when referee accepts a move observers are notified with new board", board == observer2.moveAcceptedCalledWithBoard );
-//		verify(observer1).moveAccepted(move, board);
+		verify(observer1).moveAccepted(move, board);
 	}
 	
 	@Test
 	public void GameHistoryMatchesWhatHasBeenPlayed() {
-		board.duplicateReturn = new _TestableBoard( 19 );
+		SimpleBoard duplicateBoard = new SimpleBoard(9);
+		when(board.duplicate()).thenReturn(duplicateBoard);
 		Move move1 = new Move( new Coord( 1, 2 ), Move.Colour.Black ); 
 		Move move2 = new Move( new Coord( 0, 3 ), Move.Colour.White ); 
 		referee.submitMove( move1 );
@@ -167,8 +152,9 @@ public class _StrictRefereeTests {
 		GameHistory h = referee.gameHistory();
 
 		assertEquals( "history has size equal to the number of submitted moves", 2, h.size() );
-		assertTrue( "board 1 matches the first board", board.duplicateReturn == h.boardNumber( 0 ) );
-		assertTrue( "board 2 matches the second board", board.duplicateReturn == h.boardNumber( 1 ) );
+
+		assertTrue( "board 1 matches the first board", duplicateBoard == h.boardNumber( 0 ) );
+		assertTrue( "board 2 matches the second board", duplicateBoard == h.boardNumber( 1 ) );
 		assertEquals( "move 1 matches the first move played", move1, h.moveNumber( 0 ) );
 		assertEquals( "move 2 matches the second move played", move2, h.moveNumber( 1 ) );
 	}
