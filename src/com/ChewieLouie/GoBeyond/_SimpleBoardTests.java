@@ -1,5 +1,6 @@
 package com.ChewieLouie.GoBeyond;
 
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -95,30 +96,28 @@ public class _SimpleBoardTests {
 	
 	@Test
 	public void ObserversAreNotifiedWhenStonesAreAdded() {
-		_TestableBoardObserver observer1 = new _TestableBoardObserver();
-		_TestableBoardObserver observer2 = new _TestableBoardObserver();
+		BoardObserver observer1 = mock(BoardObserver.class);
+		BoardObserver observer2 = mock(BoardObserver.class);
 		b.addObserver( observer1 );
 		b.addObserver( observer2 );
 
 		b.playStone(Point.BlackStone, new Coord( 1, 1 ) );
 
-		assertTrue( "first observer is called", observer1.boardChangedCalled );
-		assertTrue( "second observer is called", observer2.boardChangedCalled );
+		verify(observer1).boardChanged();
+		verify(observer2).boardChanged();
 	}
 	
 	@Test
 	public void ObserversAreNotifiedWhenStonesAreRemoved() {
-		_TestableBoardObserver observer1 = new _TestableBoardObserver();
-		_TestableBoardObserver observer2 = new _TestableBoardObserver();
+		BoardObserver observer1 = mock(BoardObserver.class);
+		BoardObserver observer2 = mock(BoardObserver.class);
 		b.addObserver( observer1 );
 		b.addObserver( observer2 );
 		b.playStone(Point.BlackStone, new Coord( 1, 1 ) );
-		observer1.boardChangedCalled = false;
-		observer2.boardChangedCalled = false;
 
 		b.removeStone( new Coord( 1, 1 ) );
 
-		assertTrue( observer1.boardChangedCalled );
-		assertTrue( observer2.boardChangedCalled );
+		verify(observer1, times(2)).boardChanged();
+		verify(observer2, times(2)).boardChanged();
 	}
 }

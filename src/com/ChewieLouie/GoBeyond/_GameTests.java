@@ -17,7 +17,9 @@ public class _GameTests {
 	@Before
 	public void SetUp() {
 		player1 = mock( Player.class );
+		when(player1.playMove()).thenReturn(MoveStatus.LegalMove);
 		player2 = mock( Player.class );
+		when(player2.playMove()).thenReturn(MoveStatus.LegalMove);
 		referee = mock(Referee.class);
 		game = new Game( player1, player2, referee );
 	}
@@ -43,7 +45,7 @@ public class _GameTests {
 	@Test
 	public void gameAsksSamePlayerForMoveUntilTheyReturnAMoveAcceptedByTheReferee() {
 		when(referee.endDetected()).thenReturn(false, true);
-		when(player1.playMove()).thenReturn(MoveStatus.IllegalMove);
+		when(player1.playMove()).thenReturn(MoveStatus.IllegalMove, MoveStatus.LegalMove);
 
 		game.start();
 		
@@ -60,6 +62,7 @@ public class _GameTests {
 	
 	@Test
 	public void gameEndObserversAreCalledWhenTheGameHasEnded() {
+		when(referee.endDetected()).thenReturn(false, true);
 		GameEndObserver observer1 = mock(GameEndObserver.class);
 		GameEndObserver observer2 = mock(GameEndObserver.class);
 		game.addObserver( observer1 );

@@ -1,5 +1,6 @@
 package com.ChewieLouie.GoBeyond;
 
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -138,6 +139,8 @@ public class _StrictRefereeTests {
 	public void RefereeObserverIsNotifiedWhenMovesAreAccepted() {
 		_TestableRefereeMoveObserver observer1 = new _TestableRefereeMoveObserver();
 		_TestableRefereeMoveObserver observer2 = new _TestableRefereeMoveObserver();
+//		RefereeMoveObserver observer1 = mock(RefereeMoveObserver.class);
+//		RefereeMoveObserver observer2 = mock(RefereeMoveObserver.class);
 		referee.addObserver( observer1 );
 		referee.addObserver( observer2 );
 		
@@ -150,6 +153,7 @@ public class _StrictRefereeTests {
 		assertEquals( "when referee accepts a move observers are notified with move", move, observer2.moveAcceptedCalledWithMove );
 		assertTrue( "when referee accepts a move observers are notified with new board", board == observer1.moveAcceptedCalledWithBoard );
 		assertTrue( "when referee accepts a move observers are notified with new board", board == observer2.moveAcceptedCalledWithBoard );
+//		verify(observer1).moveAccepted(move, board);
 	}
 	
 	@Test

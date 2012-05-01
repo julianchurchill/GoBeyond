@@ -1,11 +1,11 @@
 package com.ChewieLouie.GoBeyond;
 
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import com.ChewieLouie.GoBeyond.util.Coord;
-import com.ChewieLouie.GoBeyond.util.Utils;
 
 public class _RemovedDeadStonesBoardTests {
 
@@ -23,12 +23,13 @@ public class _RemovedDeadStonesBoardTests {
 		SimpleBoard board = SimpleBoard.makeBoard( "wbw" + 
 									       "b.b" +
 									       "wbw" );				
-		_TestableStringLifeAnalyzer analyzer = new _TestableStringLifeAnalyzer();
-		analyzer.stonesOfStringReturn = new StringOfStones();
-		analyzer.stonesOfStringReturn.add( new Coord( 1, 0 ) );
-		analyzer.stonesOfStringReturn.add( new Coord( 0, 1 ) );
-		analyzer.stonesOfStringReturn.add( new Coord( 2, 1 ) );
-		analyzer.stonesOfStringReturn.add( new Coord( 1, 2 ) );
+		StringOfStones stones = new StringOfStones();
+		stones.add( new Coord( 1, 0 ) );
+		stones.add( new Coord( 0, 1 ) );
+		stones.add( new Coord( 2, 1 ) );
+		stones.add( new Coord( 1, 2 ) );
+		StringLifeAnalyzer analyzer = mock( StringLifeAnalyzer.class );
+		when(analyzer.stonesOfString((Coord)any(), (Board)any())).thenReturn(stones);
 		RemovedDeadStonesBoard consistentBoard = new RemovedDeadStonesBoard( board, analyzer );
 		consistentBoard.playStone( Board.Point.WhiteStone, new Coord( 1, 1 ) );
 
@@ -41,30 +42,33 @@ public class _RemovedDeadStonesBoardTests {
 	@Test
 	public void playStoneUsesAnalyzerToFindStringLifeOfAdjacentEnemyStrings() {
 		Coord moveCoord = new Coord( 1, 1 );
-		_TestableStringLifeAnalyzer analyzer = new _TestableStringLifeAnalyzer();
+		StringLifeAnalyzer analyzer = mock( StringLifeAnalyzer.class );
+		when(analyzer.isStringAlive((Board)any(), (Coord)any())).thenReturn( false );
+		when(analyzer.stonesOfString((Coord)any(), (Board)any())).thenReturn( new StringOfStones() );
 		SimpleBoard board = SimpleBoard.makeBoard( "wbw" + 
 			       "b.b" +
 			       "wbw" );				
 		RemovedDeadStonesBoard consistentBoard = new RemovedDeadStonesBoard( board, analyzer );
 		consistentBoard.playStone( Board.Point.WhiteStone, moveCoord );
 		
-		assertTrue( "analyzer is used to check string life", analyzer.isStringAliveCalled );
-		assertTrue( "string above move is checked", Utils.find( moveCoord.up(), analyzer.isStringAliveCoordAll ) );
-		assertTrue( "string below move is checked", Utils.find( moveCoord.down(), analyzer.isStringAliveCoordAll ) );
-		assertTrue( "string right of move is checked", Utils.find( moveCoord.right(), analyzer.isStringAliveCoordAll ) );
-		assertTrue( "string left of move is checked", Utils.find( moveCoord.left(), analyzer.isStringAliveCoordAll ) );
+		verify(analyzer).isStringAlive(board, moveCoord.up());
+		verify(analyzer).isStringAlive(board, moveCoord.down());
+		verify(analyzer).isStringAlive(board, moveCoord.left());
+		verify(analyzer).isStringAlive(board, moveCoord.right());
 	}
 
 	@Test
 	public void playStoneUsesAnalyzerToRemoveDeadAdjacentEnemyStrings() {
 		Coord moveCoord = new Coord( 1, 1 );
-		_TestableStringLifeAnalyzer analyzer = new _TestableStringLifeAnalyzer();
-		analyzer.stonesOfStringReturn = new StringOfStones();
-		analyzer.stonesOfStringReturn.add( new Coord( 1, 0 ) );
-		analyzer.stonesOfStringReturn.add( new Coord( 0, 1 ) );
-		analyzer.stonesOfStringReturn.add( new Coord( 2, 1 ) );
-		analyzer.stonesOfStringReturn.add( new Coord( 1, 2 ) );
-		analyzer.stonesOfStringReturn.add( new Coord( 1, 3 ) );
+		StringLifeAnalyzer analyzer = mock( StringLifeAnalyzer.class );
+		when(analyzer.isStringAlive((Board)any(), (Coord)any())).thenReturn( false );
+		StringOfStones stones = new StringOfStones();
+		stones.add( new Coord( 1, 0 ) );
+		stones.add( new Coord( 0, 1 ) );
+		stones.add( new Coord( 2, 1 ) );
+		stones.add( new Coord( 1, 2 ) );
+		stones.add( new Coord( 1, 3 ) );
+		when(analyzer.stonesOfString((Coord)any(), (Board)any())).thenReturn(stones);
 		SimpleBoard board = SimpleBoard.makeBoard( "wbw." + 
 									       "b.bw" +
 										   "wbw." +				
@@ -72,11 +76,10 @@ public class _RemovedDeadStonesBoardTests {
 		RemovedDeadStonesBoard consistentBoard = new RemovedDeadStonesBoard( board, analyzer );
 		consistentBoard.playStone( Board.Point.WhiteStone, moveCoord );
 
-		assertTrue( "analyzer is used to find all stones in string", analyzer.stonesOfStringCalled );
-		assertTrue( "string above move is checked", Utils.find( moveCoord.up(), analyzer.stonesOfStringCoordAll ) );
-		assertTrue( "string below move is checked", Utils.find( moveCoord.down(), analyzer.stonesOfStringCoordAll ) );
-		assertTrue( "string right of move is checked", Utils.find( moveCoord.right(), analyzer.stonesOfStringCoordAll ) );
-		assertTrue( "string left of move is checked", Utils.find( moveCoord.left(), analyzer.stonesOfStringCoordAll ) );
+		verify(analyzer).stonesOfString(moveCoord.up(), board);
+		verify(analyzer).stonesOfString(moveCoord.down(), board);
+		verify(analyzer).stonesOfString(moveCoord.left(), board);
+		verify(analyzer).stonesOfString(moveCoord.right(), board);
 		SimpleBoard expectedBoard = SimpleBoard.makeBoard( "w.w." + 
 												   ".w.w" +
 												   "w.w." +
