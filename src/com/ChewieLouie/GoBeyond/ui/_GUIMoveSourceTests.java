@@ -14,6 +14,7 @@ public class _GUIMoveSourceTests {
 	@Test
 	public void getMoveReturnsMoveBasedOnLastClickedPointOnBoardWidget() {
 		BoardWidget boardWidget = mock( BoardWidget.class );
+		when( boardWidget.clickAvailable() ).thenReturn(true);
 		when( boardWidget.removeLastClickedBoardPoint() ).thenReturn( new Coord( 123, 543 ) );
 		GUIMoveSource g = new GUIMoveSource( boardWidget );
 
