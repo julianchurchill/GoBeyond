@@ -17,6 +17,7 @@ import com.chewielouie.gobeyond.Move;
 import com.chewielouie.gobeyond.Player;
 import com.chewielouie.gobeyond.PseudoRandomGenerator;
 import com.chewielouie.gobeyond.RandomMoveSource;
+import com.chewielouie.gobeyond.RubyMoveSource;
 import com.chewielouie.gobeyond.Rules;
 import com.chewielouie.gobeyond.SimpleBoard;
 import com.chewielouie.gobeyond.StrictReferee;
@@ -98,6 +99,7 @@ public class GUI extends JFrame implements ActionListener, GameEndObserver {
 
 	private void setupGame() {
 		Player player1 = new DelegatingPlayer( referee, Move.Colour.Black, new RandomMoveSource( new PseudoRandomGenerator( 0 ), referee ) );
+//		Player player1 = new DelegatingPlayer( referee, Move.Colour.White, new RubyMoveSource( "ruby/movesource.rb" ) );
 //		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, new RandomMoveSource( new PseudoRandomGenerator( 1 ), referee ) );
 		guiMoveSource = new GUIMoveSource( boardWidget );
 		Player player2 = new DelegatingPlayer( referee, Move.Colour.White, guiMoveSource );
