@@ -1,14 +1,14 @@
-package com.ChewieLouie.GoBeyond.ui;
+package com.chewielouie.gobeyond.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import com.ChewieLouie.GoBeyond.Board;
-import com.ChewieLouie.GoBeyond.Board.Point;
-import com.ChewieLouie.GoBeyond.SimpleBoard;
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.Board;
+import com.chewielouie.gobeyond.Board.Point;
+import com.chewielouie.gobeyond.SimpleBoard;
+import com.chewielouie.gobeyond.util.Coord;
 
 public class SimpleBoardCanvas extends JPanel {
 

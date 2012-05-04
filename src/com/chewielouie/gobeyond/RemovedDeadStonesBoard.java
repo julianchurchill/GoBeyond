@@ -1,9 +1,9 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.util.Coord;
 
 public class RemovedDeadStonesBoard implements Board {
 

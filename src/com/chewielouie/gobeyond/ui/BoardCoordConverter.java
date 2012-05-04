@@ -1,6 +1,6 @@
-package com.ChewieLouie.GoBeyond.ui;
+package com.chewielouie.gobeyond.ui;
 
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.util.Coord;
 
 public class BoardCoordConverter {
 

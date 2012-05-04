@@ -1,11 +1,11 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ChewieLouie.GoBeyond.Board.Point;
-import com.ChewieLouie.GoBeyond.Move.Colour;
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.Board.Point;
+import com.chewielouie.gobeyond.Move.Colour;
+import com.chewielouie.gobeyond.util.Coord;
 
 public class RandomMoveSource implements MoveSource {
 

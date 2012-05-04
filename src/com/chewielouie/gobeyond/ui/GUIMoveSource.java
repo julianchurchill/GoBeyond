@@ -1,9 +1,9 @@
-package com.ChewieLouie.GoBeyond.ui;
+package com.chewielouie.gobeyond.ui;
 
-import com.ChewieLouie.GoBeyond.Board;
-import com.ChewieLouie.GoBeyond.Move;
-import com.ChewieLouie.GoBeyond.MoveSource;
-import com.ChewieLouie.GoBeyond.Move.Colour;
+import com.chewielouie.gobeyond.Board;
+import com.chewielouie.gobeyond.Move;
+import com.chewielouie.gobeyond.MoveSource;
+import com.chewielouie.gobeyond.Move.Colour;
 
 public class GUIMoveSource implements MoveSource {
 

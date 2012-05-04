@@ -1,17 +1,17 @@
-package com.ChewieLouie.GoBeyond.ui;
+package com.chewielouie.gobeyond.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
 
-import com.ChewieLouie.GoBeyond.Board;
-import com.ChewieLouie.GoBeyond.BoardObserver;
-import com.ChewieLouie.GoBeyond.GameBrowser;
-import com.ChewieLouie.GoBeyond.GameBrowserObserver;
-import com.ChewieLouie.GoBeyond.Move;
-import com.ChewieLouie.GoBeyond.RefereeMoveObserver;
-import com.ChewieLouie.GoBeyond.SimpleBoard;
-import com.ChewieLouie.GoBeyond.StrictReferee;
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.Board;
+import com.chewielouie.gobeyond.BoardObserver;
+import com.chewielouie.gobeyond.GameBrowser;
+import com.chewielouie.gobeyond.GameBrowserObserver;
+import com.chewielouie.gobeyond.Move;
+import com.chewielouie.gobeyond.RefereeMoveObserver;
+import com.chewielouie.gobeyond.SimpleBoard;
+import com.chewielouie.gobeyond.StrictReferee;
+import com.chewielouie.gobeyond.util.Coord;
 
 public class SimpleBoardWidget implements BoardWidget, GameBrowserObserver, BoardObserver, RefereeMoveObserver {
 

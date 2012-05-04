@@ -1,11 +1,11 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.util.Coord;
 
 public class _RemovedDeadStonesBoardTests {
 

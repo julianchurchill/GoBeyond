@@ -1,13 +1,13 @@
-package com.ChewieLouie.GoBeyond.ui;
+package com.chewielouie.gobeyond.ui;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.ChewieLouie.GoBeyond.Move;
-import com.ChewieLouie.GoBeyond.SimpleBoard;
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.Move;
+import com.chewielouie.gobeyond.SimpleBoard;
+import com.chewielouie.gobeyond.util.Coord;
 
 public class _GUIMoveSourceTests {
 

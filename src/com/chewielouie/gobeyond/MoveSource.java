@@ -1,6 +1,6 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
-import com.ChewieLouie.GoBeyond.Move.Colour;
+import com.chewielouie.gobeyond.Move.Colour;
 
 public interface MoveSource {
 

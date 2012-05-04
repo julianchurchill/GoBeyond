@@ -1,6 +1,6 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
-import com.ChewieLouie.GoBeyond.Referee.MoveStatus;
+import com.chewielouie.gobeyond.Referee.MoveStatus;
 
 public interface Player {
 

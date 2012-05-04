@@ -1,7 +1,7 @@
-package com.ChewieLouie.GoBeyond.ui;
+package com.chewielouie.gobeyond.ui;
 
-import com.ChewieLouie.GoBeyond.GameBrowser;
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.GameBrowser;
+import com.chewielouie.gobeyond.util.Coord;
 
 public interface BoardWidget {
 

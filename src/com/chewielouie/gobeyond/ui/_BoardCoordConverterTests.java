@@ -1,11 +1,11 @@
-package com.ChewieLouie.GoBeyond.ui;
+package com.chewielouie.gobeyond.ui;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.util.Coord;
 
 public class _BoardCoordConverterTests {
 

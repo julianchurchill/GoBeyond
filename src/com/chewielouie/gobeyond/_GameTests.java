@@ -1,11 +1,11 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.ChewieLouie.GoBeyond.Referee.MoveStatus;
+import com.chewielouie.gobeyond.Referee.MoveStatus;
 
 public class _GameTests {
 

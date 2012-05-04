@@ -1,18 +1,18 @@
-package com.ChewieLouie.GoBeyond.ui;
+package com.chewielouie.gobeyond.ui;
 
-import com.ChewieLouie.GoBeyond.Board;
-import com.ChewieLouie.GoBeyond.DelegatingPlayer;
-import com.ChewieLouie.GoBeyond.Game;
-import com.ChewieLouie.GoBeyond.GoRules;
-import com.ChewieLouie.GoBeyond.GoStringLifeAnalyzer;
-import com.ChewieLouie.GoBeyond.Move;
-import com.ChewieLouie.GoBeyond.Player;
-import com.ChewieLouie.GoBeyond.PseudoRandomGenerator;
-import com.ChewieLouie.GoBeyond.RandomMoveSource;
-import com.ChewieLouie.GoBeyond.RefereeMoveObserver;
-import com.ChewieLouie.GoBeyond.Rules;
-import com.ChewieLouie.GoBeyond.SimpleBoard;
-import com.ChewieLouie.GoBeyond.StrictReferee;
+import com.chewielouie.gobeyond.Board;
+import com.chewielouie.gobeyond.DelegatingPlayer;
+import com.chewielouie.gobeyond.Game;
+import com.chewielouie.gobeyond.GoRules;
+import com.chewielouie.gobeyond.GoStringLifeAnalyzer;
+import com.chewielouie.gobeyond.Move;
+import com.chewielouie.gobeyond.Player;
+import com.chewielouie.gobeyond.PseudoRandomGenerator;
+import com.chewielouie.gobeyond.RandomMoveSource;
+import com.chewielouie.gobeyond.RefereeMoveObserver;
+import com.chewielouie.gobeyond.Rules;
+import com.chewielouie.gobeyond.SimpleBoard;
+import com.chewielouie.gobeyond.StrictReferee;
 
 public class TextUI implements RefereeMoveObserver {
 

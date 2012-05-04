@@ -1,4 +1,4 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
 import static org.junit.Assert.*;
 

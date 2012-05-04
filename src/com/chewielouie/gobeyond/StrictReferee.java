@@ -1,4 +1,4 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
 import java.util.HashSet;
 import java.util.Set;

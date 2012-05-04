@@ -1,4 +1,4 @@
-package com.ChewieLouie.GoBeyond.ui;
+package com.chewielouie.gobeyond.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -6,11 +6,11 @@ import java.awt.Font;
 
 import javax.swing.JTextArea;
 
-import com.ChewieLouie.GoBeyond.BoardObserver;
-import com.ChewieLouie.GoBeyond.GameBrowser;
-import com.ChewieLouie.GoBeyond.GameBrowserObserver;
-import com.ChewieLouie.GoBeyond.SimpleBoard;
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.BoardObserver;
+import com.chewielouie.gobeyond.GameBrowser;
+import com.chewielouie.gobeyond.GameBrowserObserver;
+import com.chewielouie.gobeyond.SimpleBoard;
+import com.chewielouie.gobeyond.util.Coord;
 
 public class TextBasedBoardWidget implements BoardObserver, GameBrowserObserver, BoardWidget {
 

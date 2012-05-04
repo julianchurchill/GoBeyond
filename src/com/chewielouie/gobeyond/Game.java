@@ -1,9 +1,9 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.ChewieLouie.GoBeyond.Referee.MoveStatus;
+import com.chewielouie.gobeyond.Referee.MoveStatus;
 
 public class Game {
 

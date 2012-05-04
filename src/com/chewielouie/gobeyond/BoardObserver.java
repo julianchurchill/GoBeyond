@@ -1,4 +1,4 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
 public interface BoardObserver {
 

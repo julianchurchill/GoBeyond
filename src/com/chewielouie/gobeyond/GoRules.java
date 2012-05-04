@@ -1,7 +1,7 @@
-package com.ChewieLouie.GoBeyond;
+package com.chewielouie.gobeyond;
 
-import com.ChewieLouie.GoBeyond.Board.Point;
-import com.ChewieLouie.GoBeyond.util.Coord;
+import com.chewielouie.gobeyond.Board.Point;
+import com.chewielouie.gobeyond.util.Coord;
 
 public class GoRules implements Rules {
 
