@@ -1,6 +1,6 @@
 
 RubyMoveSource
-  - Test with mocks to check it calls the scripting engine properly
+  - TDD ruby script 'movesource.rb' to play some semi-intelligent moves...
 
 GUI
   - Last move highlight so UI player can see random player has moved
