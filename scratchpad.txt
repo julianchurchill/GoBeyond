@@ -1,4 +1,9 @@
 
+RubyMoveSource
+  - see http://dior.ics.muni.cz/~makub/ruby/
+  - Test with a simple ruby script to check JRuby can be called from the scripting engine 
+  - Test with mocks to check it calls the scripting engine properly
+
 GUI
   - Last move highlight so UI player can see random player has moved
   - Illegal moves should generate a warning for UI player - beep, dialog, screen colouring (red border)?
