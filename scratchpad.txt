@@ -1,7 +1,5 @@
 
 RubyMoveSource
-  - see http://dior.ics.muni.cz/~makub/ruby/
-  - Test with a simple ruby script to check JRuby can be called from the scripting engine 
   - Test with mocks to check it calls the scripting engine properly
 
 GUI
