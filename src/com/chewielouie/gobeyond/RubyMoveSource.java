@@ -1,8 +1,6 @@
 package com.chewielouie.gobeyond;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -13,23 +11,25 @@ import com.chewielouie.gobeyond.Move.Colour;
 public class RubyMoveSource implements MoveSource {
 
 	private ScriptEngine jruby;
+	private ScriptEngineManager scriptEngineManager;
+	private MoveSource moveSource;
 
-	public RubyMoveSource(String script) {
+	public RubyMoveSource(BufferedReader b, ScriptEngineManager s) {
+		this.scriptEngineManager = s;
 		loadJRubyEngine();
-        readScript(script);
+        createMoveSource(b);
     }
 
 	private void loadJRubyEngine() {
-		jruby = new ScriptEngineManager().getEngineByName("jruby");
+		jruby = scriptEngineManager.getEngineByName("jruby");
 		if( jruby == null )
 			System.err.println("No script engine found for jruby");
 	}
 
-	private void readScript(String script) {
+	private void createMoveSource(BufferedReader b) {
 		try {
-			jruby.eval(new BufferedReader(new FileReader(script)));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			jruby.eval(b);
+	        moveSource = (MoveSource) jruby.eval( "MoveSource.new" );
 		} catch (ScriptException e) {
 			e.printStackTrace();
 		}
@@ -37,13 +37,7 @@ public class RubyMoveSource implements MoveSource {
 
 	@Override
 	public Move getMove(Colour colour, Board board) {
-        try {
-	        MoveSource m = (MoveSource) jruby.eval( "MoveSource.new" );
-	        return m.getMove(colour, board);
-		} catch (ScriptException e) {
-			e.printStackTrace();
-		}
-        return null;
+        return moveSource.getMove(colour, board);
 	}
 
 }

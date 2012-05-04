@@ -17,7 +17,6 @@ import com.chewielouie.gobeyond.Move;
 import com.chewielouie.gobeyond.Player;
 import com.chewielouie.gobeyond.PseudoRandomGenerator;
 import com.chewielouie.gobeyond.RandomMoveSource;
-import com.chewielouie.gobeyond.RubyMoveSource;
 import com.chewielouie.gobeyond.Rules;
 import com.chewielouie.gobeyond.SimpleBoard;
 import com.chewielouie.gobeyond.StrictReferee;
