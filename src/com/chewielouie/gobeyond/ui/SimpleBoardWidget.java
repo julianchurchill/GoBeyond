@@ -19,10 +19,10 @@ public class SimpleBoardWidget implements BoardWidget, GameBrowserObserver, Boar
 	private GameBrowser gameBrowser;
 	private SimpleBoardCanvas canvas;
 
-	public SimpleBoardWidget(SimpleBoard board, Container container, StrictReferee referee) {
+	public SimpleBoardWidget(SimpleBoard board, Container container, StrictReferee referee, SimpleBoardCanvas canvas) {
 		this.board = board;
 		this.board.addObserver(this);
-		this.canvas = new SimpleBoardCanvas();
+		this.canvas = canvas;
 	    container.add(canvas, BorderLayout.CENTER);
 	    referee.addObserver( this );
 	}
