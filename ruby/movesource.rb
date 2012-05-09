@@ -1,4 +1,3 @@
-require 'test/unit'
 require 'java'
 $CLASSPATH << "C:\\Users\\Jennie\\git\\GoBeyond\\bin"
 
@@ -7,44 +6,16 @@ Coord = com.chewielouie.gobeyond.util.Coord
 SimpleBoard = com.chewielouie.gobeyond.SimpleBoard
 Board = com.chewielouie.gobeyond.Board
 
-class TestMoveSource < Test::Unit::TestCase
-  def setup
-    @source = MoveSource.new
-    @board = SimpleBoard::makeBoard('ww.'+
-                                    'ww.'+
-                                    '.ww');
-  end
-
-  def testSimpleBoardRespondsToEach
-    assert SimpleBoard.new( 9 ).respond_to?("each")
-  end
-
-  def testSourceReturnsMoveWithMatchingColour
-    assert_equal( Move::Colour::White, @source.getMove( Move::Colour::White, @board ).colour )
-    assert_equal( Move::Colour::Black, @source.getMove( Move::Colour::Black, @board ).colour )
-  end
-
-  def testSourceReturnsOnlyEmptyPoints
-    assert_equal( Move.new( Coord.new( 2, 0 ), Move::Colour::White ), @source.getMove( Move::Colour::White, @board ) )
-    @board = SimpleBoard::makeBoard('www'+
-                                    'w.w'+
-                                    '..w');
-    assert_equal( Move.new( Coord.new( 1, 1 ), Move::Colour::White ), @source.getMove( Move::Colour::White, @board ) )
-  end
-
-  def testSourceDoesNotFillInFullEyes
-    @board = SimpleBoard::makeBoard('.www'+
-                                    'w.ww'+
-                                    'www.'+
-                                    'wwww');
-    assert_equal( Move::passMove( Move::Colour::White ), @source.getMove( Move::Colour::White, @board ) )
-  end
-end
-
 class Move
     def inspect
         return toString()
     end
+end
+
+class Coord
+  def inspect
+    return toString()
+  end
 end
 
 class BoardPoint

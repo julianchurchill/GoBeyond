@@ -10,6 +10,3 @@ class MoveSource
  end
 end
 
-#def zero
-#  return 0
-#end

@@ -11,6 +11,10 @@ FitNesseRoot/files/testProgress
 *.zip
 *.class
 
+# Vim temporary files #
+*.swp
+*.swo
+
 # Package Files #
 *.war
 *.ear
